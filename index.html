@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnelius Portfolio</title>
+    <!-- Google Fonts: Cinzel for high-end headers, Inter for modern sleek body text -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- CUSTOM GEOMETRIC CURSOR -->
+    <div id="custom-cursor"></div>
+    <div id="custom-cursor-dot"></div>
+
+    <!-- BACKGROUND MOUNTAIN & SHOOTING STAR CANVAS -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- FROSTED LOADING OVERLAY PANEL -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <h1 class="brand-logo" id="loading-logo">A.S.T.</h1>
+            <div class="jiggle-loader" id="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="nav-logo" id="nav-brand">A.S.T.</div>
+            <div class="nav-links" id="nav-menu">
+                <a href="#" class="active-link">ABOUT ME</a>
+                <a href="#">EDUCATIONAL ATTAINMENT</a>
+                <a href="#">FAMILY</a>
+            </div>
+        </div>
+        <div class="nav-right" id="nav-actions">
+            <a href="#" class="btn-outline">DOWNLOAD RESUME</a>
+            <a href="#" class="btn-solid">HIRE ME</a>
+        </div>
+    </nav>
+
+    <!-- SPLIT CONTENT HERO BANNER -->
+    <div class="split-hero-container">
+        
+        <!-- LEFT PANEL: TYPOGRAPHY AND DESCRIPTION -->
+        <div class="hero-left-content animate-fade-up">
+            <h1 class="profile-name">
+                Arnelius Yanqhul<br>
+                <span class="highlight-surname">Sto. Tomas</span>
+            </h1>
+            
+            <h2 class="profile-role">ERP Developer</h2>
+            
+            <p class="profile-description">
+                I specialize in engineering enterprise resource planning platforms, constructing optimized workflows, and building structured database pipelines. Full-stack student currently focusing on backend architecture systems.
+            </p>
+        </div>
+
+        <!-- RIGHT PANEL: PORTRAIT IMAGE CONTAINER -->
+        <div class="hero-right-media animate-fade-up-delayed">
+            <div class="portrait-frame">
+                <!-- embedded your specific portfolio portrait image source directly -->
+                <img src="me.jpg" alt="Arnelius Yanqhul Sto. Tomas Portrait" class="profile-portrait">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER LAYOUT -->
+    <footer>
+        <p>© 2026 A.S.T. All rights reserved.</p>
+    </footer>
+
+    <!-- TIMEOUT SWITCH & CANVASES ANIMATION LOGIC SCRIPTS -->
+    <script>
+        // CURSOR TRACKING SYSTEMS
+        const cursorOutline = document.getElementById('custom-cursor');
+        const cursorDot = document.getElementById('custom-cursor-dot');
+
+        window.addEventListener('mousemove', function(e) {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+            cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 150, fill: "forwards" });
+        });
+
+        // LOADING TRANSITION MANAGER
+        setTimeout(function() {
+            var loader = document.getElementById('loading-screen');
+            var loadingLogo = document.getElementById('loading-logo');
+            var loadingDots = document.getElementById('loading-dots');
+            var navBrand = document.getElementById('nav-brand');
+            var navMenu = document.getElementById('nav-menu');
+            var navActions = document.getElementById('nav-actions');
+
+            if (loader) {
+                if (loadingDots) loadingDots.style.opacity = '0';
+                if (loadingLogo) {
+                    loadingLogo.style.transform = 'scale(0.5)';
+                    loadingLogo.style.opacity = '0';
+                }
+                loader.style.opacity = '0';
+
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                    if (navBrand) navBrand.classList.add('reveal');
+                    if (navMenu) navMenu.classList.add('reveal');
+                    if (navActions) navActions.classList.add('reveal');
+                    
+                    // Trigger cascading page elements fade animations
+                    document.querySelectorAll('.animate-fade-up, .animate-fade-up-delayed').forEach(el => {
+                        el.classList.add('start-animation');
+                    });
+                }, 500);
+            }
+        }, 2500);
+
+        // MOUNTAIN SILHOUETTE & SKY ENGINE
+        var canvas = document.getElementById('particle-canvas');
+        var ctx = canvas.getContext('2d');
+        
+        var stars = [];
+        var shootingStars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initSky();
+        }
+
+        function initSky() {
+            stars = [];
+            var starCount = Math.floor((canvas.width * canvas.height) / 6000);
+            for (var i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * (canvas.height * 0.7),
+                    radius: Math.random() * 1.2 + 0.2,
+                    alpha: Math.random(),
+                    twinkleSpeed: Math.random() * 0.02 + 0.005
+                });
+            }
+            shootingStars = [];
+        }
+
+        function triggerShootingStar() {
+            if (shootingStars.length < 3 && Math.random() < 0.015) {
+                shootingStars.push({
+                    x: Math.random() * (canvas.width * 0.8),
+                    y: Math.random() * (canvas.height * 0.3),
+                    length: Math.random() * 80 + 50,
+                    speed: Math.random() * 12 + 8,
+                    angle: Math.PI / 6,
+                    opacity: 1
+                });
+            }
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawMountains() {
+            ctx.fillStyle = "#010712";
+
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height);
+            ctx.lineTo(0, canvas.height * 0.75);
+            ctx.quadraticCurveTo(canvas.width * 0.2, canvas.height * 0.68, canvas.width * 0.45, canvas.height * 0.8);
+            ctx.quadraticCurveTo(canvas.width * 0.75, canvas.height * 0.62, canvas.width, canvas.height * 0.78);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "#000308";
+
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height);
+            ctx.lineTo(0, canvas.height * 0.84);
+            ctx.lineTo(canvas.width * 0.25, canvas.height * 0.78);
+            ctx.lineTo(canvas.width * 0.55, canvas.height * 0.86);
+            ctx.lineTo(canvas.width * 0.8, canvas.height * 0.75);
+            ctx.lineTo(canvas.width, canvas.height * 0.83);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function animate() {
+            var skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            skyGrad.addColorStop(0, '#020c1b');
+            skyGrad.addColorStop(0.7, '#07162c');
+            skyGrad.addColorStop(1, '#0e2342');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i < stars.length; i++) {
+                var s = stars[i];
+                s.alpha += s.twinkleSpeed;
+                if (s.alpha > 1 || s.alpha < 0) s.twinkleSpeed *= -1;
+
+                ctx.fillStyle = 'rgba(255, 255, 255, ' + Math.max(0.1, s.alpha) + ')';
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            triggerShootingStar();
+            for (var j = shootingStars.length - 1; j >= 0; j--) {
+                var ss = shootingStars[j];
+                ss.x += Math.cos(ss.angle) * ss.speed;
+                ss.y += Math.sin(ss.angle) * ss.speed;
+                ss.opacity -= 0.015;
+
+                if (ss.opacity <= 0 || ss.x > canvas.width || ss.y > canvas.height) {
+                    shootingStars.splice(j, 1);
+                    continue;
+                }
+
+                var tailX = ss.x - Math.cos(ss.angle) * ss.length;
+                var tailY = ss.y - Math.sin(ss.angle) * ss.length;
+
+                var starGrad = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
+                starGrad.addColorStop(0, 'rgba(100, 255, 218, ' + ss.opacity + ')');
+                starGrad.addColorStop(1, 'rgba(100, 255, 218, 0)');
+
+                ctx.strokeStyle = starGrad;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(ss.x, ss.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.stroke();
+            }
+
+            drawMountains();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
