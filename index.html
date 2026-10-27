@@ -51,8 +51,11 @@
     <!-- SPLIT CONTENT HERO BANNER -->
     <div class="split-hero-container">
         
-        <!-- LEFT PANEL: TYPOGRAPHY AND DESCRIPTION -->
+        <!-- LEFT PANEL: PERSONAL INFOGRAPHICS AND TYPOGRAPHY -->
         <div class="hero-left-content animate-fade-up">
+            <div class="tracker-index">01 &mdash; HOME</div>
+            <div class="terminal-prefix">$ whoami</div>
+            
             <h1 class="profile-name">
                 Arnelius Yanqhul<br>
                 <span class="highlight-surname">Sto. Tomas</span>
@@ -65,11 +68,12 @@
             </p>
         </div>
 
-        <!-- RIGHT PANEL: PORTRAIT IMAGE CONTAINER -->
+        <!-- RIGHT PANEL: YOUR PERSONAL PROFILE PORTRAIT OVERLAY CARD -->
         <div class="hero-right-media animate-fade-up-delayed">
             <div class="portrait-frame">
-                <!-- embedded your specific portfolio portrait image source directly -->
-                <img src="me.jpg" alt="Arnelius Yanqhul Sto. Tomas Portrait" class="profile-portrait">
+                <!-- Replace 'your-photo.jpg' with your actual image filename later -->
+                <img src="your-photo.jpg" alt="Arnelius Sto. Tomas Portrait" class="profile-portrait" onerror="this.style.display='none';">
+                <div class="portrait-placeholder-text">YOUR IMAGE HERE</div>
             </div>
         </div>
 
@@ -115,7 +119,7 @@
                     if (navMenu) navMenu.classList.add('reveal');
                     if (navActions) navActions.classList.add('reveal');
                     
-                    // Trigger cascading page elements fade animations
+                    // Trigger the sleek staggered page text entrance animations
                     document.querySelectorAll('.animate-fade-up, .animate-fade-up-delayed').forEach(el => {
                         el.classList.add('start-animation');
                     });
