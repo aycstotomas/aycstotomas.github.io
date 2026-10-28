@@ -5,7 +5,6 @@ body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -696,6 +695,8 @@ footer {
     }
     .hero-left-content {
         flex: 0 0 auto;
+        width: 100%;
+        box-sizing: border-box;
         text-align: center;
         padding-left: 0;
     }
@@ -789,13 +790,65 @@ footer {
         height: 36px;
     }
     .portrait-column {
-        width: min(40vw, 16svh, 8rem);
+        width: min(45vw, 19svh, 8.5rem);
     }
 }
 
 @media (max-width: 430px) and (min-height: 701px) {
     .portrait-column {
-        width: min(60vw, 11rem);
+        width: min(54vw, 9.5rem);
+    }
+}
+
+@media (max-width: 430px) {
+    .tech-badge,
+    .portrait-controls {
+        display: none;
+    }
+    .portrait-frame {
+        margin-bottom: 1.75rem;
+    }
+    .portrait-indicators {
+        bottom: -1.9rem;
+        border: 0;
+        background: transparent;
+    }
+    .portrait-indicator {
+        width: 24px;
+        height: 24px;
+    }
+    .next-page-link {
+        margin-top: 0.45rem;
+    }
+}
+
+@media (max-width: 430px) and (max-height: 700px) {
+    .split-hero-container {
+        padding-top: 3rem;
+    }
+    .profile-description {
+        font-size: 0.78rem;
+        line-height: 1.2;
+    }
+    .social-links {
+        margin-top: 0.25rem;
+    }
+    .portrait-frame {
+        margin-bottom: 1.6rem;
+    }
+    .portrait-indicators {
+        bottom: -1.75rem;
+    }
+    .portrait-indicator {
+        width: 20px;
+        height: 20px;
+    }
+    .next-page-link {
+        height: 28px;
+        margin-top: 0.15rem;
+    }
+    .portrait-column {
+        width: min(54vw, 21svh, 9.5rem);
     }
 }
 
