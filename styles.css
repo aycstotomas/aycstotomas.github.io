@@ -188,7 +188,7 @@ body {
 
 .profile-name {
     font-family: 'Cinzel', serif;
-    font-size: 5.2rem; 
+    font-size: 4.4rem; 
     font-weight: 400;
     line-height: 1.1;
     margin: 0 0 1.2rem 0;
@@ -245,7 +245,7 @@ body {
 }
 
 @keyframes blink-caret {
-    50% { border-color: transparent; }
+    50% { opacity: 0; }
 }
 
 .profile-description {
@@ -508,42 +508,46 @@ footer {
 /* Responsive Scaling */
 @media (max-width: 992px) {
     .profile-name {
-        font-size: 3.8rem;
+        font-size: 3.3rem;
     }
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 0.65rem 1.5rem;
+    }
     .split-hero-container {
         height: calc(100vh - 2.5rem);
         height: calc(100svh - 2.5rem);
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        gap: 0.5rem;
+        gap: 0.25rem;
         padding: 4.75rem 0 0;
     }
     .hero-left-content {
+        flex: 0 0 auto;
         text-align: center;
         padding-left: 0;
     }
     .profile-description {
         margin: 0 auto;
         font-size: 1rem;
-        line-height: 1.55;
+        line-height: 1.45;
     }
     .profile-role {
         font-size: 1.2rem;
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.5rem;
     }
     .profile-name {
-        font-size: clamp(2.5rem, 8vw, 3rem);
-        margin-bottom: 0.65rem;
+        font-size: clamp(2.2rem, 7vw, 2.65rem);
+        margin-bottom: 0.45rem;
     }
     .profile-greeting {
         margin-bottom: 0.35rem;
     }
     .social-links {
-        margin-top: 0.8rem;
+        margin-top: 0.6rem;
     }
     .social-links {
         justify-content: center;
@@ -551,7 +555,6 @@ footer {
     .hero-right-media {
         justify-content: center;
         flex: 0 1 auto;
-        top: -0.75rem;
     }
     .tech-badge {
         width: 34px;
@@ -575,12 +578,12 @@ footer {
         right: -0.5rem;
     }
     .tech-badge-pycharm {
-        bottom: -0.5rem;
+        bottom: 0.25rem;
         left: -0.5rem;
     }
     .tech-badge-intellij {
         right: -0.5rem;
-        bottom: -0.5rem;
+        bottom: 0.25rem;
     }
     .portrait-frame {
         width: min(68vw, 15.5rem);
@@ -597,7 +600,7 @@ footer {
         padding-top: 3rem;
     }
     .profile-name {
-        font-size: clamp(2rem, 7vw, 2.5rem);
+        font-size: clamp(1.9rem, 6vw, 2.25rem);
         margin-bottom: 0.35rem;
     }
     .profile-role {
@@ -616,7 +619,13 @@ footer {
         height: 36px;
     }
     .portrait-frame {
-        width: min(50vw, 22svh, 10rem);
+        width: min(50vw, 21svh, 10rem);
+    }
+}
+
+@media (max-width: 430px) and (min-height: 701px) {
+    .portrait-frame {
+        width: min(68vw, 13.5rem);
     }
 }
 
