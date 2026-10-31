@@ -15,6 +15,10 @@ body {
     overflow: hidden;
 }
 
+svg {
+    display: block;
+}
+
 /* NAVIGATION STRUCTURE HEADER */
 .navbar {
     position: fixed;
@@ -44,17 +48,13 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 2px;
-    opacity: 0; 
-    transform: translateY(-10px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: nav-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: nav-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
 .nav-links a {
@@ -75,9 +75,18 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: nav-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes nav-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .nav-right a {
@@ -102,6 +111,13 @@ body {
 }
 
 .nav-right .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.nav-right .btn-solid {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -142,11 +158,6 @@ body {
 .nav-right a:focus-visible {
     box-shadow: 0 0 16px rgba(165, 243, 252, 0.18);
     transform: translateY(-1px);
-}
-
-.nav-logo.reveal, .nav-links.reveal, .nav-right.reveal {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* WIDER AND LEFT-ALIGNED SPLIT LAYOUT CONTAINER */
@@ -268,41 +279,40 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 1.8rem; 
     font-weight: 400;
-    color: #a5f3fc; 
     margin: 0 0 1.5rem;
     letter-spacing: 0.5px;
+}
+
+.profile-role-prefix {
+    color: #ffffff;
 }
 
 .profile-role-typing {
     position: relative;
     display: inline-block;
-    max-width: 100%;
+    width: 0;
+    overflow: hidden;
     white-space: nowrap;
     vertical-align: bottom;
-    clip-path: inset(0 100% 0 0);
-    animation: typing 2.4s steps(25, end) 2.5s forwards;
+    color: #a5f3fc;
+    animation: role-typing 5s steps(13, end) 0.35s infinite;
 }
 
 .profile-role-typing::after {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 2px;
     height: 100%;
     background-color: #a5f3fc;
     content: '';
-    transform: translateX(-1px);
-    animation: typing-caret 2.4s steps(25, end) 2.5s forwards, blink-caret 0.75s step-end 2.5s infinite;
+    animation: blink-caret 0.75s step-end infinite;
 }
 
-@keyframes typing {
-    from { clip-path: inset(0 100% 0 0); }
-    to { clip-path: inset(0 0 0 0); }
-}
-
-@keyframes typing-caret {
-    from { left: 0; }
-    to { left: 100%; }
+@keyframes role-typing {
+    0%, 8% { width: 0; }
+    34%, 60% { width: 13ch; }
+    86%, 100% { width: 0; }
 }
 
 @keyframes blink-caret {
@@ -400,13 +410,15 @@ body {
     margin-top: 0.55rem;
 }
 
-.opportunity-badge span {
-    width: 7px;
-    height: 7px;
+.opportunity-badge svg {
+    width: 14px;
+    height: 14px;
     flex: none;
-    border-radius: 50%;
-    background: #7ddbea;
-    box-shadow: 0 0 8px rgba(125, 219, 234, 0.75);
+    fill: none;
+    stroke: #a5f3fc;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
 }
 
 .social-links {
@@ -705,22 +717,25 @@ body {
     50% { transform: translateY(-7px); }
 }
 
-/* STAGGERED ENTRANCE FADE ANIMATION SYSTEM */
-.animate-fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* PROFILE ENTRANCE ANIMATIONS */
+.animate-fade-up,
+.animate-fade-up-delayed {
+    animation: profile-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-fade-up-delayed {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    animation-delay: 0.2s;
 }
 
-.animate-fade-up.start-animation, .animate-fade-up-delayed.start-animation {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes profile-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* FOOTER */
@@ -781,67 +796,6 @@ footer {
 .next-page-link:focus-visible {
     outline: 2px solid #ffffff;
     outline-offset: 3px;
-}
-
-/* LOADING SCREEN */
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(2, 12, 27, 0.45); 
-    backdrop-filter: blur(25px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease;
-}
-
-.loader-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
-
-.brand-logo {
-    font-family: 'Cinzel', serif;
-    color: #ffffff;
-    font-size: 3.2rem;
-    font-weight: 400;
-    margin: 0;
-    letter-spacing: 6px;
-    animation: popUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes popUp {
-    0% { opacity: 0; transform: scale(0.9) translateY(15px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.jiggle-loader {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-}
-
-.jiggle-loader .dot {
-    width: 6px;
-    height: 6px;
-    background-color: #64ffda;
-    border-radius: 50%;
-    animation: jiggle 0.5s ease-in-out infinite alternate;
-}
-
-.jiggle-loader .dot:nth-child(2) { animation-delay: 0.12s; }
-.jiggle-loader .dot:nth-child(3) { animation-delay: 0.24s; }
-.jiggle-loader .dot:nth-child(4) { animation-delay: 0.36s; }
-
-@keyframes jiggle {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
 }
 
 /* Responsive Scaling */
@@ -1074,8 +1028,19 @@ footer {
     .tech-badge {
         animation: none;
     }
+    .nav-logo,
+    .nav-links,
+    .nav-right,
+    .animate-fade-up,
+    .animate-fade-up-delayed {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        animation: none;
+    }
     .profile-role-typing {
-        clip-path: none;
+        width: auto;
+        overflow: visible;
         animation: none;
     }
     .profile-role-typing::after {
