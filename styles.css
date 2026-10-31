@@ -10,7 +10,7 @@ body {
     padding: 0;
     height: 100vh;
     height: 100svh;
-    background-color: #020c1b;
+    background-color: #0b1f3a;
     color: #ffffff;
     overflow: hidden;
     cursor: none; 
@@ -36,17 +36,6 @@ body {
     transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 10000;
-    pointer-events: none;
-}
-
-/* Background Canvas Positioning */
-#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
     pointer-events: none;
 }
 
@@ -200,6 +189,25 @@ body {
     color: #a5f3fc; 
     font-weight: 700;
     text-shadow: 0 0 30px rgba(165, 243, 252, 0.2);
+}
+
+.student-badge {
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: -0.55rem 0 1rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgba(165, 243, 252, 0.32);
+    border-radius: 999px;
+    background: rgba(165, 243, 252, 0.07);
+    color: #d7faff;
+    font-size: 0.82rem;
+    letter-spacing: 0.3px;
+}
+
+.student-badge span {
+    padding: 0 0.2rem;
+    color: #a5f3fc;
 }
 
 .profile-role {
