@@ -13,10 +13,6 @@
 </head>
 <body>
 
-    <!-- CUSTOM GEOMETRIC CURSOR -->
-    <div id="custom-cursor"></div>
-    <div id="custom-cursor-dot"></div>
-
     <!-- FROSTED LOADING OVERLAY PANEL -->
     <div id="loading-screen">
         <div class="loader-content">
@@ -137,16 +133,6 @@
 
     <!-- TIMEOUT SWITCH & CANVASES ANIMATION LOGIC SCRIPTS -->
     <script>
-        // CURSOR TRACKING SYSTEMS
-        const cursorOutline = document.getElementById('custom-cursor');
-        const cursorDot = document.getElementById('custom-cursor-dot');
-
-        window.addEventListener('mousemove', function(e) {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-            cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 150, fill: "forwards" });
-        });
-
         // LOADING TRANSITION MANAGER
         setTimeout(function() {
             var loader = document.getElementById('loading-screen');
