@@ -90,6 +90,24 @@ body {
     transition: all 0.3s ease;
 }
 
+.nav-right a svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.nav-right .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
 .btn-outline {
     color: #d7faff;
     border: 1px solid rgba(165, 243, 252, 0.55);
@@ -182,7 +200,11 @@ body {
 }
 
 .student-badge {
-    display: inline-block;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
     max-width: 100%;
     box-sizing: border-box;
     margin: -0.55rem 0 1rem;
@@ -195,8 +217,50 @@ body {
     letter-spacing: 0.3px;
 }
 
-.student-badge span {
-    padding: 0 0.2rem;
+.badge-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: inherit;
+}
+
+.badge-email {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.badge-email:hover,
+.badge-email:focus-visible {
+    color: #a5f3fc;
+    text-decoration: underline;
+}
+
+.badge-email:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.badge-item svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.badge-at {
+    color: #d7faff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.badge-divider {
     color: #a5f3fc;
 }
 
@@ -247,18 +311,22 @@ body {
 
 .profile-description {
     font-size: 1.08rem;
-    color: #8892b0;
+    color: #c6d3e6;
     max-width: 560px;
-    line-height: 1.8;
+    line-height: 1.6;
     margin: 0;
+}
+
+.profile-description strong {
+    color: #a5f3fc;
 }
 
 .current-focus {
     display: inline-block;
-    margin: 0.8rem 0 0;
+    margin: 0.65rem 0 0;
     padding-left: 0.65rem;
     border-left: 2px solid rgba(165, 243, 252, 0.72);
-    color: #b7c5dc;
+    color: #d0dbea;
     font-size: 0.82rem;
     line-height: 1.6;
 }
@@ -268,6 +336,45 @@ body {
     font-weight: 600;
 }
 
+.project-card {
+    max-width: 560px;
+    box-sizing: border-box;
+    margin-top: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid rgba(165, 243, 252, 0.2);
+    border-left: 2px solid rgba(165, 243, 252, 0.72);
+    border-radius: 4px;
+    background: rgba(165, 243, 252, 0.045);
+}
+
+.project-card p {
+    margin: 0;
+}
+
+.project-label {
+    margin-bottom: 0.15rem !important;
+    color: #a5f3fc;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.project-card h3 {
+    margin: 0;
+    color: #edf6ff;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.project-card p:last-child {
+    margin-top: 0.15rem;
+    color: #c6d3e6;
+    font-size: 0.76rem;
+    line-height: 1.45;
+}
+
 .opportunity-badge {
     display: flex;
     align-items: center;
@@ -275,7 +382,7 @@ body {
     width: fit-content;
     max-width: 100%;
     box-sizing: border-box;
-    margin: 0.75rem 0 0;
+    margin: 0;
     padding: 0.35rem 0.65rem;
     border: 1px solid rgba(165, 243, 252, 0.24);
     border-radius: 999px;
@@ -283,6 +390,14 @@ body {
     color: #b7c5dc;
     font-size: 0.72rem;
     letter-spacing: 0.2px;
+}
+
+.profile-traits {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.55rem;
 }
 
 .opportunity-badge span {
@@ -298,7 +413,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
 }
 
 .social-links a {
@@ -625,13 +740,16 @@ footer {
 }
 
 .next-page-link {
+    position: absolute;
+    right: calc(3rem - max(4vw, (100vw - 1400px) / 2));
+    bottom: 3rem;
+    flex: none;
     min-width: 78px;
     height: 30px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    margin-top: 0.35rem;
     padding: 0 0.6rem;
     border: 1px solid rgba(165, 243, 252, 0.45);
     border-radius: 4px;
@@ -734,12 +852,17 @@ footer {
 }
 
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
     .navbar {
         padding: 0.65rem 1.5rem;
     }
     .split-hero-container {
-        height: calc(100vh - 2.5rem);
-        height: calc(100svh - 2.5rem);
+        height: auto;
+        min-height: calc(100vh - 2.5rem);
+        min-height: calc(100svh - 2.5rem);
         flex-direction: column;
         justify-content: center;
         text-align: center;
@@ -755,16 +878,25 @@ footer {
     }
     .profile-description {
         margin: 0 auto;
-        font-size: 1rem;
+        font-size: 0.98rem;
         line-height: 1.45;
     }
     .current-focus {
         margin-top: 0.45rem;
         font-size: 0.76rem;
     }
-    .opportunity-badge {
-        margin-right: auto;
-        margin-left: auto;
+    .project-card {
+        margin: 0.45rem auto 0;
+        padding: 0.5rem 0.65rem;
+    }
+    .project-card h3 {
+        font-size: 0.8rem;
+    }
+    .project-card p:last-child {
+        font-size: 0.72rem;
+    }
+    .profile-traits {
+        justify-content: center;
     }
     .profile-role {
         font-size: 1.2rem;
@@ -774,6 +906,19 @@ footer {
         font-size: clamp(2.2rem, 7vw, 2.65rem);
         margin-bottom: 0.45rem;
     }
+    .student-badge {
+        gap: 0.3rem;
+        padding: 0.4rem 0.65rem;
+        font-size: 0.72rem;
+    }
+    .badge-divider-email {
+        display: none;
+    }
+    .badge-email {
+        flex-basis: 100%;
+        justify-content: center;
+        margin-top: 0.1rem;
+    }
     .profile-greeting {
         margin-bottom: 0.35rem;
     }
@@ -782,10 +927,16 @@ footer {
     }
     .social-links {
         justify-content: center;
+        gap: 0.35rem;
     }
     .hero-right-media {
         justify-content: center;
         flex: 0 1 auto;
+    }
+    .next-page-link {
+        position: static;
+        align-self: flex-end;
+        margin-top: 0.35rem;
     }
     .portrait-column {
         width: min(64vw, 13rem);
@@ -857,17 +1008,23 @@ footer {
 
 @media (max-width: 430px) and (min-height: 701px) {
     .portrait-column {
-        width: min(54vw, 9.5rem);
+        width: min(54vw, 8rem);
     }
 }
 
 @media (max-width: 430px) {
+    .split-hero-container {
+        padding-top: 3.25rem;
+    }
     .tech-badge,
     .portrait-controls {
         display: none;
     }
     .portrait-frame {
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.25rem;
+    }
+    .portrait-email {
+        margin-top: 0.15rem;
     }
     .portrait-indicators {
         bottom: -1.9rem;
@@ -879,7 +1036,7 @@ footer {
         height: 24px;
     }
     .next-page-link {
-        margin-top: 0.45rem;
+        margin-top: 0.2rem;
     }
 }
 
@@ -909,7 +1066,7 @@ footer {
         margin-top: 0.15rem;
     }
     .portrait-column {
-        width: min(54vw, 21svh, 9.5rem);
+        width: min(54vw, 18svh, 8rem);
     }
 }
 
