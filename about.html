@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | A. S. T.</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="about-body">
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="nav-logo">A.S.T.</div>
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="about.html" class="active-link" aria-current="page">ABOUT ME</a>
+                <a href="#">EDUCATIONAL ATTAINMENT</a>
+                <a href="#">FAMILY</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="#" class="btn-outline">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 16v4h14v-4"/></svg>
+                DOWNLOAD RESUME
+            </a>
+            <a href="https://github.com/aycstotomas" class="btn-outline" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7"/></svg>
+                VIEW MY WORK
+            </a>
+            <a href="mailto:ayc.stotomas@gmail.com" class="btn-solid">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/></svg>
+                CONTACT ME
+            </a>
+        </div>
+    </nav>
+
+    <main class="split-hero-container about-page">
+        <section class="about-content animate-fade-up">
+            <p class="profile-greeting">Get to know me</p>
+            <h1 class="profile-name">About <span class="highlight-surname">Arnelius</span></h1>
+            <p class="profile-description about-intro">
+                I am a first-year <strong>BSIT student</strong> at the <strong>University of the Cordilleras</strong> in <strong>Baguio City</strong>. Currently, I serve as the <strong>Broadcasting Club Director</strong> for <strong>UC's Publication Guild</strong> and was previously a member of the <strong>University of Baguio SHS Debate Club</strong>. I am focused on building my expertise in enterprise software systems, web development, and strategic leadership.
+            </p>
+            <dl class="about-details">
+                <div class="about-detail">
+                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Address</dt>
+                    <dd>Leonilla Hill, West Bayan Park, Baguio City</dd>
+                </div>
+                <div class="about-detail">
+                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Age</dt>
+                    <dd><span id="current-age">18</span></dd>
+                </div>
+                <div class="about-detail">
+                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 3 8.5 3 12 0v-5M22 9v6"/></svg>Course</dt>
+                    <dd>BSIT - Enterprise Resource Planning (ERP)</dd>
+                </div>
+                <div class="about-detail">
+                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 18v4M8 22h8M12 2a7 7 0 0 0-4 12.75c.8.55 1 1.15 1 2.25h6c0-1.1.2-1.7 1-2.25A7 7 0 0 0 12 2Z"/><path d="M9 10a3 3 0 0 1 3-3"/></svg>Hobbies</dt>
+                    <dd>Tech Gaming, Video Editing, and Digital Design</dd>
+                </div>
+                <div class="about-detail">
+                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-4 12.75c.8.55 1 1.15 1 2.25h6c0-1.1.2-1.7 1-2.25A7 7 0 0 0 12 2Z"/><path d="M9 21h6M9 18h6"/></svg>Core Skills</dt>
+                    <dd>Public Speaking (Extempo/Impromptu), Critical Thinking, and Competitive Debate</dd>
+                </div>
+                <div class="about-detail">
+                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"/></svg>Programming Languages</dt>
+                    <dd>Java, HTML, JavaScript, CSS, and Python</dd>
+                </div>
+            </dl>
+        </section>
+
+        <div class="about-page-actions animate-fade-up-delayed">
+            <a class="next-page-link" href="index.html" title="Back to home">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M19 12H5m6 6-6-6 6-6"/></svg>
+                Home
+            </a>
+            <button class="next-page-link" type="button" disabled title="Next page coming soon">
+                Next
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 A.S.T. All rights reserved.</p>
+    </footer>
+    <script>
+        const birthDate = new Date(2008, 2, 16);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        if (today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate())) {
+            age -= 1;
+        }
+        document.getElementById('current-age').textContent = age;
+    </script>
+</body>
+</html>
