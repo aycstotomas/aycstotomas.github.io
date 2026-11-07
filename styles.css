@@ -1451,3 +1451,113 @@ footer {
         height: calc(26 * var(--u));
     }
 }
+
+/* Background / Goal cards and quote (Personal Information page) */
+.about-story {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0 0 1rem;
+}
+
+.about-story-card h2 {
+    margin: 0 0 0.35rem;
+    color: #a5f3fc;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.about-story-card p {
+    margin: 0;
+    color: #d6e1ef;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.about-story-card p strong {
+    color: #a5f3fc;
+}
+
+.about-quote {
+    margin: 1rem 0 0;
+    padding: 0 0 0 1rem;
+    border-left: 3px solid #a5f3fc;
+}
+
+.about-quote p {
+    margin: 0;
+    color: #d6e1ef;
+    font-style: italic;
+}
+
+.about-quote cite {
+    display: block;
+    margin-top: 0.2rem;
+    color: #a5f3fc;
+    font-size: 0.85rem;
+    font-style: normal;
+    letter-spacing: 0.08em;
+}
+
+@media (min-width: 769px) {
+    body.about-body .about-story {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: calc(170 * var(--u));
+        gap: calc(18 * var(--u));
+        margin: 0 0 calc(18 * var(--u));
+    }
+
+    body.about-body .about-story-card {
+        justify-content: flex-start;
+        padding: calc(14 * var(--u)) calc(24 * var(--u));
+    }
+
+    body.about-body .about-story-card h2 {
+        margin: 0 0 calc(7 * var(--u));
+        font-size: calc(21 * var(--u));
+    }
+
+    body.about-body .about-story-card p {
+        font-size: calc(20 * var(--u));
+        line-height: 1.38;
+    }
+
+    body.about-body .about-details {
+        grid-auto-rows: calc(104 * var(--u));
+        gap: calc(14 * var(--u));
+    }
+
+    body.about-body .about-detail dt { margin-bottom: calc(5 * var(--u)); font-size: calc(19 * var(--u)); }
+    body.about-body .about-detail dd { font-size: calc(22 * var(--u)); line-height: 1.25; }
+
+    body.about-body .about-quote {
+        margin: calc(16 * var(--u)) 0 0;
+        padding-left: calc(18 * var(--u));
+        border-left-width: calc(3 * var(--u));
+    }
+
+    body.about-body .about-quote p { font-size: calc(23 * var(--u)); line-height: 1.3; }
+
+    body.about-body .about-quote cite {
+        margin-top: calc(3 * var(--u));
+        font-size: calc(15 * var(--u));
+    }
+
+    body.about-body .about-page {
+        padding-top: calc(100 * var(--u));
+    }
+}
+
+/* Fit tuning for the extra Background / Goal row and quote */
+@media (min-width: 769px) {
+    body.about-body .about-content .profile-greeting { font-size: calc(26 * var(--u)); margin-bottom: calc(3 * var(--u)); }
+    body.about-body .about-content .profile-name { font-size: calc(60 * var(--u)); margin-bottom: calc(10 * var(--u)); }
+    body.about-body .about-story { grid-auto-rows: calc(180 * var(--u)); margin-bottom: calc(16 * var(--u)); }
+    body.about-body .about-story-card h2 { margin-bottom: calc(5 * var(--u)); }
+    body.about-body .about-story-card p { font-size: calc(19 * var(--u)); line-height: 1.36; }
+    body.about-body .about-details { grid-auto-rows: calc(108 * var(--u)); }
+    body.about-body .about-quote { margin-top: calc(14 * var(--u)); }
+}
