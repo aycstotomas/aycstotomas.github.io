@@ -1561,3 +1561,22 @@ footer {
     body.about-body .about-details { grid-auto-rows: calc(108 * var(--u)); }
     body.about-body .about-quote { margin-top: calc(14 * var(--u)); }
 }
+
+/* Single Background box now spans the full width */
+@media (min-width: 769px) {
+    body.about-body .about-story {
+        grid-template-columns: minmax(0, 1fr);
+        grid-auto-rows: calc(132 * var(--u));
+        margin-bottom: calc(18 * var(--u));
+    }
+
+    body.about-body .about-story-card p {
+        font-size: calc(22 * var(--u));
+        line-height: 1.35;
+    }
+}
+
+/* Each labelled line (Location / Birthplace) sits on its own line */
+.dd-line {
+    display: block;
+}
