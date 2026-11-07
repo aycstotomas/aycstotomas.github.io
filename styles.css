@@ -1287,3 +1287,167 @@ footer {
         font-size: 0.75rem;
     }
 }
+
+/* ============================================================
+   UNIFORM SCALING (desktop + laptop)
+   --u = 1px at a 1920x950 viewport and scales with the window,
+   so the header, spacing, sizes and 3x3 grid look the same on
+   every screen. Nothing scrolls and nothing overlaps.
+   ============================================================ */
+@media (min-width: 769px) {
+    :root {
+        --u: min(0.052083vw, 0.105263vh);
+    }
+
+    /* Header (both pages) */
+    .navbar { padding: calc(24 * var(--u)) calc(48 * var(--u)); }
+    .nav-left { gap: calc(56 * var(--u)); }
+    .nav-logo { font-size: calc(20.8 * var(--u)); letter-spacing: calc(2 * var(--u)); }
+    .nav-links { gap: calc(32 * var(--u)); }
+    .nav-links a {
+        font-size: calc(11.5 * var(--u));
+        letter-spacing: calc(2 * var(--u));
+        white-space: nowrap;
+    }
+    .nav-right { gap: calc(16 * var(--u)); }
+    .nav-right a {
+        font-size: calc(11.2 * var(--u));
+        letter-spacing: calc(1.5 * var(--u));
+        padding: calc(9.6 * var(--u)) calc(19.2 * var(--u));
+        white-space: nowrap;
+    }
+    .nav-right .btn-outline,
+    .nav-right .btn-solid { gap: calc(8 * var(--u)); }
+    .nav-right a svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+
+    /* Personal Information page */
+    html:has(body.about-body) { overflow: hidden; }
+
+    body.about-body {
+        height: 100svh;
+        overflow: hidden;
+    }
+
+    body.about-body .about-page {
+        width: 96%;
+        max-width: none;
+        height: calc(100svh - 40 * var(--u));
+        padding: calc(112 * var(--u)) 0 calc(74 * var(--u));
+        justify-content: center;
+        gap: 0;
+    }
+
+    body.about-body .about-content { width: 100%; }
+
+    body.about-body .about-content .profile-greeting {
+        margin: 0 0 calc(5 * var(--u));
+        font-size: calc(29 * var(--u));
+    }
+
+    body.about-body .about-content .profile-name {
+        margin: 0 0 calc(10 * var(--u));
+        font-size: calc(69 * var(--u));
+        line-height: 1.05;
+        white-space: nowrap;
+    }
+
+    body.about-body .about-intro {
+        margin: 0 0 calc(24 * var(--u));
+        font-size: calc(26 * var(--u));
+        line-height: 1.35;
+    }
+
+    body.about-body .about-details {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: calc(127 * var(--u));
+        gap: calc(18 * var(--u));
+    }
+
+    body.about-body .about-detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+        padding: 0 calc(24 * var(--u));
+        box-sizing: border-box;
+        overflow: hidden;
+        border-radius: calc(8 * var(--u));
+    }
+
+    body.about-body .about-detail:hover { transform: scale(1.02); }
+
+    body.about-body .about-detail dt {
+        gap: calc(10 * var(--u));
+        margin: 0 0 calc(7 * var(--u));
+        font-size: calc(21 * var(--u));
+    }
+
+    body.about-body .about-detail dt svg {
+        width: calc(26 * var(--u));
+        height: calc(26 * var(--u));
+    }
+
+    body.about-body .about-detail dd {
+        font-size: calc(25 * var(--u));
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+
+    body.about-body footer {
+        flex: 0 0 calc(40 * var(--u));
+        height: calc(40 * var(--u));
+        font-size: calc(11 * var(--u));
+    }
+
+    body.about-body .about-page-actions {
+        right: calc(32 * var(--u));
+        bottom: calc(6 * var(--u));
+        gap: calc(12 * var(--u));
+    }
+
+    body.about-body .about-page-actions .next-page-link {
+        box-sizing: border-box;
+        min-width: calc(145 * var(--u));
+        height: calc(55 * var(--u));
+        padding: 0 calc(21 * var(--u));
+        gap: calc(10 * var(--u));
+        font-size: calc(21 * var(--u));
+        border-radius: calc(6 * var(--u));
+    }
+
+    body.about-body .about-page-actions .next-page-link svg {
+        width: calc(26 * var(--u));
+        height: calc(26 * var(--u));
+    }
+}
+
+/* Homepage "Next" sits exactly where "Next" is on the Personal Information page */
+@media (min-width: 769px) {
+    footer {
+        height: calc(40 * var(--u));
+        font-size: calc(11 * var(--u));
+    }
+
+    body:not(.about-body) .split-hero-container {
+        width: 96%;
+        max-width: none;
+        height: calc(100svh - 40 * var(--u));
+    }
+
+    body:not(.about-body) .split-hero-container .next-page-link {
+        right: calc(32 * var(--u));
+        bottom: calc(6 * var(--u));
+        box-sizing: border-box;
+        min-width: calc(145 * var(--u));
+        height: calc(55 * var(--u));
+        padding: 0 calc(21 * var(--u));
+        gap: calc(10 * var(--u));
+        font-size: calc(21 * var(--u));
+        border-radius: calc(6 * var(--u));
+    }
+
+    body:not(.about-body) .split-hero-container .next-page-link svg {
+        width: calc(26 * var(--u));
+        height: calc(26 * var(--u));
+    }
+}
