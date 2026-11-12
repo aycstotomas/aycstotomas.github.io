@@ -1579,3 +1579,304 @@ body.about-body .about-story-card p { font-size: calc(18.5 * var(--u)); line-hei
     body.about-body .about-story { grid-auto-rows: calc(176 * var(--u)); }
     body.about-body .about-story-card p { font-size: calc(18.5 * var(--u)); line-height: 1.34; }
 }
+
+/* ============================================================
+   ACHIEVEMENTS PAGE (2x2 grid, no scrolling on laptop/desktop)
+   Each card: school logo + honors on the left, awards photo
+   fading in from the right, "View photo" opens it full size.
+   ============================================================ */
+.ach-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+body.about-body .ach-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+/* awards photo blended into the card */
+.ach-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 46%;
+    z-index: -1;
+    background: var(--ach-photo) center / cover no-repeat;
+    filter: brightness(0.72) saturate(0.95);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 32%, #000 70%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 32%, #000 70%);
+    transition: filter 0.3s ease;
+    pointer-events: none;
+}
+
+.ach-card:hover::before {
+    filter: brightness(0.95) saturate(1.05);
+}
+
+.ach-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.ach-head h2 {
+    margin: 0;
+    color: #a5f3fc;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 10px rgba(5, 15, 32, 0.85);
+}
+
+.ach-meta {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 8px rgba(5, 15, 32, 0.9);
+}
+
+.ach-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ach-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: #e3ecf6;
+    font-size: 1rem;
+    line-height: 1.35;
+    text-shadow: 0 1px 8px rgba(5, 15, 32, 0.9);
+}
+
+.ach-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: #a5f3fc;
+}
+
+.ach-list li strong { color: #a5f3fc; }
+
+.ach-placeholder {
+    color: rgba(214, 225, 239, 0.45) !important;
+    font-style: italic;
+}
+
+.ach-placeholder::before { opacity: 0.35; }
+
+/* School logo: cut-out logo in a soft frosted seal */
+.ach-badge {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 3.6rem;
+    height: 3.6rem;
+    padding: 0.3rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e9f8fb 55%, #cdeef4 100%);
+    border: 2px solid rgba(165, 243, 252, 0.7);
+    box-shadow: 0 0 0 4px rgba(165, 243, 252, 0.09), 0 0 22px rgba(125, 219, 234, 0.3);
+}
+
+.ach-badge img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* View photo pill */
+.ach-photo-btn {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(165, 243, 252, 0.55);
+    border-radius: 999px;
+    background: rgba(2, 12, 27, 0.72);
+    color: #d7faff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ach-photo-btn svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.ach-photo-btn:hover,
+.ach-photo-btn:focus-visible {
+    color: #020c1b;
+    background-color: #a5f3fc;
+    box-shadow: 0 0 16px rgba(165, 243, 252, 0.35);
+}
+
+.ach-photo-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+}
+
+/* Full-size photo viewer */
+.ach-lightbox {
+    max-width: 94vw;
+    max-height: 94vh;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+    overflow: visible;
+}
+
+.ach-lightbox::backdrop {
+    background: rgba(2, 10, 22, 0.88);
+    backdrop-filter: blur(6px);
+}
+
+.ach-lightbox figure {
+    margin: 0;
+    text-align: center;
+}
+
+.ach-lightbox img {
+    display: block;
+    max-width: 92vw;
+    max-height: 80vh;
+    border: 1px solid rgba(165, 243, 252, 0.35);
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(125, 219, 234, 0.2);
+}
+
+.ach-lightbox figcaption {
+    margin-top: 0.75rem;
+    color: #a5f3fc;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ach-lightbox-close {
+    position: absolute;
+    top: -2.6rem;
+    right: 0;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid rgba(165, 243, 252, 0.55);
+    border-radius: 50%;
+    background: rgba(2, 12, 27, 0.8);
+    color: #d7faff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.ach-lightbox-close:hover,
+.ach-lightbox-close:focus-visible {
+    color: #020c1b;
+    background: #a5f3fc;
+}
+
+/* Phones: fall back to a normal scrolling stack, no photo behind the text */
+@media (max-width: 768px) {
+    body.ach-body {
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
+    }
+    body.ach-body .about-page { height: auto; padding-bottom: 5rem; }
+    body.ach-body .about-content .profile-name { font-size: 2rem; }
+    .ach-card::before { display: none; }
+    .ach-photo-btn { position: static; align-self: flex-start; margin-top: 0.4rem; }
+}
+
+/* Laptop / desktop: uniform scaling, fits the screen, no scroll */
+@media (min-width: 769px) {
+    body.ach-body .about-content .profile-name {
+        font-size: calc(58 * var(--u));
+        margin-bottom: calc(12 * var(--u));
+    }
+
+    body.ach-body .ach-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: calc(292 * var(--u)) calc(292 * var(--u));
+        gap: calc(16 * var(--u));
+    }
+
+    body.about-body .ach-card {
+        gap: calc(14 * var(--u));
+        padding: calc(22 * var(--u)) calc(28 * var(--u));
+    }
+
+    body.ach-body .ach-head { gap: calc(18 * var(--u)); }
+
+    body.ach-body .ach-badge {
+        width: calc(70 * var(--u));
+        height: calc(70 * var(--u));
+        padding: calc(7 * var(--u));
+        border-width: calc(2 * var(--u));
+    }
+
+    body.ach-body .ach-head h2 { font-size: calc(32 * var(--u)); }
+    body.ach-body .ach-meta { font-size: calc(18 * var(--u)); margin-top: calc(2 * var(--u)); }
+
+    body.ach-body .ach-list li {
+        padding-left: calc(24 * var(--u));
+        margin-bottom: calc(7 * var(--u));
+        font-size: calc(19 * var(--u));
+    }
+
+    body.ach-body .ach-list li::before {
+        top: 0.55em;
+        width: calc(8 * var(--u));
+        height: calc(8 * var(--u));
+    }
+
+    body.ach-body .ach-photo-btn {
+        right: calc(18 * var(--u));
+        bottom: calc(14 * var(--u));
+        gap: calc(8 * var(--u));
+        padding: calc(7 * var(--u)) calc(16 * var(--u));
+        font-size: calc(13 * var(--u));
+    }
+
+    body.ach-body .ach-photo-btn svg {
+        width: calc(17 * var(--u));
+        height: calc(17 * var(--u));
+    }
+}
