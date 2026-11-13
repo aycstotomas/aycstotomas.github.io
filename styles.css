@@ -1880,3 +1880,39 @@ body.about-body .ach-card {
         height: calc(17 * var(--u));
     }
 }
+
+
+/* ============================================================
+   ACHIEVEMENTS REFINEMENTS: calmer cards, photo kept clear of
+   the text, and a multi-photo viewer (prev / next).
+   ============================================================ */
+.ach-card::before { left: 42%; filter: brightness(0.85) saturate(1);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.45) 35%, #000 72%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.45) 35%, #000 72%); }
+.ach-list { max-width: 67%; }
+.ach-list li { text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95); }
+
+.ach-lightbox { display: none; }
+.ach-lightbox[open] { display: block; }
+.ach-lightbox-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 2.8rem; height: 2.8rem; border: 1px solid rgba(165, 243, 252, 0.55);
+    border-radius: 50%; background: rgba(2, 12, 27, 0.8); color: #d7faff;
+    font-size: 1.8rem; line-height: 1; cursor: pointer; z-index: 2;
+}
+.ach-lightbox-prev { left: -3.6rem; }
+.ach-lightbox-next { right: -3.6rem; }
+.ach-lightbox-nav:hover, .ach-lightbox-nav:focus-visible { color: #020c1b; background: #a5f3fc; }
+.ach-lightbox-nav[hidden] { display: none; }
+#ach-lightbox-count { opacity: 0.65; margin-left: 0.4rem; }
+@media (max-width: 768px) {
+    .ach-list { max-width: none; }
+    .ach-lightbox-prev { left: 0.4rem; }
+    .ach-lightbox-next { right: 0.4rem; }
+}
+
+@media (min-width: 769px) {
+    body.ach-body .ach-grid { grid-template-rows: calc(296 * var(--u)) calc(330 * var(--u)); }
+    body.ach-body .ach-list li { font-size: calc(18.5 * var(--u)); margin-bottom: calc(6 * var(--u)); }
+    body.ach-body .ach-meta { font-size: calc(16.5 * var(--u)); }
+}
