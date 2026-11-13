@@ -1998,3 +1998,101 @@ body.about-body .ach-card {
         border-radius: 0;
     }
 }
+
+
+/* ============================================================
+   ACHIEVEMENTS FIT (laptop / desktop)
+   The page is a fixed-height column: header block, then a 2x2
+   grid that fills exactly the space that is left above the
+   Back / Next buttons. Rows are flexible, so nothing overflows,
+   nothing scrolls and nothing sits under the buttons.
+   Same header position and --u scaling as Personal Information.
+   ============================================================ */
+@media (min-width: 769px) {
+    body.ach-body .about-page {
+        justify-content: flex-start;
+        padding: calc(100 * var(--u)) 0 calc(70 * var(--u));
+    }
+
+    body.ach-body .about-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+    }
+
+    body.ach-body .about-content .profile-greeting {
+        flex: none;
+        margin: 0 0 calc(3 * var(--u));
+        font-size: calc(26 * var(--u));
+        line-height: 1.4;
+    }
+
+    body.ach-body .about-content .profile-name {
+        flex: none;
+        margin: 0 0 calc(10 * var(--u));
+        font-size: calc(60 * var(--u));
+        line-height: 1.05;
+        white-space: nowrap;
+    }
+
+    body.ach-body .ach-grid {
+        flex: 1 1 0;
+        min-height: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        gap: calc(14 * var(--u));
+    }
+
+    body.ach-body .ach-card {
+        min-height: 0;
+        justify-content: flex-start;
+        gap: calc(8 * var(--u));
+        padding: calc(14 * var(--u)) calc(26 * var(--u));
+    }
+
+    body.ach-body .ach-card:hover { transform: scale(1.01); }
+
+    body.ach-body .ach-head { gap: calc(16 * var(--u)); max-width: 66%; }
+
+    body.ach-body .ach-badge {
+        width: calc(58 * var(--u));
+        height: calc(58 * var(--u));
+        padding: calc(6 * var(--u));
+    }
+
+    body.ach-body .ach-head h2 { font-size: calc(28 * var(--u)); line-height: 1.15; }
+    body.ach-body .ach-meta { font-size: calc(15.5 * var(--u)); margin-top: calc(1 * var(--u)); line-height: 1.3; }
+
+    body.ach-body .ach-list { max-width: 64%; }
+
+    body.ach-body .ach-list li {
+        padding-left: calc(22 * var(--u));
+        margin-bottom: calc(3 * var(--u));
+        font-size: calc(17 * var(--u));
+        line-height: 1.26;
+    }
+
+    body.ach-body .ach-list li::before {
+        top: 0.52em;
+        width: calc(7 * var(--u));
+        height: calc(7 * var(--u));
+    }
+
+    body.ach-body .ach-list li.ach-group {
+        margin: calc(6 * var(--u)) 0 calc(3 * var(--u));
+        font-size: calc(11 * var(--u));
+        line-height: 1.2;
+    }
+
+    body.ach-body .ach-list li.ach-group:first-child { margin-top: 0; }
+    body.ach-body .ach-list li.ach-group::before { width: calc(14 * var(--u)); }
+
+    body.ach-body .ach-photo-btn {
+        right: calc(18 * var(--u));
+        bottom: calc(12 * var(--u));
+        gap: calc(8 * var(--u));
+        padding: calc(7 * var(--u)) calc(16 * var(--u));
+        font-size: calc(12.5 * var(--u));
+    }
+}
