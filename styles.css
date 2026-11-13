@@ -1834,7 +1834,7 @@ body.about-body .ach-card {
 
     body.ach-body .ach-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: calc(292 * var(--u)) calc(292 * var(--u));
+        grid-template-rows: calc(292 * var(--u)) calc(318 * var(--u));
         gap: calc(16 * var(--u));
     }
 
