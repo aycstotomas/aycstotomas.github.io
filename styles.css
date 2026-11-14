@@ -2227,9 +2227,28 @@ body.ach-body .ach-card:nth-child(4)::before {
    Only the picture's position moves: the fade, overlay and text are untouched.
    --ach-px = horizontal position (%), --ach-sx = extra nudge (units of --u, + moves the picture right). */
 .ach-card::before {
-    background-position: calc(var(--ach-px, 75%) + var(--ach-sx, 0) * var(--u, 1px)) center;
+    background-position: calc(var(--ach-px, 75%) + var(--ach-sx, 0) * var(--u, 1px)) var(--ach-py, center);
 }
 body.ach-body .ach-card:nth-child(2)::before,
 body.ach-body .ach-card:nth-child(4)::before {
-    background-position: calc(var(--ach-px, 50%) + var(--ach-sx, 0) * var(--u, 1px)) center;
+    background-position: calc(var(--ach-px, 50%) + var(--ach-sx, 0) * var(--u, 1px)) var(--ach-py, center);
+}
+
+/* ============================================================
+   ACHIEVEMENTS: rows sized by their content.
+   The two grid rows used to split the height equally, which cut off the
+   bottom "For inquiries and validation" line of the taller Senior High
+   card on shorter browser windows. Each row now keeps at least the height
+   its content needs and shares only the leftover space, so nothing is
+   clipped and the page still never scrolls.
+   ============================================================ */
+@media (min-width: 769px) {
+    /* the content block also scales with the window height (the navbar is not affected) */
+    body.ach-body .about-page {
+        --u: min(0.052083vw, 0.0925vh);
+    }
+
+    body.ach-body .ach-grid {
+        grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr);
+    }
 }

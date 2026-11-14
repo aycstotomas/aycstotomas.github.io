@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A. S. T.</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Start downloading the portrait immediately, before the stylesheet and fonts finish -->
+    <link rel="preload" as="image" href="images/me.webp" type="image/webp" fetchpriority="high">
     <!-- Google Fonts: Cinzel for high-end headers, Inter for modern sleek body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,7 +104,7 @@
             <div class="portrait-column">
                 <div class="portrait-stage">
                     <div class="portrait-frame">
-                        <img src="me.jpg" alt="Arnelius Sto. Tomas holding certificates" class="profile-portrait">
+                        <img src="images/me.webp" alt="Arnelius Sto. Tomas holding certificates" class="profile-portrait" width="720" height="960" fetchpriority="high" decoding="async">
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 ## Structure
 - This is a static portfolio site. `index.html` contains the page markup and inline JavaScript; `styles.css` contains the styling.
-- `me.jpg` is the local portrait asset referenced by the page.
+- `images/me.webp` is the local portrait asset referenced by the page. All pictures are WebP in `images/`; `images/bg/` holds the smaller copies used as achievement card backgrounds (full-size copies in `images/` open in the photo viewer).
 - There is no package manager, build step, or automated test suite in this project. Avoid adding frameworks or dependencies for small changes.
 
 ## Editing

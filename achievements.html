@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Achievements | A. S. T.</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Start downloading the first photo of each card right away -->
+    <link rel="preload" as="image" href="images/bg/awards-elementary.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="images/bg/awards-junior-high.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="images/bg/awards-senior-high.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="images/bg/awards-college.webp" type="image/webp" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
@@ -43,9 +48,9 @@
             <h1 class="profile-name">Achievements <span class="highlight-surname">Through the Years</span></h1>
 
             <div class="ach-grid">
-                <article class="about-detail ach-card" style="--ach-photo: url('awards-elementary.jpg')">
+                <article class="about-detail ach-card" style="--ach-photo: url('images/bg/awards-elementary.webp')">
                     <header class="ach-head">
-                        <div class="ach-badge"><img src="slsc.png" alt="Saint Louis School Inc. Center logo"></div>
+                        <div class="ach-badge"><img src="images/slsc.webp" alt="Saint Louis School Inc. Center logo" width="188" height="192"></div>
                         <div>
                             <h2>Elementary</h2>
                             <p class="ach-meta">Saint Louis School Inc. Center (SLSCI) &middot; SY 2014 &ndash; 2020</p>
@@ -60,15 +65,15 @@
                         <li class="ach-group">Co-Curricular</li>
                         <li><strong>Top 5 Finalist</strong> (School-Level), Quiz Bee &amp; Math Quiz Bee (Grade 4, 2017)</li>
                     </ul>
-                    <button class="ach-photo-btn" type="button" data-photos="awards-elementary.jpg" data-titles="Elementary awards">
+                    <button class="ach-photo-btn" type="button" data-photos="images/awards-elementary.webp|images/recognition-2019.webp|images/recognition-2018.webp" data-titles="Elementary awards|2019 Recognition|2018 Recognition">
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
                     <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Maricris Dipasupil, Jeanette Sioco Manansala - SLSCI Teachers and Advisers</p>
                 </article>
-                <article class="about-detail ach-card" style="--ach-photo: url('awards-junior-high.jpg')">
+                <article class="about-detail ach-card" style="--ach-photo: url('images/bg/awards-junior-high.webp')">
                     <header class="ach-head">
-                        <div class="ach-badge"><img src="saint-louis-aurora-hill.png" alt="Saint Louis School of Aurora Hill logo"></div>
+                        <div class="ach-badge"><img src="images/saint-louis-aurora-hill.webp" alt="Saint Louis School of Aurora Hill logo" width="161" height="192"></div>
                         <div>
                             <h2>Junior High</h2>
                             <p class="ach-meta">Saint Louis School of Aurora Hill (SLSAH) &middot; SY 2020 &ndash; 2024</p>
@@ -85,15 +90,15 @@
                         <li class="ach-group">Co-Curricular</li>
                         <li>Intramurals 2023: <strong>1st Place</strong>, Impromptu Speech &amp; Debate</li>
                     </ul>
-                    <button class="ach-photo-btn" type="button" data-photos="awards-junior-high.jpg|awards-jhs-2nd-place.jpg|awards-jhs-overall.jpg" data-titles="Junior High awards|2nd Place Unit Champion Award|Overall Awards and Medals">
+                    <button class="ach-photo-btn" type="button" data-photos="images/awards-junior-high.webp|images/awards-jhs-2nd-place.webp|images/awards-jhs-overall.webp|images/grade-10-graduation.webp" data-titles="Junior High awards|2nd Place Unit Champion Award|Overall Awards and Medals|Grade 10 Graduation">
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
                     <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Urixon Babalque - SLSAH Teacher and Adviser</p>
                 </article>
-                <article class="about-detail ach-card" style="--ach-photo: url('awards-senior-high.jpg')">
+                <article class="about-detail ach-card" style="--ach-photo: url('images/bg/awards-senior-high.webp')">
                     <header class="ach-head">
-                        <div class="ach-badge"><img src="ub.png" alt="University of Baguio logo"></div>
+                        <div class="ach-badge"><img src="images/ub.webp" alt="University of Baguio logo" width="192" height="192"></div>
                         <div>
                             <h2>Senior High</h2>
                             <p class="ach-meta">University of Baguio &middot; HUMSS Strand &middot; SY 2024 &ndash; 2026</p>
@@ -110,15 +115,15 @@
                         <li>Participant, <strong>Takbo Kontra Droga Fun Run 2025</strong> (<strong>10th Place</strong>)</li>
                         <li>Participant, <strong>Takbo Kontra Droga Fun Run 2026</strong> (<strong>5th Place</strong>)</li>
                     </ul>
-                    <button class="ach-photo-btn" type="button" data-photos="awards-senior-high.jpg|prosecutor-office-group.jpg|prosecutor-office-data.jpg|immersion-certificate.png" data-titles="Senior High awards|Prosecutor&rsquo;s Office Group Photo|Organization of Data|Work Immersion certificate">
+                    <button class="ach-photo-btn" type="button" data-photos="images/awards-senior-high.webp|images/with-highest-honors.webp|images/grade-11-graduation.webp|images/takbo-kontra-droga-2025.webp|images/prosecutor-office-group.webp|images/prosecutor-office-data.webp|images/immersion-certificate.webp" data-titles="Senior High awards|With Highest Honors|Grade 11 Graduation|Takbo Kontra Droga 2025 Run|Prosecutor&rsquo;s Office Group Photo|Organization of Data|Work Immersion certificate">
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
-                    <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Michael B. Benter - TNCCUL1 Teacher, Yngson Yngson - UBHS Teacher and Adviser</p>
+                    <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Mint Verdant - TNCCUL1 Teacher and Research Adviser, Yngson Yngson - UBSHS Teacher and Adviser</p>
                 </article>
-                <article class="about-detail ach-card" style="--ach-photo: url('awards-college.jpg')">
+                <article class="about-detail ach-card" style="--ach-photo: url('images/bg/awards-college.webp')">
                     <header class="ach-head">
-                        <div class="ach-badge"><img src="uc.png" alt="University of the Cordilleras logo"></div>
+                        <div class="ach-badge"><img src="images/uc.webp" alt="University of the Cordilleras logo" width="115" height="192"></div>
                         <div>
                             <h2>College</h2>
                             <p class="ach-meta">University of the Cordilleras &middot; CITCS &ndash; ERP Track &middot; SY 2026 &ndash; Present</p>
@@ -133,7 +138,7 @@
                         <li class="ach-group">Co-Curricular</li>
                         <li><strong>Best Presenter</strong>, The Work Behind the Luck Seminar</li>
                     </ul>
-                    <button class="ach-photo-btn" type="button" data-photos="awards-college.jpg|citcs-1e-certificate.png" data-titles="All awards so far|CITCS 1E certificate">
+                    <button class="ach-photo-btn" type="button" data-photos="images/awards-college.webp|images/citcs-1e-certificate.webp" data-titles="All awards so far|CITCS 1E certificate">
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
@@ -197,36 +202,100 @@
                 });
             });
 
-            /* Background photos: cycle through each card's "View photo" pictures every 3 seconds */
+            /* Background photos.
+               Each card steps through its own pictures every 3 seconds. A card that runs out of
+               pictures goes back to its 1st one and waits there; once the card with the most
+               pictures has finished, every card shows its 1st picture together and the loop restarts.
+               The loop only starts after every picture has finished loading, so nothing is ever late. */
+            var STEP_MS = 3000;
             /* Per-photo background positioning (picture position only): px = horizontal %, sx = nudge, + moves right */
             var bgPos = {
-                'prosecutor-office-group.jpg': { sx: 63 },
-                'prosecutor-office-data.jpg': { px: '100%', sx: -60 },
-                'immersion-certificate.png': { px: '0%', sx: 30 },
-                'citcs-1e-certificate.png': { px: '15%' }
+                'prosecutor-office-group.webp': { sx: 63 },
+                'prosecutor-office-data.webp': { px: '100%', sx: -60 },
+                'immersion-certificate.webp': { px: '0%', sx: 30 },
+                'citcs-1e-certificate.webp': { px: '15%' },
+                /* portrait photos: py = vertical % so the crop lands on the faces */
+                'recognition-2019.webp': { py: '45%' },
+                'recognition-2018.webp': { py: '38%' },
+                'with-highest-honors.webp': { py: '12%' },
+                'grade-11-graduation.webp': { py: '58%' },
+                'takbo-kontra-droga-2025.webp': { py: '35%' },
+                'grade-10-graduation.webp': { py: '42%' }
             };
             var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            /* the card background uses the small copy in images/bg/; the viewer above uses the full-size one */
+            function bgUrl(src) { return src.replace('images/', 'images/bg/'); }
+
+            var rotators = [];
             document.querySelectorAll('.ach-card').forEach(function (card) {
                 var btn = card.querySelector('.ach-photo-btn');
                 if (!btn) return;
-                var list = btn.dataset.photos.split('|');
-                if (list.length < 2) return;
-                list.forEach(function (src) { new Image().src = src; });
-                var current = 0;
-                setInterval(function () {
-                    if (document.hidden) return;
-                    current = (current + 1) % list.length;
-                    var apply = function () {
-                        var pos = bgPos[list[current]] || {};
-                        card.style.setProperty('--ach-photo', "url('" + list[current] + "')");
-                        if (pos.px) card.style.setProperty('--ach-px', pos.px); else card.style.removeProperty('--ach-px');
-                        if (pos.sx) card.style.setProperty('--ach-sx', pos.sx); else card.style.removeProperty('--ach-sx');
-                        card.classList.remove('ach-swap');
-                    };
-                    if (reduceMotion) { apply(); return; }
-                    card.classList.add('ach-swap');
-                    setTimeout(apply, 450);
-                }, 3000);
+                var list = btn.dataset.photos.split('|').map(bgUrl);
+                if (list.length > 1) rotators.push({ card: card, list: list, current: 0 });
+            });
+
+            function showPhoto(r, i) {
+                r.current = i;
+                var src = r.list[i];
+                var apply = function () {
+                    var pos = bgPos[src.split('/').pop()] || {};
+                    r.card.style.setProperty('--ach-photo', "url('" + src + "')");
+                    if (pos.px) r.card.style.setProperty('--ach-px', pos.px); else r.card.style.removeProperty('--ach-px');
+                    if (pos.sx) r.card.style.setProperty('--ach-sx', pos.sx); else r.card.style.removeProperty('--ach-sx');
+                    if (pos.py) r.card.style.setProperty('--ach-py', pos.py); else r.card.style.removeProperty('--ach-py');
+                    r.card.classList.remove('ach-swap');
+                };
+                if (reduceMotion) { apply(); return; }
+                r.card.classList.add('ach-swap');
+                setTimeout(apply, 450);
+            }
+
+            if (rotators.length) {
+                var rounds = Math.max.apply(null, rotators.map(function (r) { return r.list.length; }));
+                var step = 0;
+                var started = false;
+                var keep = [];
+
+                var startLoop = function () {
+                    if (started) return;
+                    started = true;
+                    setInterval(function () {
+                        if (document.hidden) return;
+                        step = (step + 1) % rounds;
+                        rotators.forEach(function (r) {
+                            /* past its last picture -> back to the 1st and wait for the other cards */
+                            var target = step < r.list.length ? step : 0;
+                            if (target !== r.current) showPhoto(r, target);
+                        });
+                    }, STEP_MS);
+                };
+
+                var loadAll = function () {
+                    var jobs = [];
+                    rotators.forEach(function (r) {
+                        r.list.forEach(function (src) {
+                            jobs.push(new Promise(function (done) {
+                                var im = new Image();
+                                im.onload = im.onerror = function () { done(); };
+                                im.src = src;
+                                keep.push(im);
+                            }));
+                        });
+                    });
+                    /* wait for every picture, but never longer than 10 s on a bad connection */
+                    Promise.race([Promise.all(jobs), new Promise(function (done) { setTimeout(done, 10000); })]).then(startLoop);
+                };
+
+                /* let the page and the first pictures finish before fetching the rest */
+                if (document.readyState === 'complete') loadAll();
+                else window.addEventListener('load', loadAll);
+            }
+
+            /* warm up the full-size viewer photo when someone is about to click "View photo" */
+            document.querySelectorAll('.ach-photo-btn').forEach(function (btn) {
+                var warm = function () { new Image().src = btn.dataset.photos.split('|')[0]; };
+                btn.addEventListener('pointerenter', warm, { once: true });
+                btn.addEventListener('focus', warm, { once: true });
             });
 
             prev.addEventListener('click', function () { show(index - 1); });
