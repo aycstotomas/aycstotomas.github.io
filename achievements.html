@@ -64,6 +64,7 @@
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
+                    <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Maricris Dipasupil, Jeanette Sioco Manansala - SLSCI Teachers and Advisers</p>
                 </article>
                 <article class="about-detail ach-card" style="--ach-photo: url('awards-junior-high.jpg')">
                     <header class="ach-head">
@@ -88,6 +89,7 @@
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
+                    <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Urixon Babalque - SLSAH Teacher and Adviser</p>
                 </article>
                 <article class="about-detail ach-card" style="--ach-photo: url('awards-senior-high.jpg')">
                     <header class="ach-head">
@@ -108,10 +110,11 @@
                         <li>Participant, <strong>Takbo Kontra Droga Fun Run 2025</strong> (<strong>10th Place</strong>)</li>
                         <li>Participant, <strong>Takbo Kontra Droga Fun Run 2026</strong> (<strong>5th Place</strong>)</li>
                     </ul>
-                    <button class="ach-photo-btn" type="button" data-photos="awards-senior-high.jpg|immersion-certificate.png|prosecutor-office-group.jpg|prosecutor-office-data.jpg" data-titles="Senior High awards|Work Immersion certificate|Prosecutor&rsquo;s Office Group Photo|Organization of Data">
+                    <button class="ach-photo-btn" type="button" data-photos="awards-senior-high.jpg|prosecutor-office-group.jpg|prosecutor-office-data.jpg|immersion-certificate.png" data-titles="Senior High awards|Prosecutor&rsquo;s Office Group Photo|Organization of Data|Work Immersion certificate">
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
+                    <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Michael B. Benter - TNCCUL1 Teacher, Yngson Yngson - UBHS Teacher and Adviser</p>
                 </article>
                 <article class="about-detail ach-card" style="--ach-photo: url('awards-college.jpg')">
                     <header class="ach-head">
@@ -134,6 +137,7 @@
                         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                         View photo
                     </button>
+                    <p class="ach-contact"><span class="ach-contact-label">For inquiries and validation: Facebook Contact:</span> Razielle Bernaldez - Publication Guild Adviser, Matthew Mozer - The Work Behind the Luck Organizer</p>
                 </article>
             </div>
         </section>
@@ -192,6 +196,39 @@
                     box.showModal();
                 });
             });
+
+            /* Background photos: cycle through each card's "View photo" pictures every 3 seconds */
+            /* Per-photo background positioning (picture position only): px = horizontal %, sx = nudge, + moves right */
+            var bgPos = {
+                'prosecutor-office-group.jpg': { sx: 63 },
+                'prosecutor-office-data.jpg': { px: '100%', sx: -60 },
+                'immersion-certificate.png': { px: '0%', sx: 30 },
+                'citcs-1e-certificate.png': { px: '15%' }
+            };
+            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            document.querySelectorAll('.ach-card').forEach(function (card) {
+                var btn = card.querySelector('.ach-photo-btn');
+                if (!btn) return;
+                var list = btn.dataset.photos.split('|');
+                if (list.length < 2) return;
+                list.forEach(function (src) { new Image().src = src; });
+                var current = 0;
+                setInterval(function () {
+                    if (document.hidden) return;
+                    current = (current + 1) % list.length;
+                    var apply = function () {
+                        var pos = bgPos[list[current]] || {};
+                        card.style.setProperty('--ach-photo', "url('" + list[current] + "')");
+                        if (pos.px) card.style.setProperty('--ach-px', pos.px); else card.style.removeProperty('--ach-px');
+                        if (pos.sx) card.style.setProperty('--ach-sx', pos.sx); else card.style.removeProperty('--ach-sx');
+                        card.classList.remove('ach-swap');
+                    };
+                    if (reduceMotion) { apply(); return; }
+                    card.classList.add('ach-swap');
+                    setTimeout(apply, 450);
+                }, 3000);
+            });
+
             prev.addEventListener('click', function () { show(index - 1); });
             next.addEventListener('click', function () { show(index + 1); });
             box.addEventListener('keydown', function (e) {
