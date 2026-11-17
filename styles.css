@@ -2252,3 +2252,468 @@ body.ach-body .ach-card:nth-child(4)::before {
         grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr);
     }
 }
+
+/* ============================================================
+   FAMILY AND FRIENDS PAGE (last page)
+   Four photo cards "hang" from a constellation of glowing stars.
+   Each card has a placeholder photo area, a tag and a short caption.
+   Same header, --u scaling and Back / Home buttons as the other pages,
+   and no scrolling on laptop / desktop.
+   ============================================================ */
+
+/* night sky behind the page (fixed, sits under the header and the cards) */
+.fr-sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 60% 45% at 50% 78%, rgba(100, 220, 245, 0.11), transparent 70%),
+        radial-gradient(ellipse 40% 35% at 8% 20%, rgba(125, 219, 234, 0.06), transparent 70%);
+}
+
+.fr-stars {
+    position: absolute;
+    inset: 0;
+    animation: fr-twinkle 5s ease-in-out infinite;
+}
+
+.fr-stars-a {
+    background:
+        radial-gradient(1.5px 1.5px at 6% 16%, #ffffff, transparent),
+        radial-gradient(1px 1px at 14% 62%, #d7faff, transparent),
+        radial-gradient(2px 2px at 23% 88%, #a5f3fc, transparent),
+        radial-gradient(1px 1px at 31% 30%, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 44% 94%, #d7faff, transparent),
+        radial-gradient(1px 1px at 57% 20%, #ffffff, transparent),
+        radial-gradient(2px 2px at 68% 72%, #a5f3fc, transparent),
+        radial-gradient(1px 1px at 79% 38%, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 88% 90%, #d7faff, transparent),
+        radial-gradient(1px 1px at 96% 55%, #ffffff, transparent);
+}
+
+.fr-stars-b {
+    animation-delay: -2.5s;
+    animation-duration: 7s;
+    background:
+        radial-gradient(1px 1px at 3% 46%, #ffffff, transparent),
+        radial-gradient(2px 2px at 11% 8%, #a5f3fc, transparent),
+        radial-gradient(1px 1px at 19% 74%, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 38% 12%, #d7faff, transparent),
+        radial-gradient(1px 1px at 51% 66%, #ffffff, transparent),
+        radial-gradient(2px 2px at 63% 8%, #a5f3fc, transparent),
+        radial-gradient(1px 1px at 74% 84%, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 84% 14%, #d7faff, transparent),
+        radial-gradient(1px 1px at 93% 30%, #ffffff, transparent),
+        radial-gradient(1px 1px at 99% 80%, #d7faff, transparent);
+}
+
+@keyframes fr-twinkle {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+}
+
+.fr-body .about-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* the row of hanging cards */
+.fr-stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+    align-items: start;
+    margin-top: 0.5rem;
+    padding-top: 0.9rem;
+    box-sizing: border-box;
+}
+
+/* constellation threads between the four stars */
+.fr-threads {
+    position: absolute;
+    top: 0.9rem;
+    left: 0;
+    width: 100%;
+    height: 2.25rem;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.fr-threads path {
+    fill: none;
+    stroke: rgba(165, 243, 252, 0.55);
+    stroke-width: 1.5;
+    stroke-dasharray: 2 7;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 4px rgba(125, 219, 234, 0.8));
+}
+
+/* one hanging photo card */
+.fr-card {
+    --dy: 0;
+    --rot: 0deg;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 2.25rem);
+    margin: 0 0.9rem;
+    padding: 0.75rem 0.75rem 0;
+    box-sizing: border-box;
+    border: 1px solid rgba(165, 243, 252, 0.28);
+    border-radius: 10px;
+    background: linear-gradient(165deg, rgba(165, 243, 252, 0.13), rgba(165, 243, 252, 0.04) 55%, rgba(2, 12, 27, 0.35));
+    backdrop-filter: blur(8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    transform-origin: 50% 0;
+    rotate: var(--rot);
+    translate: 0 calc(var(--dy) * 1px);
+    transition: rotate 0.5s cubic-bezier(0.16, 1, 0.3, 1), translate 0.5s cubic-bezier(0.16, 1, 0.3, 1), scale 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: fr-drop 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(0.15s + var(--i, 0) * 0.14s) backwards;
+}
+
+.fr-card:hover {
+    z-index: 2;
+    rotate: 0deg;
+    scale: 1.035;
+    border-color: rgba(165, 243, 252, 0.75);
+    box-shadow: 0 0 30px rgba(125, 219, 234, 0.32), 0 26px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fr-drop {
+    from {
+        opacity: 0;
+        translate: 0 calc(var(--dy) * 1px - 60px);
+        rotate: calc(var(--rot) * -3);
+    }
+}
+
+/* glowing star the card hangs from */
+.fr-pin {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0 30%, #a5f3fc 45%, rgba(165, 243, 252, 0) 72%);
+    translate: -50% -50%;
+    box-shadow: 0 0 12px 3px rgba(125, 219, 234, 0.7);
+    animation: fr-pin-pulse 3.2s ease-in-out infinite;
+}
+
+.fr-card:nth-of-type(2n) .fr-pin { animation-delay: -1.6s; }
+
+.fr-card:hover .fr-pin {
+    box-shadow: 0 0 20px 6px rgba(165, 243, 252, 0.95);
+}
+
+@keyframes fr-pin-pulse {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+}
+
+/* photo area (placeholder until a real <img> is added) */
+.fr-photo {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
+    border: 1.5px dashed rgba(165, 243, 252, 0.45);
+    border-radius: 6px;
+    background: rgba(2, 12, 27, 0.5);
+}
+
+.fr-photo:has(img) { border-style: solid; border-color: rgba(165, 243, 252, 0.2); }
+
+.fr-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fr-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(125, 219, 234, 0.22), transparent 62%),
+        repeating-linear-gradient(135deg, rgba(165, 243, 252, 0.05) 0 10px, transparent 10px 20px);
+}
+
+.fr-ph-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 0.4rem;
+    border: 1px solid rgba(165, 243, 252, 0.55);
+    border-radius: 50%;
+    background: rgba(165, 243, 252, 0.1);
+    color: #a5f3fc;
+    box-shadow: 0 0 22px rgba(125, 219, 234, 0.35);
+}
+
+.fr-ph-icon::after {
+    content: '';
+    position: absolute;
+    inset: -9px;
+    border: 1px solid rgba(165, 243, 252, 0.3);
+    border-radius: 50%;
+    animation: fr-ring 3s ease-out infinite;
+}
+
+@keyframes fr-ring {
+    from { opacity: 0.9; scale: 0.9; }
+    to { opacity: 0; scale: 1.35; }
+}
+
+.fr-ph-icon svg {
+    width: 52%;
+    height: 52%;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+}
+
+.fr-ph-title {
+    color: rgba(165, 243, 252, 0.7);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.fr-ph-hint {
+    color: #d6e1ef;
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+/* tag + caption under each photo */
+.fr-card figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.8rem 0.35rem 0.9rem;
+}
+
+.fr-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: rgba(165, 243, 252, 0.85);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.fr-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(165, 243, 252, 0.4), transparent);
+}
+
+.fr-caption {
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    line-height: 1.25;
+    text-shadow: 0 1px 10px rgba(5, 15, 32, 0.85);
+}
+
+/* ---- laptop / desktop: uniform scaling, fills the space left under the header, no scroll ---- */
+@media (min-width: 769px) {
+    body.fr-body .about-page {
+        --u: min(0.052083vw, 0.0925vh);
+        justify-content: flex-start;
+        padding: calc(100 * var(--u)) 0 calc(70 * var(--u));
+    }
+
+    body.fr-body .about-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+    }
+
+    body.fr-body .about-content .profile-greeting {
+        flex: none;
+        margin: 0 0 calc(3 * var(--u));
+        font-size: calc(26 * var(--u));
+        line-height: 1.4;
+    }
+
+    body.fr-body .about-content .profile-name {
+        flex: none;
+        margin: 0 0 calc(6 * var(--u));
+        font-size: calc(60 * var(--u));
+        line-height: 1.05;
+        white-space: nowrap;
+    }
+
+    body.fr-body .fr-stage {
+        flex: 1 1 0;
+        min-height: 0;
+        margin-top: 0;
+        padding-top: calc(20 * var(--u));
+    }
+
+    body.fr-body .fr-threads {
+        top: calc(20 * var(--u));
+        height: calc(36 * var(--u));
+    }
+
+    body.fr-body .fr-card {
+        height: calc(100% - 52 * var(--u));
+        margin: 0 calc(24 * var(--u));
+        padding: calc(12 * var(--u)) calc(12 * var(--u)) 0;
+        border-radius: calc(12 * var(--u));
+        translate: 0 calc(var(--dy) * var(--u));
+    }
+
+    body.fr-body .fr-pin {
+        width: calc(16 * var(--u));
+        height: calc(16 * var(--u));
+    }
+
+    body.fr-body .fr-photo { border-radius: calc(8 * var(--u)); }
+
+    body.fr-body .fr-placeholder { gap: calc(8 * var(--u)); padding: calc(16 * var(--u)); }
+
+    body.fr-body .fr-ph-icon {
+        width: calc(96 * var(--u));
+        height: calc(96 * var(--u));
+        margin-bottom: calc(8 * var(--u));
+    }
+
+    body.fr-body .fr-ph-icon::after { inset: calc(-10 * var(--u)); }
+
+    body.fr-body .fr-ph-title { font-size: calc(13 * var(--u)); }
+    body.fr-body .fr-ph-hint { font-size: calc(21 * var(--u)); }
+
+    body.fr-body .fr-card figcaption {
+        gap: calc(6 * var(--u));
+        padding: calc(14 * var(--u)) calc(8 * var(--u)) calc(16 * var(--u));
+    }
+
+    body.fr-body .fr-tag { font-size: calc(13 * var(--u)); gap: calc(10 * var(--u)); }
+    body.fr-body .fr-caption { font-size: calc(24 * var(--u)); }
+
+    @keyframes fr-drop {
+        from {
+            opacity: 0;
+            translate: 0 calc(var(--dy) * var(--u) - 60 * var(--u));
+            rotate: calc(var(--rot) * -3);
+        }
+    }
+}
+
+/* ---- phones: normal scrolling 2 x 2 stack ---- */
+@media (max-width: 768px) {
+    body.fr-body {
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
+    }
+
+    body.fr-body .about-page { height: auto; padding-bottom: 5rem; }
+    body.fr-body .about-content .profile-name { font-size: 2rem; }
+
+    body.fr-body .fr-stage {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+        gap: 1.1rem 0.7rem;
+        padding-top: 0.5rem;
+    }
+
+    body.fr-body .fr-threads { display: none; }
+
+    body.fr-body .fr-card {
+        height: auto;
+        margin: 0;
+        padding: 0.45rem 0.45rem 0;
+        translate: none;
+    }
+
+    body.fr-body .fr-photo { flex: none; aspect-ratio: 4 / 5; }
+    body.fr-body .fr-ph-icon { width: 3rem; height: 3rem; }
+    body.fr-body .fr-ph-icon::after { inset: -6px; }
+    body.fr-body .fr-ph-title { font-size: 0.55rem; letter-spacing: 0.16em; }
+    body.fr-body .fr-ph-hint { font-size: 0.7rem; }
+    body.fr-body .fr-card figcaption { padding: 0.5rem 0.2rem 0.6rem; gap: 0.2rem; }
+    body.fr-body .fr-tag { font-size: 0.58rem; letter-spacing: 0.12em; }
+    body.fr-body .fr-caption { font-size: 0.78rem; }
+
+    @keyframes fr-drop {
+        from { opacity: 0; translate: 0 -30px; }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fr-card,
+    .fr-stars,
+    .fr-pin,
+    .fr-ph-icon::after {
+        animation: none;
+    }
+
+    .fr-card { transition: none; }
+}
+
+/* ---- emblems on each card: flowers (Mom), shields (Dad), puzzle pieces (Siblings), bridges (Friends) ---- */
+.fr-card { --m: 0.36px; }
+
+.fr-deco {
+    position: absolute;
+    z-index: 4;
+    width: calc(var(--w) * var(--m));
+    height: calc(var(--h) * var(--m));
+    overflow: visible;
+    color: #a5f3fc;
+    fill: rgba(165, 243, 252, 0.16);
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+    rotate: var(--r, 0deg);
+    filter: drop-shadow(0 0 calc(6 * var(--m)) rgba(125, 219, 234, 0.65));
+    transition: scale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fr-float 6s ease-in-out var(--d, 0s) infinite;
+}
+
+.fr-deco.tl { top: calc(var(--oy) * var(--m)); left: calc(var(--ox) * var(--m)); }
+.fr-deco.tr { top: calc(var(--oy) * var(--m)); right: calc(var(--ox) * var(--m)); }
+.fr-deco.bl { bottom: calc(var(--oy) * var(--m)); left: calc(var(--ox) * var(--m)); }
+.fr-deco.br { bottom: calc(var(--oy) * var(--m)); right: calc(var(--ox) * var(--m)); }
+.fr-deco.flip { transform: scaleX(-1); }
+
+.fr-card:hover .fr-deco { scale: 1.1; }
+
+@keyframes fr-float {
+    50% { translate: 0 calc(-4 * var(--m)); }
+}
+
+@media (min-width: 769px) {
+    body.fr-body .fr-card { --m: var(--u); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fr-deco { animation: none; transition: none; }
+}
