@@ -2914,3 +2914,101 @@ body.ach-body .ach-card:nth-child(4)::before {
         filter: none;
     }
 }
+
+
+/* ---- emblems in the empty side space: flower (mom), shield (dad), puzzle piece (siblings), bridge (friends) ---- */
+.fr-emblem { display: none; }
+
+@media (min-width: 769px) {
+    .fr-emblem {
+        --size: calc(112 * var(--k));
+        position: absolute;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: var(--size);
+        height: var(--size);
+        box-sizing: border-box;
+        border: var(--line) solid rgba(165, 243, 252, 0.8);
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 40%, #0c2a4d, #071a33 70%);
+        color: #a5f3fc;
+        box-shadow: 0 0 calc(22 * var(--k)) rgba(125, 219, 234, 0.5), inset 0 0 calc(18 * var(--k)) rgba(125, 219, 234, 0.12);
+        pointer-events: none;
+        animation: fr-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) calc(0.5s + var(--e, 0) * 0.12s) backwards;
+    }
+
+    /* thin outer ring, like the disc rings on the cases */
+    .fr-emblem::before {
+        content: '';
+        position: absolute;
+        inset: calc(-9 * var(--k));
+        border: 1px solid rgba(165, 243, 252, 0.3);
+        border-radius: 50%;
+    }
+
+    /* circuit line from the emblem to the loop beside the cases */
+    .fr-emblem::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: calc(66 * var(--k));
+        height: var(--line);
+        background: rgba(165, 243, 252, 0.75);
+        box-shadow: 0 0 calc(8 * var(--k)) rgba(125, 219, 234, 0.9);
+        translate: 0 -50%;
+    }
+
+    .fr-emblem svg {
+        width: calc(58 * var(--k));
+        height: calc(58 * var(--k));
+        overflow: visible;
+        fill: rgba(165, 243, 252, 0.16);
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 calc(5 * var(--k)) rgba(125, 219, 234, 0.85));
+    }
+
+    .fr-em-shield svg { width: calc(50 * var(--k)); height: calc(58 * var(--k)); }
+    .fr-em-bridge svg { width: calc(84 * var(--k)); height: calc(41 * var(--k)); }
+
+    /* rows sit on the circuit lines: row 1 at 145, row 2 at 543 */
+    .fr-emblem.em-top { top: calc(145 * var(--k) - var(--size) / 2); --e: 0; }
+    .fr-emblem.em-bot { top: calc(543 * var(--k) - var(--size) / 2); --e: 2; }
+
+    /* centred in the empty margin outside the loops (line ends at the loop) */
+    .fr-emblem.em-l { left: calc(-110 * var(--k) - var(--size) / 2); }
+    .fr-emblem.em-r { right: calc(-110 * var(--k) - var(--size) / 2); }
+    .fr-emblem.em-l::after { left: 100%; }
+    .fr-emblem.em-r::after { right: 100%; }
+    .fr-emblem.em-r.em-top { --e: 1; }
+    .fr-emblem.em-r.em-bot { --e: 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fr-emblem { animation: none; }
+}
+
+/* names under the emblems (laptop / desktop) */
+@media (min-width: 769px) {
+    .fr-em-name {
+        position: absolute;
+        top: calc(100% + 22 * var(--k));
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(8 * var(--k));
+        width: calc(220 * var(--k));
+        translate: -50% 0;
+        color: #d7faff;
+        font-family: 'Cinzel', serif;
+        font-size: calc(17 * var(--k));
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        line-height: 1.25;
+        text-align: center;
+        text-shadow: 0 0 calc(12 * var(--k)) rgba(125, 219, 234, 0.65), 0 1px 10px rgba(5, 15, 32, 0.85);
+    }
+}
