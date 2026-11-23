@@ -2423,10 +2423,6 @@ body.ach-body .ach-card:nth-child(4)::before {
     transition: translate 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
-.fr-card:hover .fr-case {
-    translate: 0 calc(-6 * var(--k));
-    filter: drop-shadow(0 0 calc(16 * var(--k)) rgba(125, 219, 234, 0.45));
-}
 
 .fr-half {
     position: relative;
@@ -2636,7 +2632,6 @@ body.ach-body .ach-card:nth-child(4)::before {
     background: rgba(2, 12, 27, 0.95);
 }
 
-.fr-card:hover .fr-disc { animation: fr-spin 9s linear infinite; }
 
 @keyframes fr-spin { to { rotate: 360deg; } }
 
@@ -2772,7 +2767,7 @@ body.ach-body .ach-card:nth-child(4)::before {
     .fr-stars,
     .fr-hub,
     .fr-ph-icon::after,
-    .fr-card:hover .fr-disc { animation: none; }
+
 
     .fr-case { transition: none; }
 }
@@ -2786,23 +2781,63 @@ body.ach-body .ach-card:nth-child(4)::before {
 .fr-photo.is-wide::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(14px) brightness(0.6); }
 .fr-photo img.fit-wide { position: relative; object-fit: contain; }
 
-/* closed: only the cover is visible, centred; open: cover slides left and the disc tray appears */
-.fr-cover { transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.fr-tray, .fr-hinge { transition: opacity 0.45s ease 0.1s, translate 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.fr-card:not(.is-open) .fr-cover { translate: calc(155 * var(--k)) 0; }
-.fr-card:not(.is-open) .fr-tray { opacity: 0; translate: calc(-155 * var(--k)) 0; transition-delay: 0s; }
-.fr-card:not(.is-open) .fr-hinge { opacity: 0; transition-delay: 0s; }
-.fr-card:not(.is-open) .fr-case { filter: drop-shadow(0 0 calc(10 * var(--k)) rgba(125, 219, 234, 0.25)); }
-
-@media (hover: hover) {
-    .fr-card:hover .fr-cover { translate: 0 0; }
-    .fr-card:hover .fr-tray { opacity: 1; translate: 0 0; transition-delay: 0.1s; }
-    .fr-card:hover .fr-hinge { opacity: 1; transition-delay: 0.1s; }
+/* ---- opening animation: the case starts closed (cover lying over the disc side) and the cover swings open on its spine like a book ---- */
+.fr-case { perspective: calc(1500 * var(--k)); transition: translate 1.3s cubic-bezier(0.45, 0, 0.2, 1), filter 0.6s ease; }
+.fr-card:not(.is-open) .fr-case {
+    translate: calc(-155 * var(--k)) 0;
+    filter: drop-shadow(0 0 calc(12 * var(--k)) rgba(125, 219, 234, 0.35));
 }
+
+/* the cover is a two-sided leaf hinged on the spine (its right edge) */
+.fr-half.fr-cover {
+    z-index: 2;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    transform-style: preserve-3d;
+    transform-origin: 100% 50%;
+    transform: translateX(0) rotateY(0deg);
+    transition: transform 1.3s cubic-bezier(0.45, 0, 0.2, 1);
+}
+.fr-half.fr-cover::after { display: none; }
+.fr-card:not(.is-open) .fr-half.fr-cover { transform: translateX(calc(20 * var(--k))) rotateY(180deg); }
+
+.fr-face {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    padding: calc(20 * var(--k)) calc(18 * var(--k)) calc(20 * var(--k)) calc(40 * var(--k));
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backdrop-filter: none;
+}
+.fr-back { transform: rotateY(180deg); }
+
+/* disc side and spine appear as the cover lifts off them */
+.fr-tray, .fr-hinge { z-index: 1; transition: opacity 0.5s ease 0.5s; }
+.fr-card:not(.is-open) .fr-tray,
+.fr-card:not(.is-open) .fr-hinge { opacity: 0; transition: opacity 0.2s ease 0s; }
+
+/* circuit lines keep touching the case while it is closed and centred */
+.fr-card::before { transition: width 1.3s cubic-bezier(0.45, 0, 0.2, 1), left 1.3s cubic-bezier(0.45, 0, 0.2, 1), right 1.3s cubic-bezier(0.45, 0, 0.2, 1); }
+.fr-card.is-left:not(.is-open)::before { left: calc(100% - 155 * var(--k)); width: calc(205 * var(--k)); }
+.fr-card.is-right:not(.is-open)::before { right: calc(100% - 155 * var(--k)); width: calc(205 * var(--k)); }
+
+/* emblem badge stays centred over the cover while the case is closed */
+.fr-badge { transition: translate 1.3s cubic-bezier(0.45, 0, 0.2, 1); }
+.fr-card:not(.is-open) .fr-badge { translate: calc(-50% + 155 * var(--k)) 0; }
+
+/* discs spin once the case is open */
+.fr-card.is-open .fr-disc { animation: fr-spin 9s linear infinite; }
+.fr-card.is-open .fr-disc.has-video { animation: none; }
+
 .fr-card:focus-visible .fr-half { border-color: #fff; }
 
 @media (prefers-reduced-motion: reduce) {
-    .fr-cover, .fr-tray, .fr-hinge { transition: none; }
+    .fr-case, .fr-half.fr-cover, .fr-tray, .fr-hinge, .fr-badge, .fr-card::before { transition: none; }
+    .fr-card.is-open .fr-disc { animation: none; }
 }
 .fr-case { flex: none; }
 .fr-photo.is-wide::before { backdrop-filter: blur(10px) brightness(0.85); }
@@ -2829,4 +2864,53 @@ body.ach-body .ach-card:nth-child(4)::before {
         linear-gradient(135deg, rgba(165, 243, 252, 0.18), transparent 45%);
     pointer-events: none;
 }
-.fr-card:hover .fr-disc.has-video { animation: none; }
+
+
+/* HOMEPAGE FULL-BODY PORTRAIT (laptop and desktop): studio photo feathered into the night-sky background, no hard edges, sized by viewport height so nothing scrolls */
+@media (min-width: 769px) {
+    body:not(.about-body):not(.ach-body):not(.fr-body) .hero-right-media {
+        flex: 0 0 auto;
+        align-self: stretch;
+        align-items: center;
+        justify-content: flex-end;
+        padding-top: calc(6 * var(--u, 1px));
+        padding-right: clamp(0rem, 5vw, 6rem);
+        padding-bottom: calc(52 * var(--u, 1px));
+    }
+    body:not(.about-body):not(.ach-body):not(.fr-body) .portrait-column {
+        width: auto;
+        max-width: none;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    body:not(.about-body):not(.ach-body):not(.fr-body) .portrait-stage {
+        width: auto;
+        height: 100%;
+        aspect-ratio: 798 / 1309;
+        overflow: visible;
+    }
+    /* faint cyan light behind the photo to keep the site's glow */
+    body:not(.about-body):not(.ach-body):not(.fr-body) .portrait-stage::before {
+        inset: 10% -40% 6%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse at 50% 48%, rgba(100, 220, 245, 0.22), transparent 70%);
+        filter: blur(40px);
+    }
+    body:not(.about-body):not(.ach-body):not(.fr-body) .portrait-frame {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: auto;
+        background: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+        overflow: visible;
+    }
+    body:not(.about-body):not(.ach-body):not(.fr-body) .profile-portrait {
+        object-fit: contain;
+        object-position: center;
+        filter: none;
+    }
+}
