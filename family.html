@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="about-body fr-body">
-    <!-- decorative emblems reused on the cards (flower, shield, puzzle piece, bridge, vine) -->
+    <!-- decorative emblems reused on the cards (flower, shield, puzzle piece, bridge) -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
         <defs>
             <symbol id="fr-flower" viewBox="0 0 48 48">
@@ -44,12 +44,6 @@
                     <path d="M24 35V50M96 35V50"/>
                     <path d="M0 52 q5 -4 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0" stroke-width="1.3" opacity="0.7"/>
                 </g>
-            </symbol>
-            <symbol id="fr-vine" viewBox="0 0 160 26">
-                <path d="M0 14C20 4 40 24 60 14S100 4 120 14 150 22 160 14" fill="none" stroke-width="1.3"/>
-                <use href="#fr-flower" x="22" y="2" width="20" height="20"/>
-                <use href="#fr-flower" x="70" y="3" width="16" height="16"/>
-                <use href="#fr-flower" x="116" y="2" width="20" height="20"/>
             </symbol>
         </defs>
     </svg>
@@ -88,101 +82,105 @@
             <p class="profile-greeting">The people behind the journey</p>
             <h1 class="profile-name">Family <span class="highlight-surname">and Friends</span></h1>
 
-            <!--
-                HOW TO ADD YOUR PHOTOS
-                1. Save each picture as a .webp in the project root (same folder as this file).
-                2. Inside a card, delete the <div class="fr-placeholder"> block and uncomment the <img> line above it.
-                Suggested file names: family-mom.webp, family-dad.webp, family-siblings.webp, friends.webp
-            -->
-            <div class="fr-stage">
-                <!-- constellation threads that connect the four hanging stars -->
-                <svg class="fr-threads" viewBox="0 0 1000 34" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                    <path d="M125 0 L375 34 L625 0 L875 34" vector-effect="non-scaling-stroke"/>
-                </svg>
+<div class="fr-stage">
+                <!-- circuit lines that join the four DVD cases -->
+                <span class="fr-link fr-link-l" aria-hidden="true"></span>
+                <span class="fr-link fr-link-r" aria-hidden="true"></span>
+                <span class="fr-link fr-link-mid" aria-hidden="true"></span>
+                <span class="fr-hub" aria-hidden="true"></span>
 
                 <!-- MOM -->
-                <figure class="fr-card" style="--rot:-1.8deg; --dy:0; --i:0">
-                    <span class="fr-pin" aria-hidden="true"></span>
-                    <svg class="fr-deco tl" aria-hidden="true" focusable="false" viewBox="0 0 48 48" style="--w:80; --h:80; --ox:-26; --oy:-14; --r:-14deg; --d:0s"><use href="#fr-flower"/></svg>
-                    <svg class="fr-deco br" aria-hidden="true" focusable="false" viewBox="0 0 48 48" style="--w:62; --h:62; --ox:-26; --oy:-26; --r:18deg; --d:-2s"><use href="#fr-flower"/></svg>
-                    <svg class="fr-deco tl" aria-hidden="true" focusable="false" viewBox="0 0 160 26" style="--w:150; --h:24; --ox:70; --oy:-12; --r:0deg; --d:-1s"><use href="#fr-vine"/></svg>
-                    <svg class="fr-deco br flip" aria-hidden="true" focusable="false" viewBox="0 0 160 26" style="--w:150; --h:24; --ox:66; --oy:-12; --r:0deg; --d:-3s"><use href="#fr-vine"/></svg>
-                    <div class="fr-photo">
-                        <!-- <img src="family-mom.webp" alt="Arnelius hugging his mom" loading="lazy" decoding="async"> -->
-                        <div class="fr-placeholder">
-                            <span class="fr-ph-icon">
-                                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="8.5" cy="6.5" r="2.5"/><circle cx="15.5" cy="6.5" r="2.5"/><path d="M3.500 20v-3.500a5 5 0 0 1 5-5h7a5 5 0 0 1 5 5V20M9 15.500c1.800 1.600 4.200 1.600 6 0"/></svg>
-                            </span>
-                            <span class="fr-ph-title">Photo placeholder</span>
-                            <span class="fr-ph-hint">Me and Mom hugging each other</span>
+                <figure tabindex="0" role="button" aria-expanded="false" class="fr-card is-left" style="--i:0">
+                    <div class="fr-case">
+                        <span class="fr-badge" aria-hidden="true"><svg focusable="false" viewBox="0 0 48 48"><use href="#fr-flower"/></svg></span>
+                        <div class="fr-half fr-cover">
+                            <span class="fr-clip t" aria-hidden="true"></span>
+                            <span class="fr-clip m" aria-hidden="true"></span>
+                            <span class="fr-clip b" aria-hidden="true"></span>
+                            <div class="fr-photo">
+                                <img src="family-mom.webp" style="object-position:50% 32%" alt="Arnelius hugging his mom" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <span class="fr-hinge" aria-hidden="true"></span>
+                        <div class="fr-half fr-tray" aria-hidden="true">
+                            <span class="fr-disc has-video"><video style="object-position:68% 50%" src="family-mom.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-hubring"></span>
                         </div>
                     </div>
                     <figcaption>
-                        <span class="fr-tag">01 &middot; Mom</span>
+                        <span class="fr-tag">#1 - Mom</span>
                         <span class="fr-caption">Home is wherever her hug is.</span>
                     </figcaption>
                 </figure>
 
                 <!-- DAD -->
-                <figure class="fr-card" style="--rot:1.4deg; --dy:36; --i:1">
-                    <span class="fr-pin" aria-hidden="true"></span>
-                    <svg class="fr-deco tr" aria-hidden="true" focusable="false" viewBox="0 0 48 56" style="--w:74; --h:86; --ox:-16; --oy:-34; --r:8deg; --d:0s"><use href="#fr-shield"/></svg>
-                    <svg class="fr-deco br" aria-hidden="true" focusable="false" viewBox="0 0 48 56" style="--w:46; --h:54; --ox:-18; --oy:-24; --r:-8deg; --d:-2s"><use href="#fr-shield"/></svg>
-                    <div class="fr-photo">
-                        <!-- <img src="family-dad.webp" alt="Arnelius shaking hands with his dad" loading="lazy" decoding="async"> -->
-                        <div class="fr-placeholder">
-                            <span class="fr-ph-icon">
-                                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M2 9.500 6 7l4 1.200 2.500-1.200L16 8.200l2-1.200 4 2.500M2 9.500v6l4.500 2.500M22 9.500v6L17.500 18M6.500 18l2.500 1.500a1.600 1.600 0 0 0 2.200-.6M11.200 18.900l1 .6a1.600 1.600 0 0 0 2.200-.6M14.400 18.900l1.600-1.100M7 12.500l3.500 3a1.500 1.500 0 0 0 2.200-.2l3.800-4.800-3-1.800-4 1.600"/></svg>
-                            </span>
-                            <span class="fr-ph-title">Photo placeholder</span>
-                            <span class="fr-ph-hint">Me and Dad shaking hands</span>
+                <figure tabindex="0" role="button" aria-expanded="false" class="fr-card is-right" style="--i:1">
+                    <div class="fr-case">
+                        <span class="fr-badge" aria-hidden="true"><svg focusable="false" viewBox="0 0 48 56"><use href="#fr-shield"/></svg></span>
+                        <div class="fr-half fr-cover">
+                            <span class="fr-clip t" aria-hidden="true"></span>
+                            <span class="fr-clip m" aria-hidden="true"></span>
+                            <span class="fr-clip b" aria-hidden="true"></span>
+                            <div class="fr-photo">
+                                <img src="family-dad.webp" style="object-position:50% 42%" alt="Arnelius shaking hands with his dad" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <span class="fr-hinge" aria-hidden="true"></span>
+                        <div class="fr-half fr-tray" aria-hidden="true">
+                            <span class="fr-disc has-video"><video src="family-dad.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-hubring"></span>
                         </div>
                     </div>
                     <figcaption>
-                        <span class="fr-tag">02 &middot; Dad</span>
+                        <span class="fr-tag">#2 - Dad</span>
                         <span class="fr-caption">Strong hands, steady guidance.</span>
                     </figcaption>
                 </figure>
 
                 <!-- SIBLINGS -->
-                <figure class="fr-card" style="--rot:-1.2deg; --dy:0; --i:2">
-                    <span class="fr-pin" aria-hidden="true"></span>
-                    <svg class="fr-deco tl" aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="--w:78; --h:78; --ox:-18; --oy:-34; --r:-16deg; --d:0s"><use href="#fr-puzzle"/></svg>
-                    <svg class="fr-deco br" aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="--w:66; --h:66; --ox:-24; --oy:-30; --r:20deg; --d:-2s"><use href="#fr-puzzle"/></svg>
-                    <svg class="fr-deco tr" aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="--w:42; --h:42; --ox:-16; --oy:-22; --r:34deg; --d:-4s"><use href="#fr-puzzle"/></svg>
-                    <div class="fr-photo">
-                        <!-- <img src="family-siblings.webp" alt="Arnelius with his siblings" loading="lazy" decoding="async"> -->
-                        <div class="fr-placeholder">
-                            <span class="fr-ph-icon">
-                                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="6" r="2.5"/><circle cx="5" cy="8.500" r="2"/><circle cx="19" cy="8.500" r="2"/><path d="M7.500 20v-3.500a4.500 4.500 0 0 1 9 0V20zM1.500 19v-2.500A3.500 3.500 0 0 1 5 13M22.500 19v-2.500a3.500 3.500 0 0 0-3.500-3.500"/></svg>
-                            </span>
-                            <span class="fr-ph-title">Photo placeholder</span>
-                            <span class="fr-ph-hint">Me and my siblings</span>
+                <figure tabindex="0" role="button" aria-expanded="false" class="fr-card is-left" style="--i:2">
+                    <div class="fr-case">
+                        <span class="fr-badge" aria-hidden="true"><svg focusable="false" viewBox="0 0 24 24"><use href="#fr-puzzle"/></svg></span>
+                        <div class="fr-half fr-cover">
+                            <span class="fr-clip t" aria-hidden="true"></span>
+                            <span class="fr-clip m" aria-hidden="true"></span>
+                            <span class="fr-clip b" aria-hidden="true"></span>
+                            <div class="fr-photo">
+                                <img src="family-siblings.webp" style="object-position:50% 30%" alt="Arnelius with his siblings" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <span class="fr-hinge" aria-hidden="true"></span>
+                        <div class="fr-half fr-tray" aria-hidden="true">
+                            <span class="fr-disc has-video"><video src="family-siblings.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-hubring"></span>
                         </div>
                     </div>
                     <figcaption>
-                        <span class="fr-tag">03 &middot; Siblings</span>
+                        <span class="fr-tag">#3 - Siblings</span>
                         <span class="fr-caption">My first friends, my forever team.</span>
                     </figcaption>
                 </figure>
 
                 <!-- FRIENDS -->
-                <figure class="fr-card" style="--rot:1.8deg; --dy:36; --i:3">
-                    <span class="fr-pin" aria-hidden="true"></span>
-                    <svg class="fr-deco tr" aria-hidden="true" focusable="false" viewBox="0 0 120 58" style="--w:178; --h:86; --ox:-26; --oy:-52; --r:4deg; --d:0s"><use href="#fr-bridge"/></svg>
-                    <svg class="fr-deco tl" aria-hidden="true" focusable="false" viewBox="0 0 120 58" style="--w:104; --h:50; --ox:-20; --oy:-30; --r:-5deg; --d:-3s"><use href="#fr-bridge"/></svg>
-                    <div class="fr-photo">
-                        <!-- <img src="friends.webp" alt="Arnelius with his friends" loading="lazy" decoding="async"> -->
-                        <div class="fr-placeholder">
-                            <span class="fr-ph-icon">
-                                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 20v-2.500a6 6 0 0 1 12 0V20zM16.500 4.200a3 3 0 0 1 0 5.600M18 12.200a6 6 0 0 1 3 5.300V20h-3.500"/></svg>
-                            </span>
-                            <span class="fr-ph-title">Photo placeholder</span>
-                            <span class="fr-ph-hint">Me and my friends</span>
+                <figure tabindex="0" role="button" aria-expanded="false" class="fr-card is-right" style="--i:3">
+                    <div class="fr-case">
+                        <span class="fr-badge" aria-hidden="true"><svg class="wide" focusable="false" viewBox="0 0 120 58"><use href="#fr-bridge"/></svg></span>
+                        <div class="fr-half fr-cover">
+                            <span class="fr-clip t" aria-hidden="true"></span>
+                            <span class="fr-clip m" aria-hidden="true"></span>
+                            <span class="fr-clip b" aria-hidden="true"></span>
+                            <div class="fr-photo is-wide" style="--bg:url(friends.webp)">
+                                <img class="fit-wide" src="friends.webp" alt="Arnelius with his friends" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <span class="fr-hinge" aria-hidden="true"></span>
+                        <div class="fr-half fr-tray" aria-hidden="true">
+                            <span class="fr-disc"></span>
+                            <span class="fr-hubring"></span>
                         </div>
                     </div>
                     <figcaption>
-                        <span class="fr-tag">04 &middot; Friends</span>
+                        <span class="fr-tag">#4 - Friends</span>
                         <span class="fr-caption">The crew that makes every day better.</span>
                     </figcaption>
                 </figure>
@@ -204,5 +202,31 @@
     <footer>
         <p>&copy; 2026 A.S.T. All rights reserved.</p>
     </footer>
+    <script>
+        (function () {
+            var cards = document.querySelectorAll('.fr-card');
+            var canHover = window.matchMedia('(hover: hover)');
+            function set(c, on) { c.classList.toggle('is-open', on); c.setAttribute('aria-expanded', on); }
+            var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+            cards.forEach(function (c) {
+                var v = c.querySelector('video');
+                if (!v) return;
+                function sync() {
+                    var open = c.classList.contains('is-open') || (canHover.matches && c.matches(':hover'));
+                    if (open && !still.matches) { var r = v.play(); if (r && r.catch) r.catch(function () {}); }
+                    else v.pause();
+                }
+                c.addEventListener('mouseenter', sync);
+                c.addEventListener('mouseleave', sync);
+                new MutationObserver(sync).observe(c, { attributes: true, attributeFilter: ['class'] });
+            });
+            cards.forEach(function (c) {
+                c.addEventListener('click', function () { if (!canHover.matches) set(c, !c.classList.contains('is-open')); });
+                c.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set(c, !c.classList.contains('is-open')); }
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
