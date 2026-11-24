@@ -8,12 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="family-mom.webp">
+    <link rel="preload" as="image" href="family-dad.webp">
+    <link rel="preload" as="image" href="family-siblings.webp">
+    <link rel="preload" as="image" href="friends.webp">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="about-body fr-body">
     <!-- decorative emblems reused on the cards (flower, shield, puzzle piece, bridge) -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
         <defs>
+            <symbol id="fr-heart" viewBox="0 0 24 24">
+                <path stroke-width="1.4" d="M12 21.350 10.550 20.030C5.400 15.360 2 12.280 2 8.500 2 5.420 4.420 3 7.500 3c1.740 0 3.410.81 4.500 2.090C13.090 3.810 14.760 3 16.500 3 19.580 3 22 5.420 22 8.500c0 3.780-3.400 6.860-8.550 11.540L12 21.350Z"/>
+            </symbol>
             <symbol id="fr-flower" viewBox="0 0 48 48">
                 <g stroke-width="1.3">
                     <path d="M24 27C17 29 11 35 8 43C17 43 23 38 24 27Z"/>
@@ -89,6 +96,37 @@
                 <span class="fr-link fr-link-mid" aria-hidden="true"></span>
                 <span class="fr-hub" aria-hidden="true"></span>
 
+                <!-- intro: a shooting star hits the hub, ripples spread, the hub turns into a heart and its beat draws the constellation outward -->
+                <span class="fr-star" aria-hidden="true"><i></i></span>
+                <span class="fr-ripple is-flash" style="--d:var(--t-hit)" aria-hidden="true"></span>
+                <span class="fr-ripple" style="--d:var(--t-hit)" aria-hidden="true"></span>
+                <span class="fr-ripple" style="--d:calc(var(--t-hit) + .17s)" aria-hidden="true"></span>
+                <span class="fr-ripple" style="--d:calc(var(--t-hit) + .34s)" aria-hidden="true"></span>
+                <span class="fr-ripple is-beat" style="--d:var(--t-beat)" aria-hidden="true"></span>
+                <svg class="fr-heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:-150;--dy:-150;--dl:0.0s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:-55;--dy:-215;--dl:0.05s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:60;--dy:-205;--dl:0.1s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:150;--dy:-150;--dl:0.15s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:-205;--dy:5;--dl:0.2s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:205;--dy:-5;--dl:0.25s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:-120;--dy:150;--dl:0.3s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+                <svg class="fr-mh" style="--dx:115;--dy:160;--dl:0.35s" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#fr-heart"/></svg>
+
+                <!-- lines that reach the emblems (drawn outward from the side loops) -->
+                <span class="fr-wire w-l w-top" aria-hidden="true"></span>
+                <span class="fr-wire w-l w-bot" aria-hidden="true"></span>
+                <span class="fr-wire w-r w-top" aria-hidden="true"></span>
+                <span class="fr-wire w-r w-bot" aria-hidden="true"></span>
+
+                <!-- constellation stars that flare where a line arrives -->
+                <span class="fr-node" style="--x:700;--y:145;--t:var(--t-stub)" aria-hidden="true"></span>
+                <span class="fr-node" style="--x:700;--y:543;--t:var(--t-stub)" aria-hidden="true"></span>
+                <span class="fr-node" style="--x:14;--y:145;--t:var(--t-loop)" aria-hidden="true"></span>
+                <span class="fr-node" style="--x:1386;--y:543;--t:var(--t-loop)" aria-hidden="true"></span>
+                <span class="fr-node" style="--x:14;--y:543;--t:calc(var(--t-loop) + .6s)" aria-hidden="true"></span>
+                <span class="fr-node" style="--x:1386;--y:145;--t:calc(var(--t-loop) + .6s)" aria-hidden="true"></span>
+
                 <!-- large emblems in the empty space beside each case, wired into the circuit lines -->
                 <span class="fr-emblem fr-em-flower em-l em-top"><svg aria-hidden="true" focusable="false" viewBox="0 0 48 48"><use href="#fr-flower"/></svg><span class="fr-em-name"><span>Mira C. Sto. Tomas</span></span></span>
                 <span class="fr-emblem fr-em-shield em-r em-top"><svg aria-hidden="true" focusable="false" viewBox="0 0 48 56"><use href="#fr-shield"/></svg><span class="fr-em-name"><span>Arnel C. Sto. Tomas</span></span></span>
@@ -105,7 +143,7 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="family-mom.webp" style="object-position:50% 32%" alt="Arnelius hugging his mom" decoding="async">
+                                <img src="family-mom.webp" style="object-position:50% 32%" alt="Arnelius hugging his mom" fetchpriority="high">
                             </div>
                             </div>
                             <div class="fr-half fr-face fr-back" aria-hidden="true">
@@ -113,13 +151,13 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="family-mom.webp" style="object-position:50% 32%" alt="Arnelius hugging his mom" decoding="async">
+                                <img src="family-mom.webp" style="object-position:50% 32%" alt="Arnelius hugging his mom" fetchpriority="high">
                             </div>
                             </div>
                         </div>
                         <span class="fr-hinge" aria-hidden="true"></span>
                         <div class="fr-half fr-tray" aria-hidden="true">
-                            <span class="fr-disc has-video"><video style="object-position:68% 50%" src="family-mom.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-disc has-video"><video src="family-mom.mp4" poster="family-mom-poster.webp" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video></span>
                             <span class="fr-hubring"></span>
                         </div>
                     </div>
@@ -139,7 +177,7 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="family-dad.webp" style="object-position:50% 42%" alt="Arnelius shaking hands with his dad" decoding="async">
+                                <img src="family-dad.webp" style="object-position:50% 42%" alt="Arnelius shaking hands with his dad" fetchpriority="high">
                             </div>
                             </div>
                             <div class="fr-half fr-face fr-back" aria-hidden="true">
@@ -147,13 +185,13 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="family-dad.webp" style="object-position:50% 42%" alt="Arnelius shaking hands with his dad" decoding="async">
+                                <img src="family-dad.webp" style="object-position:50% 42%" alt="Arnelius shaking hands with his dad" fetchpriority="high">
                             </div>
                             </div>
                         </div>
                         <span class="fr-hinge" aria-hidden="true"></span>
                         <div class="fr-half fr-tray" aria-hidden="true">
-                            <span class="fr-disc has-video"><video src="family-dad.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-disc has-video"><video src="family-dad.mp4" poster="family-dad-poster.webp" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video></span>
                             <span class="fr-hubring"></span>
                         </div>
                     </div>
@@ -173,7 +211,7 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="family-siblings.webp" style="object-position:50% 30%" alt="Arnelius with his siblings" decoding="async">
+                                <img src="family-siblings.webp" style="object-position:50% 30%" alt="Arnelius with his siblings" fetchpriority="high">
                             </div>
                             </div>
                             <div class="fr-half fr-face fr-back" aria-hidden="true">
@@ -181,13 +219,13 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="family-siblings.webp" style="object-position:50% 30%" alt="Arnelius with his siblings" decoding="async">
+                                <img src="family-siblings.webp" style="object-position:50% 30%" alt="Arnelius with his siblings" fetchpriority="high">
                             </div>
                             </div>
                         </div>
                         <span class="fr-hinge" aria-hidden="true"></span>
                         <div class="fr-half fr-tray" aria-hidden="true">
-                            <span class="fr-disc has-video"><video src="family-siblings.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-disc has-video"><video src="family-siblings.mp4" poster="family-siblings-poster.webp" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video></span>
                             <span class="fr-hubring"></span>
                         </div>
                     </div>
@@ -207,7 +245,7 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="friends.webp" style="object-position:58% 50%" alt="Arnelius with his friends" decoding="async">
+                                <img src="friends.webp" style="object-position:58% 50%" alt="Arnelius with his friends" fetchpriority="high">
                             </div>
                             </div>
                             <div class="fr-half fr-face fr-back" aria-hidden="true">
@@ -215,13 +253,13 @@
                             <span class="fr-clip m" aria-hidden="true"></span>
                             <span class="fr-clip b" aria-hidden="true"></span>
                             <div class="fr-photo">
-                                <img src="friends.webp" style="object-position:58% 50%" alt="Arnelius with his friends" decoding="async">
+                                <img src="friends.webp" style="object-position:58% 50%" alt="Arnelius with his friends" fetchpriority="high">
                             </div>
                             </div>
                         </div>
                         <span class="fr-hinge" aria-hidden="true"></span>
                         <div class="fr-half fr-tray" aria-hidden="true">
-                            <span class="fr-disc has-video"><video style="object-position:80% 50%" src="family-friends.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video></span>
+                            <span class="fr-disc has-video"><video src="family-friends.mp4" poster="family-friends-poster.webp" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video></span>
                             <span class="fr-hubring"></span>
                         </div>
                     </div>
@@ -253,6 +291,7 @@
         (function () {
             var cards = document.querySelectorAll('.fr-card');
             var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+            var narrow = window.matchMedia('(max-width: 768px)');
             function set(c, on) { c.classList.toggle('is-open', on); c.setAttribute('aria-expanded', on); }
 
             // play the disc video only while its case is open
@@ -266,9 +305,9 @@
                 new MutationObserver(sync).observe(c, { attributes: true, attributeFilter: ['class'] });
             });
 
-            // the cases arrive closed, then open one after another like books
+            // the cases appear closed once the star-lines reach them (laptop / desktop), then open one after another like books
             cards.forEach(function (c, i) {
-                setTimeout(function () { set(c, true); }, still.matches ? 0 : 1000 + i * 260);
+                setTimeout(function () { set(c, true); }, still.matches ? 0 : (narrow.matches ? 1000 + i * 260 : 2750 + i * 200));
                 // click / Enter closes or re-opens a case
                 c.addEventListener('click', function () { set(c, !c.classList.contains('is-open')); });
                 c.addEventListener('keydown', function (e) {
