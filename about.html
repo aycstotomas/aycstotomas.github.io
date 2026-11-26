@@ -9,8 +9,55 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script>
+        /* Play the intro unless the visitor prefers reduced motion; page content waits for it via --intro */
+        (function () {
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.classList.add('pi-intro-on');
+                document.documentElement.style.setProperty('--intro', '2.9s');
+            }
+        })();
+    </script>
 </head>
-<body class="about-body">
+<body class="about-body pi-body">
+    <!-- LIVE SKY: aurora curtains + a star field whose stars join into constellations -->
+    <div class="pi-sky" aria-hidden="true"></div>
+    <div class="pi-aurora" aria-hidden="true">
+        <i class="pi-curtain pi-c1"></i>
+        <i class="pi-curtain pi-c2"></i>
+        <i class="pi-curtain pi-c3"></i>
+        <i class="pi-glow"></i>
+    </div>
+    <canvas id="pi-stars" aria-hidden="true"></canvas>
+
+    <!-- INTRO: the initials A.S.T. are drawn as a constellation, then an aurora iris opens onto the page -->
+    <div id="pi-intro" aria-hidden="true">
+        <div class="pi-intro-dust"></div>
+        <div class="pi-intro-aurora"></div>
+        <span class="pi-shooting"></span>
+        <svg class="pi-intro-svg" viewBox="0 0 760 380" role="presentation" focusable="false">
+            <g transform="translate(20 0)">
+                <g class="pi-lines">
+                    <path class="pi-ln" style="--d:.45s;--t:.75s" pathLength="1" d="M70 330 L160 60 L250 330"/>
+                    <path class="pi-ln" style="--d:.95s;--t:.4s" pathLength="1" d="M105 235 L215 235"/>
+                    <path class="pi-ln" style="--d:1.15s;--t:.95s" pathLength="1" d="M415 105 L360 70 L305 110 L318 170 L362 200 L410 240 L400 300 L350 335 L295 305"/>
+                    <path class="pi-ln" style="--d:1.8s;--t:.45s" pathLength="1" d="M470 70 L650 70"/>
+                    <path class="pi-ln" style="--d:2.05s;--t:.4s" pathLength="1" d="M560 70 L560 330"/>
+                </g>
+                <g class="pi-dots">
+                    <circle style="--d:.40s" cx="70" cy="330" r="6"/><circle style="--d:.62s" cx="160" cy="60" r="8"/><circle style="--d:.85s" cx="250" cy="330" r="6"/>
+                    <circle style="--d:.95s" cx="105" cy="235" r="4.5"/><circle style="--d:1.2s" cx="215" cy="235" r="4.5"/>
+                    <circle style="--d:1.10s" cx="415" cy="105" r="6"/><circle style="--d:1.22s" cx="360" cy="70" r="5"/><circle style="--d:1.34s" cx="305" cy="110" r="7"/>
+                    <circle style="--d:1.46s" cx="318" cy="170" r="4.5"/><circle style="--d:1.58s" cx="362" cy="200" r="6"/><circle style="--d:1.70s" cx="410" cy="240" r="5"/>
+                    <circle style="--d:1.82s" cx="400" cy="300" r="4.5"/><circle style="--d:1.94s" cx="350" cy="335" r="7"/><circle style="--d:2.06s" cx="295" cy="305" r="6"/>
+                    <circle style="--d:1.75s" cx="470" cy="70" r="6"/><circle style="--d:1.95s" cx="560" cy="70" r="8"/><circle style="--d:2.15s" cx="650" cy="70" r="6"/>
+                    <circle style="--d:2.25s" cx="560" cy="200" r="4.5"/><circle style="--d:2.40s" cx="560" cy="330" r="6"/>
+                </g>
+            </g>
+        </svg>
+        <p class="pi-intro-caption">A constellation of me</p>
+    </div>
+
     <nav class="navbar">
         <div class="nav-left">
             <div class="nav-logo">A.S.T.</div>
@@ -23,65 +70,105 @@
         </div>
     </nav>
 
-    <main class="split-hero-container about-page">
-        <section class="about-content animate-fade-up">
-            <p class="profile-greeting">Get to know me</p>
-            <h1 class="profile-name">About Arnelius Yanqhul Carulla <span class="highlight-surname">Sto. Tomas</span></h1>
-            <div class="about-story">
-                <article class="about-detail about-story-card">
-                    <h2>Background</h2>
-                    <p>I was born in Baguio City and I am now a first-year <strong>BSIT student</strong> at the <strong>University of the Cordilleras</strong>. I serve as the <strong>Broadcasting Club Director</strong> for <strong>UC's Publication Guild</strong> and was previously a member of the <strong>University of Baguio SHS Debate Club</strong>. I chose <strong>ERP</strong> because it connects technology to how real organizations work, which fits my interest in software and strategic leadership.</p>
-                </article>
-                <article class="about-detail about-story-card">
-                    <h2>Goal and Plan</h2>
-                    <p>My goal is to become an <strong>ERP developer</strong> who builds practical systems that help organizations run better. To get there, I will finish my BSIT degree with a focus on ERP, master Java, JavaScript, and Python along with databases, build and publish projects on GitHub, and use my leadership and public speaking to work well with teams and clients.</p>
-                </article>
+    <main class="split-hero-container about-page pi-page">
+        <section class="about-content pi-content">
+            <p class="profile-greeting pi-rise" style="--i:0">Get to know me</p>
+            <h1 class="profile-name pi-rise" style="--i:1">About Arnelius Yanqhul Carulla <span class="highlight-surname">Sto. Tomas</span></h1>
+
+            <div class="pi-panel pi-rise" style="--i:2">
+                <div class="pi-story">
+                    <article>
+                        <h2>Background</h2>
+                        <p>I was born in Baguio City and I am now a first-year <strong>BSIT student</strong> at the <strong>University of the Cordilleras</strong>. I serve as the <strong>Broadcasting Club Director</strong> for <strong>UC's Publication Guild</strong> and was previously a member of the <strong>University of Baguio SHS Debate Club</strong>. I chose <strong>ERP</strong> because it connects technology to how real organizations work, which fits my interest in software and strategic leadership.</p>
+                    </article>
+                    <article>
+                        <h2>Goal and Plan</h2>
+                        <p>My goal is to become an <strong>ERP developer</strong> who builds practical systems that help organizations run better. To get there, I will finish my BSIT degree with a focus on ERP, master Java, JavaScript, and Python along with databases, build and publish projects on GitHub, and use my leadership and public speaking to work well with teams and clients.</p>
+                    </article>
+                </div>
+
+                <div class="pi-rule" aria-hidden="true"></div>
+
+                <div class="pi-chart">
+                    <section class="pi-group" style="--acc:165,243,252">
+                        <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Identity</h2>
+                        <dl>
+                            <div class="pi-field"><dt>Birthday</dt><dd>March 16, 2008</dd></div>
+                            <div class="pi-field"><dt>Age</dt><dd><span id="current-age">18</span> years old</dd></div>
+                            <div class="pi-field"><dt>Birthplace</dt><dd>Baguio City, Philippines</dd></div>
+                            <div class="pi-field"><dt>Nationality</dt><dd>Filipino</dd></div>
+                            <div class="pi-field"><dt>Religion</dt><dd>Catholic</dd></div>
+                            <div class="pi-field"><dt>Pronouns</dt><dd>He/Him</dd></div>
+                            <div class="pi-field"><dt>Civil Status</dt><dd>Single</dd></div>
+                        </dl>
+                    </section>
+
+                    <section class="pi-group" style="--acc:110,231,183">
+                        <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m3 16 13-13 5 5L8 21z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></svg>Body and Sizes</h2>
+                        <dl>
+                            <div class="pi-field"><dt>Height</dt><dd>5'8"</dd></div>
+                            <div class="pi-field"><dt>Weight</dt><dd>62 kg</dd></div>
+                            <div class="pi-field"><dt>Blood Type</dt><dd>O</dd></div>
+                            <div class="pi-field"><dt>Shoe Size</dt><dd>EU 43 &middot; US 10</dd></div>
+                            <div class="pi-field"><dt>Shirt Size</dt><dd>Medium</dd></div>
+                            <div class="pi-field"><dt>Pants Size</dt><dd>Large</dd></div>
+                        </dl>
+                    </section>
+
+                    <section class="pi-group" style="--acc:196,181,253">
+                        <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3l2.2 5.6 5.8.4-4.4 3.8 1.4 5.7L12 15.2 7 18.5l1.4-5.7L4 9l5.8-.4L12 3Z"/></svg>Appearance</h2>
+                        <dl>
+                            <div class="pi-field"><dt>Hair Color</dt><dd>Black</dd></div>
+                            <div class="pi-field"><dt>Hair Style</dt><dd>Straight with slight curves</dd></div>
+                            <div class="pi-field"><dt>Eye Color</dt><dd>Brown</dd></div>
+                            <div class="pi-field"><dt>Skin Tone</dt><dd>Fair</dd></div>
+                            <div class="pi-field"><dt>Distinguishing Mark</dt><dd>Mole on the left side of my face</dd></div>
+                        </dl>
+                    </section>
+
+                    <section class="pi-group" style="--acc:249,168,212">
+                        <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Contact</h2>
+                        <dl>
+                            <div class="pi-field"><dt>Current Address</dt><dd>246 Leonila Hill Road 2, West Bayan Park, Baguio City</dd></div>
+                            <div class="pi-field"><dt>Permanent Address</dt><dd>Same as current address</dd></div>
+                            <div class="pi-field pi-duo">
+                                <div><dt>Mobile</dt><dd><a href="tel:+639625896309">0962 589 6309</a></dd></div>
+                                <div><dt>Backup</dt><dd><a href="tel:+639691621098">0969 162 1098</a></dd></div>
+                            </div>
+                            <div class="pi-field"><dt>School Email</dt><dd class="pi-mail"><a href="mailto:acs4651@students.uc-bcf.edu">acs4651@students.uc-bcf.edu</a></dd></div>
+                            <div class="pi-field"><dt>Personal Email</dt><dd class="pi-mail"><a href="mailto:aycstotomas@gmail.com">aycstotomas@gmail.com</a></dd></div>
+                            <div class="pi-field pi-socials-row"><dt>Social Media</dt>
+                                <dd class="pi-socials" aria-label="Social profiles">
+                                    <a href="https://www.linkedin.com" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.78C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.78 24h20.44c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a>
+                                    <a href="https://github.com/aycstotomas" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .3Z"/></svg></a>
+                                    <a href="https://www.facebook.com/arneliusyanqhul.stotomas" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/></svg></a>
+                                    <a href="https://www.instagram.com/arneliusss/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="social-icon-dot" cx="17.5" cy="6.5" r="1"/></svg></a>
+                                    <a href="mailto:arneliusyc.stotomas@gmail.com" aria-label="Email Arnelius" title="Email" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect class="mail-icon-line" x="3" y="5" width="18" height="14" rx="2"/><path class="mail-icon-line" d="m4 7 8 6 8-6"/></svg></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </section>
+
+                    <section class="pi-group" style="--acc:147,197,253">
+                        <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 3 8.5 3 12 0v-5M22 9v6"/></svg>Studies and Skills</h2>
+                        <dl>
+                            <div class="pi-field"><dt>Course</dt><dd>1st Year BSIT - Enterprise Resource Planning (ERP)</dd></div>
+                            <div class="pi-field"><dt>Languages</dt><dd>Filipino and English</dd></div>
+                            <div class="pi-field"><dt>Hobbies and Interests</dt><dd>Video Games, Video Editing, Digital Design, Marvel Movies, and DC TV Shows</dd></div>
+                            <div class="pi-field"><dt>Core Skills</dt><dd>Public Speaking (Extempo/Impromptu), Critical Thinking, and Competitive Debate</dd></div>
+                            <div class="pi-field"><dt>Technical Skills</dt><dd><span class="dd-line">Languages: Java, HTML, JavaScript, CSS, Python</span><span class="dd-line">Tools: Premiere Pro, Photoshop, Figma</span></dd></div>
+                        </dl>
+                    </section>
+                </div>
             </div>
-            <dl class="about-details">
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Location and Birthplace</dt>
-                    <dd><span class="dd-line">Location: Leonilla Hill, West Bayan Park, Baguio City</span><span class="dd-line">Birthplace: Baguio City, Philippines</span></dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Age</dt>
-                    <dd>March 16, 2008 (<span id="current-age">18</span> years old)</dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 3 8.5 3 12 0v-5M22 9v6"/></svg>Course</dt>
-                    <dd>1st Year BSIT - Enterprise Resource Planning (ERP)</dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 18v4M8 22h8M12 2a7 7 0 0 0-4 12.75c.8.55 1 1.15 1 2.25h6c0-1.1.2-1.7 1-2.25A7 7 0 0 0 12 2Z"/><path d="M9 10a3 3 0 0 1 3-3"/></svg>Hobbies and Interests</dt>
-                    <dd>Video Games, Video Editing, Digital Design, Marvel Movies, and DC TV Shows</dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-4 12.75c.8.55 1 1.15 1 2.25h6c0-1.1.2-1.7 1-2.25A7 7 0 0 0 12 2Z"/><path d="M9 21h6M9 18h6"/></svg>Core Skills</dt>
-                    <dd>Public Speaking (Extempo/Impromptu), Critical Thinking, and Competitive Debate</dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"/></svg>Technical Skills</dt>
-                    <dd><span class="dd-line">Languages: Java, HTML, JavaScript, CSS, Python</span><span class="dd-line">Tools: Premiere Pro, Photoshop, Figma</span></dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m3 16 13-13 5 5L8 21z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></svg>Height and Weight</dt>
-                    <dd>5'8" and 62 kg</dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>Civil Status</dt>
-                    <dd>Single</dd>
-                </div>
-                <div class="about-detail">
-                    <dt><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Languages</dt>
-                    <dd>Filipino and English</dd>
-                </div>
-            </dl>
-            <blockquote class="about-quote">
+
+            <blockquote class="about-quote pi-quote pi-rise" style="--i:4">
                 <p>&ldquo;Everyone fails at who they're supposed to be, Thor. The measure of a person, of a hero, is how well they succeed at being who they are.&rdquo;</p>
                 <cite>Frigga, Thor: The Dark World</cite>
             </blockquote>
         </section>
 
-        <div class="about-page-actions animate-fade-up-delayed">
+        <div class="about-page-actions pi-rise" style="--i:5">
             <a class="next-page-link" href="index.html" title="Back to home">
                 <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M19 12H5m6 6-6-6 6-6"/></svg>
                 Home
@@ -96,14 +183,143 @@
     <footer>
         <p>© 2026 A.S.T. All rights reserved.</p>
     </footer>
+
     <script>
-        const birthDate = new Date(2008, 2, 16);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        if (today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate())) {
-            age -= 1;
-        }
-        document.getElementById('current-age').textContent = age;
+        /* Age from birthday */
+        (function () {
+            const birthDate = new Date(2008, 2, 16);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            if (today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate())) {
+                age -= 1;
+            }
+            document.getElementById('current-age').textContent = age;
+        })();
+
+        /* Intro: ends when the iris finishes; any click or key skips it */
+        (function () {
+            const root = document.documentElement;
+            const intro = document.getElementById('pi-intro');
+            if (!intro || !root.classList.contains('pi-intro-on')) return;
+            let done = false;
+            function finish() {
+                if (done) return;
+                done = true;
+                root.classList.remove('pi-intro-on');
+                intro.remove();
+            }
+            intro.addEventListener('animationend', function (e) {
+                if (e.animationName === 'pi-iris' || e.animationName === 'pi-skip') finish();
+            });
+            function skip() {
+                if (done) return;
+                root.style.setProperty('--intro', '0.05s');
+                intro.classList.add('pi-skipping');
+                setTimeout(finish, 600);
+            }
+            addEventListener('pointerdown', skip, { once: true });
+            addEventListener('keydown', skip, { once: true });
+            setTimeout(finish, 5000);
+        })();
+
+        /* Star field: drifting, twinkling stars that join into constellations; the cursor draws its own lines */
+        (function () {
+            const canvas = document.getElementById('pi-stars');
+            const ctx = canvas.getContext('2d');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const LINK = 150, MOUSE_LINK = 190;
+            let w = 0, h = 0, stars = [], raf = 0;
+            const mouse = { x: -9999, y: -9999 };
+            const tints = ['255,255,255', '215,250,255', '165,243,252', '190,255,225', '221,214,254'];
+
+            function seeded(seed) {
+                return function () {
+                    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+                    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+                    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+                    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+                };
+            }
+
+            function resize() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = window.innerWidth; h = window.innerHeight;
+                canvas.width = w * dpr; canvas.height = h * dpr;
+                canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                const rnd = seeded(2008);
+                const count = Math.round(w * h / 8200);
+                stars = [];
+                for (let i = 0; i < count; i++) {
+                    const big = rnd() > 0.93;
+                    stars.push({
+                        x: rnd() * w, y: rnd() * h,
+                        r: big ? 1.5 + rnd() * 0.9 : 0.4 + rnd() * 0.9,
+                        vx: (rnd() - 0.5) * 0.09, vy: (rnd() - 0.5) * 0.06,
+                        ph: rnd() * 6.283, sp: 0.01 + rnd() * 0.02,
+                        c: tints[Math.floor(rnd() * tints.length)], big: big
+                    });
+                }
+                draw(0);
+            }
+
+            function draw(t) {
+                ctx.clearRect(0, 0, w, h);
+                for (const s of stars) {
+                    if (!reduce) {
+                        s.x += s.vx; s.y += s.vy;
+                        if (s.x < -10) s.x = w + 10; else if (s.x > w + 10) s.x = -10;
+                        if (s.y < -10) s.y = h + 10; else if (s.y > h + 10) s.y = -10;
+                    }
+                }
+                ctx.lineWidth = 0.8;
+                for (let i = 0; i < stars.length; i++) {
+                    const a = stars[i];
+                    for (let j = i + 1; j < stars.length; j++) {
+                        const b = stars[j];
+                        const dx = a.x - b.x, dy = a.y - b.y;
+                        if (dx > LINK || dx < -LINK || dy > LINK || dy < -LINK) continue;
+                        const d = Math.sqrt(dx * dx + dy * dy);
+                        if (d < LINK) {
+                            ctx.strokeStyle = 'rgba(165,243,252,' + ((1 - d / LINK) * 0.2).toFixed(3) + ')';
+                            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                        }
+                    }
+                    const mx = a.x - mouse.x, my = a.y - mouse.y;
+                    const md = Math.sqrt(mx * mx + my * my);
+                    if (md < MOUSE_LINK) {
+                        ctx.strokeStyle = 'rgba(110,231,183,' + ((1 - md / MOUSE_LINK) * 0.5).toFixed(3) + ')';
+                        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                    }
+                }
+                for (const s of stars) {
+                    const tw = reduce ? 0.8 : 0.55 + 0.45 * Math.sin(t * s.sp + s.ph);
+                    ctx.fillStyle = 'rgba(' + s.c + ',' + tw.toFixed(3) + ')';
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+                    if (s.big) {
+                        ctx.strokeStyle = 'rgba(' + s.c + ',' + (tw * 0.55).toFixed(3) + ')';
+                        ctx.lineWidth = 0.7;
+                        ctx.beginPath();
+                        ctx.moveTo(s.x - s.r * 4.2, s.y); ctx.lineTo(s.x + s.r * 4.2, s.y);
+                        ctx.moveTo(s.x, s.y - s.r * 4.2); ctx.lineTo(s.x, s.y + s.r * 4.2);
+                        ctx.stroke();
+                        ctx.lineWidth = 0.8;
+                    }
+                }
+            }
+
+            function loop(t) { draw(t); raf = requestAnimationFrame(loop); }
+
+            window.addEventListener('resize', resize);
+            window.addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+            window.addEventListener('pointerleave', function () { mouse.x = mouse.y = -9999; });
+            document.addEventListener('visibilitychange', function () {
+                if (reduce) return;
+                if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(loop);
+            });
+            resize();
+            if (!reduce) raf = requestAnimationFrame(loop);
+        })();
     </script>
 </body>
 </html>
