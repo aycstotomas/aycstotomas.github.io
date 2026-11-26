@@ -1581,122 +1581,272 @@ body.about-body .about-story-card p { font-size: calc(18.5 * var(--u)); line-hei
 }
 
 /* ============================================================
-   ACHIEVEMENTS PAGE (2x2 grid, no scrolling on laptop/desktop)
-   Each card: school logo + honors on the left, awards photo
-   fading in from the right, "View photo" opens it full size.
+   ACHIEVEMENTS PAGE: constellation tarot cards
+   Four cards (ELEM / JHS / SHS / COLLEGE) fly in showing a constellation
+   face, then flip over to reveal the achievements. One row of four on
+   laptop / desktop, no scrolling. Sized with --u like the other pages.
+   Each card has its own accent through --acc-rgb.
    ============================================================ */
 .ach-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
-body.about-body .ach-card {
+.tarot {
+    --acc: rgb(var(--acc-rgb, 165, 243, 252));
     position: relative;
-    isolation: isolate;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.5rem;
+    min-height: 0;
 }
 
-/* awards photo blended into the card */
-.ach-card::before {
+.tarot-fly {
+    position: absolute;
+    inset: 0;
+    perspective: 1800px;
+}
+
+.tarot-flip {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.95s cubic-bezier(0.45, 0.05, 0.2, 1) calc(var(--i) * 0.09s);
+}
+
+.tarot.is-flipped .tarot-flip { transform: rotateY(180deg); }
+
+.tarot-face {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid rgba(var(--acc-rgb), 0.55);
+    border-radius: 14px;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% 40%, rgba(var(--acc-rgb), 0.13), transparent 72%),
+        linear-gradient(180deg, #0b1e3a 0%, #071428 58%, #050e1e 100%);
+    box-shadow: 0 0 34px rgba(var(--acc-rgb), 0.14), inset 0 0 40px rgba(var(--acc-rgb), 0.06);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* inner hairline frame */
+.tarot-face::after {
     content: '';
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 46%;
-    z-index: -1;
-    background: var(--ach-photo) center / cover no-repeat;
-    filter: brightness(0.72) saturate(0.95);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 32%, #000 70%);
-    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 32%, #000 70%);
-    transition: filter 0.3s ease;
+    inset: 9px;
+    z-index: 3;
+    border: 1px solid rgba(var(--acc-rgb), 0.3);
+    border-radius: 9px;
     pointer-events: none;
 }
 
-.ach-card:hover::before {
-    filter: brightness(0.95) saturate(1.05);
+.tarot-back { transform: rotateY(180deg); }
+
+/* four-point sparkles on the frame corners */
+.orn {
+    position: absolute;
+    z-index: 4;
+    width: 14px;
+    height: 14px;
+    background: rgb(var(--acc-rgb));
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+    pointer-events: none;
 }
+.orn.o1 { top: 2px; left: 2px; }
+.orn.o2 { top: 2px; right: 2px; }
+.orn.o3 { bottom: 2px; left: 2px; }
+.orn.o4 { bottom: 2px; right: 2px; }
+
+/* ---------- front: constellation face ---------- */
+.tarot-front {
+    background:
+        radial-gradient(1.4px 1.4px at 14% 12%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1px 1px at 82% 9%, rgba(215, 250, 255, 0.9), transparent),
+        radial-gradient(1.2px 1.2px at 91% 24%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 8% 30%, rgba(215, 250, 255, 0.8), transparent),
+        radial-gradient(1.4px 1.4px at 90% 66%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 7% 74%, rgba(215, 250, 255, 0.8), transparent),
+        radial-gradient(1.2px 1.2px at 24% 82%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 76% 86%, rgba(215, 250, 255, 0.8), transparent),
+        radial-gradient(ellipse 80% 50% at 50% 40%, rgba(var(--acc-rgb), 0.15), transparent 72%),
+        linear-gradient(180deg, #0b1e3a 0%, #071428 58%, #050e1e 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 22px 26px;
+    cursor: pointer;
+}
+
+.t-num {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    color: rgb(var(--acc-rgb));
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
+}
+.t-num::before,
+.t-num::after {
+    content: '';
+    width: 46px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(var(--acc-rgb), 0.7));
+}
+.t-num::after { transform: scaleX(-1); }
+
+.t-art {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.t-art svg { width: 100%; height: 100%; overflow: visible; }
+
+.t-label {
+    margin: 0;
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
+    line-height: 1.1;
+    text-shadow: 0 0 22px rgba(var(--acc-rgb), 0.6);
+}
+
+.t-name {
+    margin: 6px 0 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-indent: 0.16em;
+}
+
+/* constellation drawing (shared by the front art and the ghost on the back) */
+.c-ring { fill: none; stroke: rgba(var(--acc-rgb), 0.32); stroke-width: 0.8; }
+.c-ring.c-dots { stroke: rgba(var(--acc-rgb), 0.5); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 0.1 7; }
+.c-tick { stroke: rgba(var(--acc-rgb), 0.45); stroke-width: 0.8; }
+.c-dust { fill: rgba(255, 255, 255, 0.75); }
+.c-line {
+    stroke: rgba(var(--acc-rgb), 0.85);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 2px rgba(var(--acc-rgb), 0.9));
+}
+.c-halo { fill: rgba(var(--acc-rgb), 0.22); }
+.c-core { fill: #ffffff; }
+
+/* ---------- back: achievements ---------- */
+body.about-body .ach-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 26px 28px 22px;
+    isolation: isolate;
+    background:
+        radial-gradient(1.4px 1.4px at 11% 7%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1px 1px at 86% 12%, rgba(215, 250, 255, 0.9), transparent),
+        radial-gradient(1.2px 1.2px at 93% 46%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 5% 58%, rgba(215, 250, 255, 0.8), transparent),
+        radial-gradient(1.4px 1.4px at 78% 78%, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 20% 92%, rgba(215, 250, 255, 0.8), transparent),
+        radial-gradient(ellipse 90% 40% at 50% 0%, rgba(var(--acc-rgb), 0.12), transparent 75%),
+        linear-gradient(180deg, #0b1e3a 0%, #071428 60%, #050e1e 100%);
+}
+
+/* the awards photo: its own window under the text, shown at full strength */
+.ach-card::before {
+    content: '';
+    order: 2;
+    flex: 1 1 0;
+    min-height: 0;
+    margin-top: 4px;
+    border: 1px solid rgba(var(--acc-rgb), 0.4);
+    border-radius: 8px;
+    background: var(--ach-photo) center / cover no-repeat;
+    background-position: calc(var(--ach-px, 50%) + var(--ach-sx, 0) * var(--u, 1px)) var(--ach-py, center);
+    box-shadow: 0 0 18px rgba(var(--acc-rgb), 0.18);
+    transition: opacity 0.9s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.ach-card.ach-swap::before {
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.35s ease-in, transform 0.35s ease-in;
+}
+.ach-head { order: 0; }
+.ach-list { order: 1; }
+.ach-photo-btn { order: 3; }
+.ach-contact { order: 4; }
+
+/* faint copy of the card's constellation behind the header */
+.t-ghost {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: -1;
+    width: 118px;
+    height: 118px;
+    opacity: 0.4;
+    pointer-events: none;
+}
+.t-ghost svg { width: 100%; height: 100%; }
+.t-ghost .c-chart,
+.t-ghost .c-dusts { display: none; }
+.t-ghost .c-line { stroke-width: 2; filter: none; }
 
 .ach-head {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
+    gap: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(var(--acc-rgb), 0.22);
 }
+.ach-head > div:not(.ach-badge) { min-width: 0; padding-right: 66px; }
 
 .ach-head h2 {
     margin: 0;
     color: #a5f3fc;
     font-family: 'Cinzel', serif;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 0.04em;
+    line-height: 1.15;
     text-shadow: 0 1px 10px rgba(5, 15, 32, 0.85);
 }
 
 .ach-meta {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    text-shadow: 0 1px 8px rgba(5, 15, 32, 0.9);
+    margin: 3px 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.8rem;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95);
 }
 
-.ach-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.ach-list li {
-    position: relative;
-    padding-left: 1.1rem;
-    margin-bottom: 0.3rem;
-    color: #e3ecf6;
-    font-size: 1rem;
-    line-height: 1.35;
-    text-shadow: 0 1px 8px rgba(5, 15, 32, 0.9);
-}
-
-.ach-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 50%;
-    background: #a5f3fc;
-}
-
-.ach-list li strong { color: #a5f3fc; }
-
-.ach-placeholder {
-    color: rgba(214, 225, 239, 0.45) !important;
-    font-style: italic;
-}
-
-.ach-placeholder::before { opacity: 0.35; }
-
-/* School logo: cut-out logo in a soft frosted seal */
+/* school logo in a frosted seal */
 .ach-badge {
     flex: none;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 3.4rem;
+    height: 3.4rem;
     padding: 0.3rem;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e9f8fb 55%, #cdeef4 100%);
     border: 2px solid rgba(165, 243, 252, 0.7);
     box-shadow: 0 0 0 4px rgba(165, 243, 252, 0.09), 0 0 22px rgba(125, 219, 234, 0.3);
 }
-
 .ach-badge img {
     display: block;
     max-width: 100%;
@@ -1706,31 +1856,95 @@ body.about-body .ach-card {
     object-fit: contain;
 }
 
-/* View photo pill */
-.ach-photo-btn {
+/* achievements: each bullet is a star, joined to the next by a thin line */
+.ach-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.ach-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    color: #f4f8fd;
+    font-size: 0.92rem;
+    line-height: 1.28;
+    text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95), 0 0 12px rgba(5, 15, 32, 0.8);
+}
+.ach-list li strong { color: #a5f3fc; }
+
+.ach-list li:not(.ach-group)::before {
+    content: '';
     position: absolute;
-    right: 0.9rem;
-    bottom: 0.8rem;
+    left: 0;
+    top: 0.42em;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    filter: drop-shadow(0 0 3px #a5f3fc);
+}
+.ach-list li:not(.ach-group):has(+ li:not(.ach-group))::after {
+    content: '';
+    position: absolute;
+    left: 3.5px;
+    top: calc(0.42em + 8px);
+    width: 1px;
+    height: calc(100% + 1px);
+    background: linear-gradient(to bottom, rgba(165, 243, 252, 0.75), rgba(165, 243, 252, 0.3));
+}
+
+.ach-list li.ach-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 0;
+    margin: 9px 0 5px;
+    color: rgba(165, 243, 252, 0.85);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+.ach-list li.ach-group:first-child { margin-top: 0; }
+.ach-list li.ach-group::before {
+    content: '';
+    flex: none;
+    width: 14px;
+    height: 1px;
+    background: rgba(165, 243, 252, 0.55);
+}
+.ach-list li.ach-group::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(165, 243, 252, 0.3), transparent);
+}
+
+/* View photo pill + contacts sit at the bottom of the card */
+.ach-photo-btn {
+    align-self: flex-start;
+    margin-top: 2px;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.35rem 0.8rem;
+    gap: 7px;
+    padding: 6px 14px;
     border: 1px solid rgba(165, 243, 252, 0.55);
     border-radius: 999px;
     background: rgba(2, 12, 27, 0.72);
     color: #d7faff;
     font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
     transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
-
 .ach-photo-btn svg {
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 15px;
+    height: 15px;
     flex: none;
     fill: none;
     stroke: currentColor;
@@ -1738,20 +1952,198 @@ body.about-body .ach-card {
     stroke-linejoin: round;
     stroke-width: 2;
 }
-
 .ach-photo-btn:hover,
 .ach-photo-btn:focus-visible {
     color: #020c1b;
     background-color: #a5f3fc;
     box-shadow: 0 0 16px rgba(165, 243, 252, 0.35);
 }
+.ach-photo-btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
 
-.ach-photo-btn:focus-visible {
-    outline: 2px solid #ffffff;
-    outline-offset: 3px;
+.ach-contact {
+    margin: 0;
+    padding-top: 8px;
+    border-top: 1px solid rgba(165, 243, 252, 0.22);
+    color: #f4f8fd;
+    font-size: 0.7rem;
+    line-height: 1.32;
+    text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95), 0 0 14px rgba(5, 15, 32, 0.8);
+}
+.ach-contact-label {
+    color: #a5f3fc;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.03em;
 }
 
-/* Full-size photo viewer */
+/* ---------- intro motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    @media (min-width: 769px) {
+        .tarot-fly {
+            animation: tarot-fly 0.85s cubic-bezier(0.16, 0.84, 0.3, 1) calc(0.1s + var(--i) * 0.18s) backwards;
+        }
+        .tarot-front {
+            animation: tarot-land 0.9s ease-out calc(0.1s + var(--i) * 0.18s + 0.6s) backwards;
+        }
+        .c-line {
+            animation: c-draw 0.45s ease-out calc(0.1s + var(--i) * 0.18s + 0.55s + var(--d) * 0.015s) backwards;
+        }
+        .c-star {
+            animation:
+                c-pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) calc(0.1s + var(--i) * 0.18s + 0.5s + var(--d) * 0.012s) backwards,
+                c-twinkle var(--t) ease-in-out calc(2.2s + var(--d) * 0.1s) infinite;
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+        .c-dust { animation: c-twinkle var(--t) ease-in-out infinite; }
+    }
+}
+
+@keyframes tarot-fly {
+    0% { opacity: 0; transform: translate3d(var(--fx), var(--fy), 0) rotate(var(--fr)) scale(0.5); }
+    18% { opacity: 1; }
+    100% { transform: none; }
+}
+@keyframes tarot-land {
+    0% { box-shadow: 0 0 0 0 rgba(var(--acc-rgb), 0.7), inset 0 0 40px rgba(var(--acc-rgb), 0.06); }
+    100% { box-shadow: 0 0 34px 24px rgba(var(--acc-rgb), 0), 0 0 34px rgba(var(--acc-rgb), 0.14), inset 0 0 40px rgba(var(--acc-rgb), 0.06); }
+}
+@keyframes c-draw { from { stroke-dashoffset: 1; } }
+@keyframes c-pop { from { opacity: 0; transform: scale(0.2); } }
+@keyframes c-twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .tarot-flip { transition: none; }
+}
+
+/* Phones: no flying cards, just the achievements in a normal scrolling stack */
+@media (max-width: 768px) {
+    body.ach-body {
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
+    }
+    body.ach-body .about-page { height: auto; padding-bottom: 5rem; }
+    body.ach-body .about-content .profile-name { font-size: 2rem; }
+    .tarot-fly, .tarot-flip { position: static; perspective: none; transform: none !important; }
+    .tarot-front, .t-ghost { display: none; }
+    .tarot { margin-bottom: 1rem; }
+    .tarot-back { position: relative; transform: none; }
+    .ach-card::before { flex: none; height: 9rem; }
+    .ach-photo-btn { margin-top: 0.6rem; }
+    .ach-head > div:not(.ach-badge) { padding-right: 0; }
+    .ach-lightbox-prev { left: 0.4rem; }
+    .ach-lightbox-next { right: 0.4rem; }
+}
+
+/* Laptop / desktop: one row of four, fits the screen, no scroll */
+@media (min-width: 769px) {
+    body.ach-body .about-page {
+        --u: min(0.052083vw, 0.0925vh);
+        justify-content: flex-start;
+        padding: calc(112 * var(--u)) 0 calc(71 * var(--u));
+    }
+
+    body.ach-body .about-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+    }
+
+    body.ach-body .about-content .profile-greeting {
+        flex: none;
+        margin: 0 0 calc(3 * var(--u));
+        font-size: calc(26 * var(--u));
+        line-height: 1.5;
+    }
+
+    body.ach-body .about-content .profile-name {
+        flex: none;
+        margin: 0 0 calc(14 * var(--u));
+        font-size: calc(58 * var(--u));
+        line-height: 1.05;
+        white-space: nowrap;
+    }
+
+    body.ach-body .ach-grid {
+        flex: 1 1 0;
+        min-height: 0;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: minmax(0, 1fr);
+        gap: calc(24 * var(--u));
+        padding: calc(6 * var(--u)) calc(4 * var(--u));
+    }
+
+    .tarot-fly { perspective: calc(2000 * var(--u)); }
+
+    .tarot-face { border-radius: calc(16 * var(--u)); }
+    .tarot-face::after { inset: calc(9 * var(--u)); border-radius: calc(10 * var(--u)); }
+    .orn { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+    .orn.o1 { top: calc(1.5 * var(--u)); left: calc(1.5 * var(--u)); }
+    .orn.o2 { top: calc(1.5 * var(--u)); right: calc(1.5 * var(--u)); }
+    .orn.o3 { bottom: calc(1.5 * var(--u)); left: calc(1.5 * var(--u)); }
+    .orn.o4 { bottom: calc(1.5 * var(--u)); right: calc(1.5 * var(--u)); }
+
+    /* front */
+    .tarot-front { padding: calc(26 * var(--u)) calc(24 * var(--u)) calc(30 * var(--u)); }
+    .t-num { gap: calc(16 * var(--u)); font-size: calc(24 * var(--u)); }
+    .t-num::before, .t-num::after { width: calc(52 * var(--u)); }
+    .t-label { font-size: calc(52 * var(--u)); }
+    .t-name { margin-top: calc(8 * var(--u)); font-size: calc(18 * var(--u)); }
+
+    /* back */
+    body.about-body .ach-card {
+        gap: calc(10 * var(--u));
+        padding: calc(26 * var(--u)) calc(28 * var(--u)) calc(22 * var(--u));
+    }
+
+    .ach-card::before { min-height: calc(60 * var(--u)); margin-top: calc(4 * var(--u)); border-radius: calc(9 * var(--u)); }
+    .t-ghost { top: calc(16 * var(--u)); right: calc(16 * var(--u)); width: calc(112 * var(--u)); height: calc(112 * var(--u)); }
+
+    .ach-head { gap: calc(14 * var(--u)); padding-bottom: calc(12 * var(--u)); }
+    .ach-head > div:not(.ach-badge) { padding-right: calc(62 * var(--u)); }
+    .ach-head h2 { font-size: calc(31 * var(--u)); }
+    .ach-meta { margin-top: calc(3 * var(--u)); font-size: calc(15.5 * var(--u)); }
+
+    .ach-badge {
+        width: calc(58 * var(--u));
+        height: calc(58 * var(--u));
+        padding: calc(6 * var(--u));
+        border-width: calc(2 * var(--u));
+    }
+
+    .ach-list li {
+        padding-left: calc(21 * var(--u));
+        margin-bottom: calc(5 * var(--u));
+        font-size: calc(17 * var(--u));
+    }
+    .ach-list li:not(.ach-group)::before { width: calc(9 * var(--u)); height: calc(9 * var(--u)); }
+    .ach-list li:not(.ach-group):has(+ li:not(.ach-group))::after {
+        left: calc(4 * var(--u));
+        top: calc(0.42em + 9 * var(--u));
+        height: calc(100% + 5 * var(--u) - 4 * var(--u));
+    }
+    .ach-list li.ach-group {
+        gap: calc(8 * var(--u));
+        margin: calc(10 * var(--u)) 0 calc(5 * var(--u));
+        font-size: calc(11.5 * var(--u));
+    }
+    .ach-list li.ach-group:first-child { margin-top: 0; }
+    .ach-list li.ach-group::before { width: calc(14 * var(--u)); }
+
+    .ach-photo-btn {
+        gap: calc(7 * var(--u));
+        padding: calc(6 * var(--u)) calc(15 * var(--u));
+        font-size: calc(12.5 * var(--u));
+    }
+    .ach-photo-btn svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+
+    .ach-contact { padding-top: calc(8 * var(--u)); font-size: calc(14 * var(--u)); }
+}
+
+
+/* Full-size photo viewer (opened by "View photo") */
 .ach-lightbox {
     max-width: 94vw;
     max-height: 94vh;
@@ -1812,86 +2204,6 @@ body.about-body .ach-card {
     background: #a5f3fc;
 }
 
-/* Phones: fall back to a normal scrolling stack, no photo behind the text */
-@media (max-width: 768px) {
-    body.ach-body {
-        height: auto;
-        min-height: 100svh;
-        overflow-y: auto;
-    }
-    body.ach-body .about-page { height: auto; padding-bottom: 5rem; }
-    body.ach-body .about-content .profile-name { font-size: 2rem; }
-    .ach-card::before { display: none; }
-    .ach-photo-btn { position: static; align-self: flex-start; margin-top: 0.4rem; }
-}
-
-/* Laptop / desktop: uniform scaling, fits the screen, no scroll */
-@media (min-width: 769px) {
-    body.ach-body .about-content .profile-name {
-        font-size: calc(58 * var(--u));
-        margin-bottom: calc(12 * var(--u));
-    }
-
-    body.ach-body .ach-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: calc(292 * var(--u)) calc(318 * var(--u));
-        gap: calc(16 * var(--u));
-    }
-
-    body.about-body .ach-card {
-        gap: calc(14 * var(--u));
-        padding: calc(22 * var(--u)) calc(28 * var(--u));
-    }
-
-    body.ach-body .ach-head { gap: calc(18 * var(--u)); }
-
-    body.ach-body .ach-badge {
-        width: calc(70 * var(--u));
-        height: calc(70 * var(--u));
-        padding: calc(7 * var(--u));
-        border-width: calc(2 * var(--u));
-    }
-
-    body.ach-body .ach-head h2 { font-size: calc(32 * var(--u)); }
-    body.ach-body .ach-meta { font-size: calc(18 * var(--u)); margin-top: calc(2 * var(--u)); }
-
-    body.ach-body .ach-list li {
-        padding-left: calc(24 * var(--u));
-        margin-bottom: calc(7 * var(--u));
-        font-size: calc(19 * var(--u));
-    }
-
-    body.ach-body .ach-list li::before {
-        top: 0.55em;
-        width: calc(8 * var(--u));
-        height: calc(8 * var(--u));
-    }
-
-    body.ach-body .ach-photo-btn {
-        right: calc(18 * var(--u));
-        bottom: calc(14 * var(--u));
-        gap: calc(8 * var(--u));
-        padding: calc(7 * var(--u)) calc(16 * var(--u));
-        font-size: calc(13 * var(--u));
-    }
-
-    body.ach-body .ach-photo-btn svg {
-        width: calc(17 * var(--u));
-        height: calc(17 * var(--u));
-    }
-}
-
-
-/* ============================================================
-   ACHIEVEMENTS REFINEMENTS: calmer cards, photo kept clear of
-   the text, and a multi-photo viewer (prev / next).
-   ============================================================ */
-.ach-card::before { left: 42%; filter: brightness(0.85) saturate(1);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.45) 35%, #000 72%);
-    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.45) 35%, #000 72%); }
-.ach-list { max-width: 67%; }
-.ach-list li { text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95); }
-
 .ach-lightbox { display: none; }
 .ach-lightbox[open] { display: block; }
 .ach-lightbox-nav {
@@ -1905,353 +2217,6 @@ body.about-body .ach-card {
 .ach-lightbox-nav:hover, .ach-lightbox-nav:focus-visible { color: #020c1b; background: #a5f3fc; }
 .ach-lightbox-nav[hidden] { display: none; }
 #ach-lightbox-count { opacity: 0.65; margin-left: 0.4rem; }
-@media (max-width: 768px) {
-    .ach-list { max-width: none; }
-    .ach-lightbox-prev { left: 0.4rem; }
-    .ach-lightbox-next { right: 0.4rem; }
-}
-
-@media (min-width: 769px) {
-    body.ach-body .ach-grid { grid-template-rows: calc(296 * var(--u)) calc(330 * var(--u)); }
-    body.ach-body .ach-list li { font-size: calc(18.5 * var(--u)); margin-bottom: calc(6 * var(--u)); }
-    body.ach-body .ach-meta { font-size: calc(16.5 * var(--u)); }
-}
-
-
-/* ============================================================
-   ACHIEVEMENTS REFINEMENT: original card color, a long eased
-   fade so the photo melts into the card (no visible edge), and
-   lists grouped as Curricular / Extra-Curricular / Co-Curricular.
-   ============================================================ */
-.ach-card::before {
-    left: 48%;
-    background-position: center center;
-    background-size: cover;
-    filter: brightness(0.9) saturate(1);
-    -webkit-mask-image: linear-gradient(to right,
-        rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.015) 12%, rgba(0, 0, 0, 0.05) 24%,
-        rgba(0, 0, 0, 0.14) 36%, rgba(0, 0, 0, 0.32) 48%, rgba(0, 0, 0, 0.55) 60%,
-        rgba(0, 0, 0, 0.78) 74%, rgba(0, 0, 0, 0.94) 88%, #000 100%);
-    mask-image: linear-gradient(to right,
-        rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.015) 12%, rgba(0, 0, 0, 0.05) 24%,
-        rgba(0, 0, 0, 0.14) 36%, rgba(0, 0, 0, 0.32) 48%, rgba(0, 0, 0, 0.55) 60%,
-        rgba(0, 0, 0, 0.78) 74%, rgba(0, 0, 0, 0.94) 88%, #000 100%);
-}
-
-.ach-head { max-width: 64%; }
-.ach-list { max-width: 60%; }
-.ach-list li { color: #f4f8fd; text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95), 0 0 14px rgba(5, 15, 32, 0.8); }
-.ach-meta { color: rgba(255, 255, 255, 0.78); letter-spacing: 0.02em; text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95); }
-
-.ach-list li.ach-group {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding-left: 0;
-    margin: 0.5rem 0 0.25rem;
-    color: rgba(165, 243, 252, 0.8);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-}
-.ach-list li.ach-group:first-child { margin-top: 0; }
-.ach-list li.ach-group::before {
-    position: static;
-    flex: none;
-    width: 0.9rem;
-    height: 1px;
-    border-radius: 0;
-    background: rgba(165, 243, 252, 0.55);
-}
-.ach-list li.ach-group::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, rgba(165, 243, 252, 0.3), transparent);
-}
-
-@media (max-width: 768px) {
-    .ach-head,
-    .ach-list { max-width: none; }
-}
-
-@media (min-width: 769px) {
-    body.ach-body .ach-grid { grid-template-rows: calc(318 * var(--u)) calc(398 * var(--u)); }
-    body.about-body .ach-card { padding: calc(18 * var(--u)) calc(28 * var(--u)); gap: calc(10 * var(--u)); }
-    body.ach-body .ach-list li { font-size: calc(18 * var(--u)); margin-bottom: calc(4 * var(--u)); line-height: 1.3; }
-    body.ach-body .ach-meta { font-size: calc(16 * var(--u)); }
-    body.ach-body .ach-list li.ach-group {
-        font-size: calc(11.5 * var(--u));
-        gap: calc(10 * var(--u));
-        margin: calc(8 * var(--u)) 0 calc(5 * var(--u));
-        line-height: 1.2;
-    }
-    body.ach-body .ach-list li.ach-group { padding-left: 0; }
-    body.ach-body .ach-list li.ach-group:first-child { margin-top: 0; }
-    body.ach-body .ach-list li.ach-group::before {
-        position: static;
-        top: auto;
-        width: calc(14 * var(--u));
-        height: 1px;
-        border-radius: 0;
-    }
-}
-
-
-/* ============================================================
-   ACHIEVEMENTS FIT (laptop / desktop)
-   The page is a fixed-height column: header block, then a 2x2
-   grid that fills exactly the space that is left above the
-   Back / Next buttons. Rows are flexible, so nothing overflows,
-   nothing scrolls and nothing sits under the buttons.
-   Same header position and --u scaling as Personal Information.
-   ============================================================ */
-@media (min-width: 769px) {
-    body.ach-body .about-page {
-        justify-content: flex-start;
-        padding: calc(100 * var(--u)) 0 calc(70 * var(--u));
-    }
-
-    body.ach-body .about-content {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        min-height: 0;
-    }
-
-    body.ach-body .about-content .profile-greeting {
-        flex: none;
-        margin: 0 0 calc(3 * var(--u));
-        font-size: calc(26 * var(--u));
-        line-height: 1.4;
-    }
-
-    body.ach-body .about-content .profile-name {
-        flex: none;
-        margin: 0 0 calc(10 * var(--u));
-        font-size: calc(60 * var(--u));
-        line-height: 1.05;
-        white-space: nowrap;
-    }
-
-    body.ach-body .ach-grid {
-        flex: 1 1 0;
-        min-height: 0;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: minmax(0, 0.92fr) minmax(0, 1.08fr);
-        gap: calc(14 * var(--u));
-    }
-
-    body.ach-body .ach-card {
-        min-height: 0;
-        justify-content: flex-start;
-        gap: calc(8 * var(--u));
-        padding: calc(14 * var(--u)) calc(26 * var(--u));
-    }
-
-    body.ach-body .ach-card:hover { transform: scale(1.01); }
-
-    body.ach-body .ach-head { gap: calc(16 * var(--u)); max-width: 66%; }
-
-    body.ach-body .ach-badge {
-        width: calc(58 * var(--u));
-        height: calc(58 * var(--u));
-        padding: calc(6 * var(--u));
-    }
-
-    body.ach-body .ach-head h2 { font-size: calc(28 * var(--u)); line-height: 1.15; }
-    body.ach-body .ach-meta { font-size: calc(15.5 * var(--u)); margin-top: calc(1 * var(--u)); line-height: 1.3; }
-
-    body.ach-body .ach-list { max-width: 64%; }
-
-    body.ach-body .ach-list li {
-        padding-left: calc(22 * var(--u));
-        margin-bottom: calc(3 * var(--u));
-        font-size: calc(17 * var(--u));
-        line-height: 1.26;
-    }
-
-    body.ach-body .ach-list li::before {
-        top: 0.52em;
-        width: calc(7 * var(--u));
-        height: calc(7 * var(--u));
-    }
-
-    body.ach-body .ach-list li.ach-group {
-        margin: calc(6 * var(--u)) 0 calc(3 * var(--u));
-        font-size: calc(11 * var(--u));
-        line-height: 1.2;
-    }
-
-    body.ach-body .ach-list li.ach-group:first-child { margin-top: 0; }
-    body.ach-body .ach-list li.ach-group::before { width: calc(14 * var(--u)); }
-
-    body.ach-body .ach-photo-btn {
-        right: calc(18 * var(--u));
-        bottom: calc(12 * var(--u));
-        gap: calc(8 * var(--u));
-        padding: calc(7 * var(--u)) calc(16 * var(--u));
-        font-size: calc(12.5 * var(--u));
-    }
-}
-
-
-/* ============================================================
-   ACHIEVEMENTS v3: original full-bleed photo style, equal 2x2
-   grid, photo shifted left so more of the awards show, and the
-   rows sized to their content so everything fits with no scroll.
-   ============================================================ */
-.ach-card::before {
-    left: 48%;
-    background-position: center center;
-    background-size: cover;
-    filter: brightness(0.9) saturate(1);
-    -webkit-mask-image: linear-gradient(to right,
-        rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.015) 12%, rgba(0, 0, 0, 0.05) 24%,
-        rgba(0, 0, 0, 0.14) 36%, rgba(0, 0, 0, 0.32) 48%, rgba(0, 0, 0, 0.55) 60%,
-        rgba(0, 0, 0, 0.78) 74%, rgba(0, 0, 0, 0.94) 88%, #000 100%);
-    mask-image: linear-gradient(to right,
-        rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.015) 12%, rgba(0, 0, 0, 0.05) 24%,
-        rgba(0, 0, 0, 0.14) 36%, rgba(0, 0, 0, 0.32) 48%, rgba(0, 0, 0, 0.55) 60%,
-        rgba(0, 0, 0, 0.78) 74%, rgba(0, 0, 0, 0.94) 88%, #000 100%);
-}
-
-@media (min-width: 769px) {
-    body.ach-body .about-page { padding: calc(115 * var(--u)) 0 calc(71 * var(--u)); }
-    body.ach-body .about-content .profile-greeting { margin: 0 0 calc(3 * var(--u)); line-height: 1.6; }
-
-    body.ach-body .ach-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: auto auto;
-        align-content: stretch;
-        gap: calc(14 * var(--u));
-    }
-
-    body.ach-body .ach-card {
-        padding: calc(11 * var(--u)) calc(26 * var(--u));
-        gap: calc(5 * var(--u));
-    }
-
-    body.ach-body .ach-head { max-width: 70%; }
-    body.ach-body .ach-list { max-width: 66%; }
-
-    body.ach-body .ach-list li {
-        font-size: calc(15.5 * var(--u));
-        line-height: 1.22;
-        margin-bottom: calc(2 * var(--u));
-    }
-
-    body.ach-body .ach-list li.ach-group {
-        margin: calc(4 * var(--u)) 0 calc(2 * var(--u));
-        font-size: calc(10.5 * var(--u));
-    }
-    body.ach-body .ach-list li.ach-group:first-child { margin-top: 0; }
-}
-
-
-/* Achievements photos
-   - Lighter dark fade: it clears much sooner so the certificates and medals look sharp, while
-     the far left stays dark enough for the white text.
-   - Elementary + Senior High: photo placement kept as is (shifted right, clipped by the card edge).
-   - Junior High + College: photo area starts a little further right so it sits cleanly beside the text. */
-.ach-card::before {
-    left: 44%;
-    background-position: 75% center;
-    background-size: cover;
-    filter: brightness(1) saturate(1.05) contrast(1.03);
-    -webkit-mask-image: linear-gradient(to right,
-        rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.06) 10%, rgba(0, 0, 0, 0.25) 20%,
-        rgba(0, 0, 0, 0.6) 32%, rgba(0, 0, 0, 0.9) 44%, #000 56%);
-    mask-image: linear-gradient(to right,
-        rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.06) 10%, rgba(0, 0, 0, 0.25) 20%,
-        rgba(0, 0, 0, 0.6) 32%, rgba(0, 0, 0, 0.9) 44%, #000 56%);
-}
-
-body.ach-body .ach-card:nth-child(1)::before,
-body.ach-body .ach-card:nth-child(3)::before { left: 56%; right: -12%; }
-
-body.ach-body .ach-card:nth-child(2)::before,
-body.ach-body .ach-card:nth-child(4)::before {
-    left: 52%;
-    right: 0;
-    background-size: cover;
-    background-position: 50% center;
-}
-
-/* ============================================================
-   ACHIEVEMENTS: "For inquiries" line pinned to the bottom of each
-   card, and soft fade between the cycling background photos.
-   ============================================================ */
-/* photo switch: old picture fades out quickly, the new one fades in while gently settling from a slight zoom */
-.ach-card::before { transition: filter 0.3s ease, opacity 0.9s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.ach-card.ach-swap::before {
-    opacity: 0;
-    transform: scale(1.07);
-    transition: filter 0.3s ease, opacity 0.4s ease-in, transform 0.4s ease-in;
-}
-@media (prefers-reduced-motion: reduce) {
-    .ach-card::before,
-    .ach-card.ach-swap::before { transition: none; transform: none; }
-}
-
-.ach-contact {
-    margin: auto 0 0;
-    padding-top: 0.45rem;
-    max-width: 64%;
-    border-top: 1px solid rgba(165, 243, 252, 0.22);
-    color: #f4f8fd;
-    font-size: 0.72rem;
-    line-height: 1.3;
-    text-shadow: 0 1px 6px rgba(5, 15, 32, 0.95), 0 0 14px rgba(5, 15, 32, 0.8);
-}
-.ach-contact-label {
-    color: #a5f3fc;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-}
-@media (max-width: 768px) {
-    .ach-contact { max-width: none; margin-top: 0.6rem; }
-}
-@media (min-width: 769px) {
-    body.ach-body .ach-contact {
-        padding-top: calc(6 * var(--u));
-        max-width: 64%;
-        font-size: calc(13.5 * var(--u));
-    }
-}
-
-/* Per-photo positioning for the cycling card backgrounds.
-   Only the picture's position moves: the fade, overlay and text are untouched.
-   --ach-px = horizontal position (%), --ach-sx = extra nudge (units of --u, + moves the picture right). */
-.ach-card::before {
-    background-position: calc(var(--ach-px, 75%) + var(--ach-sx, 0) * var(--u, 1px)) var(--ach-py, center);
-}
-body.ach-body .ach-card:nth-child(2)::before,
-body.ach-body .ach-card:nth-child(4)::before {
-    background-position: calc(var(--ach-px, 50%) + var(--ach-sx, 0) * var(--u, 1px)) var(--ach-py, center);
-}
-
-/* ============================================================
-   ACHIEVEMENTS: rows sized by their content.
-   The two grid rows used to split the height equally, which cut off the
-   bottom "For inquiries and validation" line of the taller Senior High
-   card on shorter browser windows. Each row now keeps at least the height
-   its content needs and shares only the leftover space, so nothing is
-   clipped and the page still never scrolls.
-   ============================================================ */
-@media (min-width: 769px) {
-    /* the content block also scales with the window height (the navbar is not affected) */
-    body.ach-body .about-page {
-        --u: min(0.052083vw, 0.0925vh);
-    }
-
-    body.ach-body .ach-grid {
-        grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr);
-    }
-}
 
 /* ============================================================
    FAMILY AND FRIENDS PAGE (last page)
