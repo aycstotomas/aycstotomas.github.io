@@ -69,10 +69,11 @@
 
     <main class="split-hero-container about-page">
         <!-- twinkling night sky behind the page -->
-        <div class="fr-sky" aria-hidden="true"><span class="fr-stars fr-stars-a"></span><span class="fr-stars fr-stars-b"></span></div>
+        <div class="fr-sky" aria-hidden="true"></div>
+        <canvas id="fr-canvas" aria-hidden="true"></canvas>
 
         <section class="about-content animate-fade-up">
-            <p class="profile-greeting">The people behind the journey</p>
+            <p class="profile-greeting"><span class="burn-star" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>The people behind the journey</p>
             <h1 class="profile-name">Family <span class="highlight-surname">and Friends</span></h1>
 
 <div class="fr-stage">
@@ -276,6 +277,14 @@
     <script>
         (function () {
             var cards = document.querySelectorAll('.fr-card');
+
+            // constellation stars on the outline of every case half (corners + middle of each edge)
+            document.querySelectorAll('.fr-front, .fr-back, .fr-tray').forEach(function (h) {
+                var cs = document.createElement('span');
+                cs.className = 'fr-cs'; cs.setAttribute('aria-hidden', 'true');
+                cs.innerHTML = '<b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>';
+                h.appendChild(cs);
+            });
             var still = window.matchMedia('(prefers-reduced-motion: reduce)');
             var narrow = window.matchMedia('(max-width: 768px)');
             function set(c, on) { c.classList.toggle('is-open', on); c.setAttribute('aria-expanded', on); }
@@ -293,7 +302,7 @@
 
             // the cases appear closed once the star-lines reach them (laptop / desktop), then open one after another like books
             cards.forEach(function (c, i) {
-                setTimeout(function () { set(c, true); }, still.matches ? 0 : (narrow.matches ? 1000 + i * 260 : 2750 + i * 200));
+                setTimeout(function () { set(c, true); }, still.matches ? 0 : (narrow.matches ? 600 + i * 150 : 1350 + i * 110));
                 // click / Enter closes or re-opens a case
                 c.addEventListener('click', function () { set(c, !c.classList.contains('is-open')); });
                 c.addEventListener('keydown', function (e) {
@@ -302,6 +311,8 @@
             });
         })();
     </script>
+    <script src="shootingstars.js" defer></script>
+    <script src="frfx.js" defer></script>
     <script src="nextstar.js" defer></script>
 </body>
 </html>

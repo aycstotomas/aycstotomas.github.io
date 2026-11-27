@@ -4,7 +4,7 @@
    The loop only runs while a star is in flight, and it is skipped when the visitor prefers reduced motion. */
 (function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var anchor = document.getElementById('hp-sky') || document.getElementById('pi-stars') || document.getElementById('ach-sky');
+    var anchor = document.getElementById('hp-sky') || document.getElementById('pi-stars') || document.getElementById('ach-sky') || document.getElementById('fr-canvas');
     if (!anchor) return;
 
     var cv = document.createElement('canvas');

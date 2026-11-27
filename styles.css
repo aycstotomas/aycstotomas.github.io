@@ -2745,7 +2745,7 @@ body.about-body .ach-card {
 .fr-photo img.fit-wide { position: relative; object-fit: contain; }
 
 /* ---- opening animation: the case starts closed (cover lying over the disc side) and the cover swings open on its spine like a book ---- */
-.fr-case { perspective: calc(1500 * var(--k)); transition: translate 1.3s cubic-bezier(0.45, 0, 0.2, 1), filter 0.6s ease; }
+.fr-case { perspective: calc(1500 * var(--k)); transition: translate 0.8s cubic-bezier(0.45, 0, 0.2, 1), filter 0.6s ease; }
 .fr-card:not(.is-open) .fr-case {
     translate: calc(-155 * var(--k)) 0;
     filter: drop-shadow(0 0 calc(12 * var(--k)) rgba(125, 219, 234, 0.35));
@@ -2762,7 +2762,7 @@ body.about-body .ach-card {
     transform-style: preserve-3d;
     transform-origin: 100% 50%;
     transform: translateX(0) rotateY(0deg);
-    transition: transform 1.3s cubic-bezier(0.45, 0, 0.2, 1);
+    transition: transform 0.8s cubic-bezier(0.45, 0, 0.2, 1);
 }
 .fr-half.fr-cover::after { display: none; }
 .fr-card:not(.is-open) .fr-half.fr-cover { transform: translateX(calc(20 * var(--k))) rotateY(180deg); }
@@ -2779,17 +2779,17 @@ body.about-body .ach-card {
 .fr-back { transform: rotateY(180deg); }
 
 /* disc side and spine appear as the cover lifts off them */
-.fr-tray, .fr-hinge { z-index: 1; transition: opacity 0.5s ease 0.5s; }
+.fr-tray, .fr-hinge { z-index: 1; transition: opacity 0.3s ease 0.3s; }
 .fr-card:not(.is-open) .fr-tray,
 .fr-card:not(.is-open) .fr-hinge { opacity: 0; transition: opacity 0.2s ease 0s; }
 
 /* circuit lines keep touching the case while it is closed and centred */
-.fr-card::before { transition: width 1.3s cubic-bezier(0.45, 0, 0.2, 1), left 1.3s cubic-bezier(0.45, 0, 0.2, 1), right 1.3s cubic-bezier(0.45, 0, 0.2, 1); }
+.fr-card::before { transition: width 0.8s cubic-bezier(0.45, 0, 0.2, 1), left 0.8s cubic-bezier(0.45, 0, 0.2, 1), right 0.8s cubic-bezier(0.45, 0, 0.2, 1); }
 .fr-card.is-left:not(.is-open)::before { left: calc(100% - 155 * var(--k)); width: calc(205 * var(--k)); }
 .fr-card.is-right:not(.is-open)::before { right: calc(100% - 155 * var(--k)); width: calc(205 * var(--k)); }
 
 /* emblem badge stays centred over the cover while the case is closed */
-.fr-badge { transition: translate 1.3s cubic-bezier(0.45, 0, 0.2, 1); }
+.fr-badge { transition: translate 0.8s cubic-bezier(0.45, 0, 0.2, 1); }
 .fr-card:not(.is-open) .fr-badge { translate: calc(-50% + 155 * var(--k)) 0; }
 
 /* discs spin once the case is open */
@@ -2977,17 +2977,17 @@ body.about-body .ach-card {
    turns into a heart, and the heart's beat draws the circuit outward like
    a constellation: lines -> cases (discs sweep in) -> loops -> emblems.
    All timings come from the variables below, so the whole intro can be
-   sped up or slowed down in one place. (JS opens the cases at ~2.75 s.)
+   sped up or slowed down in one place. (JS opens the cases at ~1.35 s.)
    ============================================================ */
 .fr-stage {
-    --t-star: 0.25s;                              /* star leaves the sky */
-    --t-hit: calc(var(--t-star) + 0.7s);          /* star hits the centre circle */
-    --t-beat: calc(var(--t-hit) + 0.45s);         /* first heartbeat starts the lines */
-    --t-stub: calc(var(--t-beat) + 0.6s);         /* lines reach the cases */
-    --t-case: calc(var(--t-stub) + 0.3s);         /* cases appear */
-    --t-loop: calc(var(--t-case) + 0.6s);         /* side loops trace around */
-    --t-wire: calc(var(--t-loop) + 0.5s);         /* lines reach the emblems */
-    --t-emblem: calc(var(--t-wire) + 0.3s);       /* emblems light up */
+    --t-star: 0.1s;                              /* star leaves the sky */
+    --t-hit: calc(var(--t-star) + 0.4s);          /* star hits the centre circle */
+    --t-beat: calc(var(--t-hit) + 0.25s);         /* first heartbeat starts the lines */
+    --t-stub: calc(var(--t-beat) + 0.3s);         /* lines reach the cases */
+    --t-case: calc(var(--t-stub) + 0.15s);         /* cases appear */
+    --t-loop: calc(var(--t-case) + 0.3s);         /* side loops trace around */
+    --t-wire: calc(var(--t-loop) + 0.25s);         /* lines reach the emblems */
+    --t-emblem: calc(var(--t-wire) + 0.15s);       /* emblems light up */
 }
 
 @property --fr-sweep { syntax: '<angle>'; inherits: false; initial-value: 360deg; }
@@ -3017,7 +3017,7 @@ body.about-body .ach-card {
         background: linear-gradient(to left, #ffffff 0, rgba(165, 243, 252, 0.85) 16%, rgba(165, 243, 252, 0) 100%);
         box-shadow: 0 0 calc(12 * var(--k)) rgba(165, 243, 252, 0.8);
         opacity: 0;
-        animation: fr-star-fly 0.7s cubic-bezier(0.45, 0.05, 0.9, 0.55) var(--t-star) forwards;
+        animation: fr-star-fly 0.4s cubic-bezier(0.45, 0.05, 0.9, 0.55) var(--t-star) forwards;
     }
     .fr-star i::after {
         content: '';
@@ -3039,7 +3039,7 @@ body.about-body .ach-card {
 
     /* ---- 2. impact: the circle flares, ripples spread, the circle turns into a heart ---- */
     .fr-hub {
-        animation: fr-pulse 3.2s ease-in-out infinite, fr-hub-hit 0.45s ease-out var(--t-hit) forwards;
+        animation: fr-pulse 3.2s ease-in-out infinite, fr-hub-hit 0.3s ease-out var(--t-hit) forwards;
     }
     @keyframes fr-hub-hit {
         0%   { scale: 1; opacity: 1; }
@@ -3059,16 +3059,16 @@ body.about-body .ach-card {
         box-shadow: 0 0 calc(14 * var(--k)) rgba(125, 219, 234, 0.55), inset 0 0 calc(14 * var(--k)) rgba(125, 219, 234, 0.35);
         translate: -50% -50%;
         opacity: 0;
-        animation: fr-ripple 1.5s cubic-bezier(0.2, 0.6, 0.3, 1) var(--d) backwards;
+        animation: fr-ripple 0.9s cubic-bezier(0.2, 0.6, 0.3, 1) var(--d) backwards;
     }
-    .fr-ripple.is-beat { width: calc(300 * var(--k)); height: calc(300 * var(--k)); animation-duration: 1s; }
+    .fr-ripple.is-beat { width: calc(300 * var(--k)); height: calc(300 * var(--k)); animation-duration: 0.6s; }
     .fr-ripple.is-flash {
         width: calc(220 * var(--k));
         height: calc(220 * var(--k));
         border: 0;
         background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0, rgba(165, 243, 252, 0.55) 25%, rgba(165, 243, 252, 0) 68%);
         box-shadow: none;
-        animation-duration: 0.6s;
+        animation-duration: 0.35s;
     }
     @keyframes fr-ripple {
         0%   { scale: 0.03; opacity: 0.95; }
@@ -3088,7 +3088,7 @@ body.about-body .ach-card {
         filter: drop-shadow(0 0 calc(7 * var(--k)) rgba(125, 219, 234, 0.95));
         translate: -50% -50%;
         animation:
-            fr-heart-pop 0.55s cubic-bezier(0.2, 1.6, 0.4, 1) var(--t-hit) backwards,
+            fr-heart-pop 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) var(--t-hit) backwards,
             fr-beat 3.2s ease-in-out var(--t-beat) infinite;
     }
     @keyframes fr-heart-pop {
@@ -3117,7 +3117,7 @@ body.about-body .ach-card {
         stroke-linejoin: round;
         filter: drop-shadow(0 0 calc(5 * var(--k)) rgba(125, 219, 234, 0.9));
         opacity: 0;
-        animation: fr-mh-fly 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) calc(var(--t-beat) + var(--dl)) backwards;
+        animation: fr-mh-fly 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) calc(var(--t-beat) + var(--dl)) backwards;
     }
     @keyframes fr-mh-fly {
         0%   { translate: 0 0; scale: 0.3; opacity: 0; }
@@ -3126,10 +3126,10 @@ body.about-body .ach-card {
     }
 
     /* ---- 3. the beat sends the lines outward ---- */
-    .fr-link-mid { animation: fr-grow-y 0.6s ease-out var(--t-beat) backwards; }
+    .fr-link-mid { animation: fr-grow-y 0.35s ease-out var(--t-beat) backwards; }
     @keyframes fr-grow-y { from { scale: 1 0; } }
 
-    .fr-card::before { animation: fr-grow-x 0.3s ease-out var(--t-stub) backwards; }
+    .fr-card::before { animation: fr-grow-x 0.18s ease-out var(--t-stub) backwards; }
     .fr-card.is-left::before { transform-origin: 100% 50%; }
     .fr-card.is-right::before { transform-origin: 0 50%; }
     @keyframes fr-grow-x { from { transform: scaleX(0); } }
@@ -3145,7 +3145,7 @@ body.about-body .ach-card {
         background: #effeff;
         box-shadow: 0 0 calc(10 * var(--k)) calc(2 * var(--k)) rgba(125, 219, 234, 0.9);
         translate: -50% -50%;
-        animation: fr-node-in 0.9s ease-out var(--t) backwards;
+        animation: fr-node-in 0.55s ease-out var(--t) backwards;
     }
     .fr-node::before,
     .fr-node::after {
@@ -3158,7 +3158,7 @@ body.about-body .ach-card {
         background: linear-gradient(90deg, transparent, #ffffff, transparent);
         translate: -50% -50%;
         opacity: 0;
-        animation: fr-node-flare 0.9s ease-out var(--t) backwards;
+        animation: fr-node-flare 0.55s ease-out var(--t) backwards;
     }
     .fr-node::after { rotate: 90deg; }
     @keyframes fr-node-in {
@@ -3174,14 +3174,14 @@ body.about-body .ach-card {
 
     /* ---- 4. cases appear at the end of their line; each disc is drawn in a sweep as the case opens ---- */
     .fr-card { animation: none; }
-    .fr-case { animation: fr-case-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--t-case) + var(--i, 0) * 0.07s) backwards; }
-    .fr-card figcaption { animation: fr-cap-in 0.7s ease-out calc(var(--t-case) + 0.9s + var(--i, 0) * 0.2s) backwards; }
+    .fr-case { animation: fr-case-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--t-case) + var(--i, 0) * 0.07s) backwards; }
+    .fr-card figcaption { animation: fr-cap-in 0.45s ease-out calc(var(--t-case) + 0.4s + var(--i, 0) * 0.08s) backwards; }
     @keyframes fr-case-in { from { opacity: 0; scale: 0.86; } }
     @keyframes fr-cap-in { from { opacity: 0; translate: 0 calc(10 * var(--k)); } }
 
     /* ---- 5. loops trace around, wires reach out, emblems light up ---- */
-    .fr-link-l { animation: fr-loop-down 0.7s ease-in-out var(--t-loop) backwards; }
-    .fr-link-r { animation: fr-loop-up 0.7s ease-in-out var(--t-loop) backwards; }
+    .fr-link-l { animation: fr-loop-down 0.4s ease-in-out var(--t-loop) backwards; }
+    .fr-link-r { animation: fr-loop-up 0.4s ease-in-out var(--t-loop) backwards; }
     @keyframes fr-loop-down {
         from { clip-path: inset(0 -20px 100% -20px); }
         to   { clip-path: inset(-20px -20px -20px -20px); }
@@ -3199,14 +3199,14 @@ body.about-body .ach-card {
         background: rgba(165, 243, 252, 0.75);
         box-shadow: 0 0 calc(8 * var(--k)) rgba(125, 219, 234, 0.9);
         translate: 0 -50%;
-        animation: fr-grow-x 0.3s ease-out var(--t-wire) backwards;
+        animation: fr-grow-x 0.18s ease-out var(--t-wire) backwards;
     }
     .fr-wire.w-top { top: calc(145 * var(--k)); }
     .fr-wire.w-bot { top: calc(543 * var(--k)); }
     .fr-wire.w-l { left: calc(-54 * var(--k)); transform-origin: 100% 50%; }
     .fr-wire.w-r { right: calc(-54 * var(--k)); transform-origin: 0 50%; }
 
-    .fr-emblem { animation: fr-emblem-in 0.8s cubic-bezier(0.2, 1.3, 0.4, 1) calc(var(--t-emblem) + var(--e, 0) * 0.1s) backwards; }
+    .fr-emblem { animation: fr-emblem-in 0.5s cubic-bezier(0.2, 1.3, 0.4, 1) calc(var(--t-emblem) + var(--e, 0) * 0.05s) backwards; }
     @keyframes fr-emblem-in {
         0%   { opacity: 0; scale: 0.3; }
         55%  { opacity: 1; scale: 1.1; box-shadow: 0 0 calc(54 * var(--k)) calc(8 * var(--k)) rgba(165, 243, 252, 0.85), inset 0 0 calc(18 * var(--k)) rgba(125, 219, 234, 0.12); }
@@ -3220,8 +3220,8 @@ body.about-body .ach-card {
         mask: radial-gradient(circle, transparent 0 11%, #000 11.6%), conic-gradient(from 0deg, #000 var(--fr-sweep, 360deg), transparent 0);
         mask-composite: intersect;
     }
-    .fr-card.is-open .fr-disc { animation: fr-spin 9s linear infinite, fr-sweep 1.2s ease-out 0.5s backwards; }
-    .fr-card.is-open .fr-disc.has-video { animation: fr-sweep 1.2s ease-out 0.5s backwards; }
+    .fr-card.is-open .fr-disc { animation: fr-spin 9s linear infinite, fr-sweep 0.7s ease-out 0.25s backwards; }
+    .fr-card.is-open .fr-disc.has-video { animation: fr-sweep 0.7s ease-out 0.25s backwards; }
     @keyframes fr-sweep { from { --fr-sweep: 0deg; } }
 }
 
@@ -4324,10 +4324,73 @@ body.pi-body { background: #0b1f3a; }
 
 /* burning star in the greeting, same loop as the homepage */
 @media (prefers-reduced-motion: no-preference) {
-    .ach-body .burn-star::before { animation: burn-star 3.6s ease-out 0.3s infinite; }
-    .ach-body .burn-star::after  { animation: burn-glow 3.6s ease-out 0.3s infinite; }
-    .ach-body .burn-star i       { animation: burn-ember 3.6s ease-out calc(0.3s + var(--ed) - 0.9s) infinite; }
+    :is(.ach-body, .fr-body) .burn-star::before { animation: burn-star 3.6s ease-out 0.3s infinite; }
+    :is(.ach-body, .fr-body) .burn-star::after  { animation: burn-glow 3.6s ease-out 0.3s infinite; }
+    :is(.ach-body, .fr-body) .burn-star i       { animation: burn-ember 3.6s ease-out calc(0.3s + var(--ed) - 0.9s) infinite; }
 }
 @media (prefers-reduced-motion: reduce) {
     #ach-trace { display: none; }
 }
+
+
+/* =====================================================================
+   FAMILY AND FRIENDS: star background + constellation boxes (see frfx.js)
+   ===================================================================== */
+#fr-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* the case halves are drawn like constellations: a thin outline joining bright stars (glinting on the corners,
+   smaller ones in the middle of each edge). The stars are added by the script in family.html. */
+.fr-half:not(.fr-cover) {
+    border: 1px solid rgba(190, 240, 255, 0.55);
+    border-radius: calc(2 * var(--k));
+    background:
+        radial-gradient(ellipse 80% 70% at 50% 45%, rgba(125, 219, 234, 0.1), transparent 75%),
+        linear-gradient(170deg, rgba(165, 243, 252, 0.05), rgba(2, 12, 27, 0.28));
+    box-shadow: 0 0 calc(18 * var(--k)) rgba(125, 219, 234, 0.2), inset 0 0 calc(30 * var(--k)) rgba(125, 219, 234, 0.07);
+    backdrop-filter: none;
+}
+.fr-half:not(.fr-cover)::after { display: none; }
+
+.fr-cs { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.fr-cs b {
+    position: absolute;
+    display: block;
+    width: calc(5 * var(--k));
+    height: calc(5 * var(--k));
+    margin: calc(-2.5 * var(--k)) 0 0 calc(-2.5 * var(--k));
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 calc(8 * var(--k)) calc(1.5 * var(--k)) rgba(125, 219, 234, 0.85);
+}
+.fr-cs b:nth-child(n+5) { width: calc(3.5 * var(--k)); height: calc(3.5 * var(--k)); margin: calc(-1.75 * var(--k)) 0 0 calc(-1.75 * var(--k)); opacity: 0.85; }
+.fr-cs b:nth-child(1) { left: -0.5px; top: -0.5px; }
+.fr-cs b:nth-child(2) { right: -0.5px; top: -0.5px; margin-left: 0; margin-right: calc(-2.5 * var(--k)); }
+.fr-cs b:nth-child(3) { left: -0.5px; bottom: -0.5px; margin-top: 0; margin-bottom: calc(-2.5 * var(--k)); }
+.fr-cs b:nth-child(4) { right: -0.5px; bottom: -0.5px; margin: 0 calc(-2.5 * var(--k)) calc(-2.5 * var(--k)) 0; }
+.fr-cs b:nth-child(2) { margin-top: calc(-2.5 * var(--k)); }
+.fr-cs b:nth-child(5) { left: 50%; top: -0.5px; }
+.fr-cs b:nth-child(6) { left: 50%; bottom: -0.5px; margin-top: 0; margin-bottom: calc(-1.75 * var(--k)); }
+.fr-cs b:nth-child(7) { left: -0.5px; top: 50%; }
+.fr-cs b:nth-child(8) { right: -0.5px; top: 50%; margin-left: 0; margin-right: calc(-1.75 * var(--k)); }
+/* four-point glint on every corner star */
+.fr-cs b:nth-child(-n+4)::before,
+.fr-cs b:nth-child(-n+4)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(34 * var(--k));
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ffffff, transparent);
+    translate: -50% -50%;
+}
+.fr-cs b:nth-child(-n+4)::after { rotate: 90deg; }
+@media (prefers-reduced-motion: no-preference) {
+    .fr-cs b:nth-child(-n+4) { animation: fr-twk 3.2s ease-in-out infinite; }
+    .fr-cs b:nth-child(2) { animation-delay: -0.8s; }
+    .fr-cs b:nth-child(3) { animation-delay: -1.6s; }
+    .fr-cs b:nth-child(4) { animation-delay: -2.4s; }
+}
+@keyframes fr-twk { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.5; scale: 0.7; } }
+.fr-face.fr-front, .fr-face.fr-back { backdrop-filter: none; }
+.fr-card:focus-visible .fr-half { border-color: #fff; }
