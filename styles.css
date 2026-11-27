@@ -4394,3 +4394,95 @@ body.pi-body { background: #0b1f3a; }
 @keyframes fr-twk { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.5; scale: 0.7; } }
 .fr-face.fr-front, .fr-face.fr-back { backdrop-filter: none; }
 .fr-card:focus-visible .fr-half { border-color: #fff; }
+
+
+/* ============================================================
+   FAMILY PAGE BACKDROP: the falling figure, held in stasis.
+   The picture is cut to its linework (dark sky removed), screen-blended
+   and masked so it melts into the night sky. It is fixed (never scrolls);
+   frfall.js places the figure's heart exactly on the page's heart.
+   ============================================================ */
+.fr-fall {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.fr-fall-anchor {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+}
+
+.fr-fall-float {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    transform-origin: 0 0;
+}
+
+.fr-fall-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--fw, 1900px);
+    max-width: none;
+    height: auto;
+    /* image heart point = (700, 495) of 1365 x 768 */
+    translate: -51.28% -64.45%;
+    opacity: 0.15;
+    mix-blend-mode: screen;
+    filter: blur(2.5px) saturate(0.7);
+    -webkit-mask-image: radial-gradient(ellipse 46% 50% at 51% 64%, #000 10%, transparent 72%);
+            mask-image: radial-gradient(ellipse 46% 50% at 51% 64%, #000 10%, transparent 72%);
+}
+
+body.fr-body .about-content .profile-greeting,
+body.fr-body .about-content .profile-name { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+    /* weightless drift: it sinks and rises on the spot, rocking a little around the heart, never going anywhere */
+    .fr-fall-float { animation: fr-fall-drift 22s ease-in-out infinite; }
+    .fr-fall-img   { animation: fr-fall-breathe 9s ease-in-out infinite; }
+    @keyframes fr-fall-drift {
+        0%, 100% { transform: translate3d(0, -6px, 0) rotate(-0.4deg); }
+        50%      { transform: translate3d(0, 7px, 0) rotate(0.5deg); }
+    }
+    @keyframes fr-fall-breathe {
+        0%, 100% { opacity: 0.28; }
+        50%      { opacity: 0.4; }
+    }
+}
+
+@media (max-width: 768px) {
+    .fr-fall-img { opacity: 0.1; }
+}
+
+
+/* the face gets its own, slightly brighter layer; the figure is tilted so the face rises into the free space at the top right */
+
+
+.fr-fall-face {
+    opacity: 0.3;
+    filter: blur(0.8px) saturate(0.85);
+    -webkit-mask-image: radial-gradient(ellipse 15% 24% at 76% 35%, #000 30%, transparent 100%);
+            mask-image: radial-gradient(ellipse 15% 24% at 76% 35%, #000 30%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .fr-fall-face { animation: fr-fall-face-breathe 9s ease-in-out infinite; }
+    @keyframes fr-fall-face-breathe {
+        0%, 100% { opacity: 0.24; }
+        50%      { opacity: 0.34; }
+    }
+}
+
+@media (max-width: 768px) {
+    .fr-fall-face { opacity: 0.2; }
+}
