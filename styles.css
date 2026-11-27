@@ -3902,3 +3902,26 @@ body.pi-body { background: #0b1f3a; }
     body.pi-body .pi-bottom { margin-top: calc(8 * var(--u)); }
     body.pi-body .pi-bottom .pi-field { padding-bottom: calc(6 * var(--u)); }
 }
+
+/* Personal Information: Most Prized Possession, Collectible and Most Memorable Event sit in a fifth Favorites row, below the existing columns */
+@media (min-width: 769px) {
+    body.pi-body .pi-favs .pi-field:nth-child(16) { grid-row: 5; grid-column: 1; }
+    body.pi-body .pi-favs .pi-field:nth-child(17) { grid-row: 5; grid-column: 2; }
+    body.pi-body .pi-favs .pi-field:nth-child(18) { grid-row: 5; grid-column: 3 / 5; }
+    body.pi-body .pi-favs .pi-field:nth-child(4n)::after { display: block; }
+    body.pi-body .pi-favs .pi-field:nth-child(15)::after,
+    body.pi-body .pi-favs .pi-field:nth-child(16)::after,
+    body.pi-body .pi-favs .pi-field:nth-child(17)::after { display: none; }
+
+    /* slightly tighter vertical rhythm to make room for that fifth row without scrolling */
+    body.pi-body .pi-panel { padding-top: calc(18 * var(--u)); padding-bottom: calc(18 * var(--u)); }
+    body.pi-body .pi-rule { margin: calc(11 * var(--u)) 0; }
+    body.pi-body .pi-content .profile-name { margin-bottom: calc(6 * var(--u)); }
+    body.pi-body .pi-group h2,
+    body.pi-body .pi-bottom .pi-group h2 { margin-bottom: calc(8 * var(--u)); }
+    body.pi-body .pi-field { padding-bottom: calc(5.5 * var(--u)); }
+    body.pi-body .pi-field:last-child { padding-bottom: 0; }
+    body.pi-body .pi-bottom { margin-top: calc(4 * var(--u)); }
+    body.pi-body .pi-bottom .pi-group { padding-top: calc(11 * var(--u)); }
+    body.pi-body .pi-bottom .pi-field { padding-bottom: calc(5 * var(--u)); }
+}
