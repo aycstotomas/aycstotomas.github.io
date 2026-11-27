@@ -1,10 +1,10 @@
-/* Background shooting stars (Homepage + Personal Information).
+/* Background shooting stars (Homepage, Personal Information + Achievements).
    One transparent canvas sits right above the page's star field and below all the content. Every few seconds a star
    streaks across the sky from the upper right to the lower left, with a glowing head and a fading tail.
    The loop only runs while a star is in flight, and it is skipped when the visitor prefers reduced motion. */
 (function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var anchor = document.getElementById('hp-sky') || document.getElementById('pi-stars');
+    var anchor = document.getElementById('hp-sky') || document.getElementById('pi-stars') || document.getElementById('ach-sky');
     if (!anchor) return;
 
     var cv = document.createElement('canvas');

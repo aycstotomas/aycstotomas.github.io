@@ -29,11 +29,13 @@
         </div>
     </nav>
 
-    <div class="fr-sky" aria-hidden="true"><span class="fr-stars fr-stars-a"></span><span class="fr-stars fr-stars-b"></span></div>
+    <div class="fr-sky" aria-hidden="true"></div>
+    <canvas id="ach-sky" aria-hidden="true"></canvas>
+    <canvas id="ach-trace" aria-hidden="true"></canvas>
 
     <main class="split-hero-container about-page">
         <section class="about-content animate-fade-up">
-            <p class="profile-greeting">My journey so far</p>
+            <p class="profile-greeting"><span class="burn-star" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>My journey so far</p>
             <h1 class="profile-name">Achievements <span class="highlight-surname">Through the Years</span></h1>
 
             <div class="ach-grid" role="list">
@@ -240,17 +242,19 @@
                 clearTimeout(timer);
                 setInert(false);
                 cards.forEach(function (c) { c.classList.add('is-flipped'); });
+                window.__achFlipped = true;
+                window.dispatchEvent(new Event('ach:flipped'));
             }
 
             if (!wide || reduce) { flipAll(); return; }
 
             setInert(true);
             var last = cards[cards.length - 1].querySelector('.tarot-fly');
-            timer = setTimeout(flipAll, 3400); /* safety net */
+            timer = setTimeout(flipAll, 1500); /* safety net */
             last.addEventListener('animationend', function (e) {
                 if (e.target !== last) return;
                 clearTimeout(timer);
-                timer = setTimeout(flipAll, 450);
+                timer = setTimeout(flipAll, 100);
             });
             /* click a card to flip them right away */
             cards.forEach(function (c) { c.querySelector('.tarot-front').addEventListener('click', flipAll); });
@@ -393,6 +397,8 @@
             box.addEventListener('click', function (e) { if (e.target === box) box.close(); });
         })();
     </script>
+    <script src="shootingstars.js" defer></script>
+    <script src="achfx.js" defer></script>
     <script src="nextstar.js" defer></script>
 </body>
 </html>

@@ -1609,7 +1609,8 @@ body.about-body .about-story-card p { font-size: calc(18.5 * var(--u)); line-hei
     position: absolute;
     inset: 0;
     transform-style: preserve-3d;
-    transition: transform 0.95s cubic-bezier(0.45, 0.05, 0.2, 1) calc(var(--i) * 0.09s);
+    transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.2, 1) calc(var(--i) * 0.05s);
+    will-change: transform;
 }
 
 .tarot.is-flipped .tarot-flip { transform: rotateY(180deg); }
@@ -1740,7 +1741,6 @@ body.about-body .about-story-card p { font-size: calc(18.5 * var(--u)); line-hei
     stroke-linecap: round;
     stroke-dasharray: 1;
     stroke-dashoffset: 0;
-    filter: drop-shadow(0 0 2px rgba(var(--acc-rgb), 0.9));
 }
 .c-halo { fill: rgba(var(--acc-rgb), 0.22); }
 .c-core { fill: #ffffff; }
@@ -1760,7 +1760,7 @@ body.about-body .ach-card {
         radial-gradient(1.4px 1.4px at 78% 78%, rgba(255, 255, 255, 0.8), transparent),
         radial-gradient(1px 1px at 20% 92%, rgba(215, 250, 255, 0.8), transparent),
         radial-gradient(ellipse 90% 40% at 50% 0%, rgba(var(--acc-rgb), 0.12), transparent 75%),
-        linear-gradient(180deg, #0b1e3a 0%, #071428 60%, #050e1e 100%);
+        linear-gradient(180deg, rgba(11, 30, 58, 0.96) 0%, rgba(7, 20, 40, 0.97) 60%, rgba(5, 14, 30, 0.98) 100%);
 }
 
 /* the awards photo: its own window under the text, shown at full strength */
@@ -1980,22 +1980,17 @@ body.about-body .ach-card {
 @media (prefers-reduced-motion: no-preference) {
     @media (min-width: 769px) {
         .tarot-fly {
-            animation: tarot-fly 0.85s cubic-bezier(0.16, 0.84, 0.3, 1) calc(0.1s + var(--i) * 0.18s) backwards;
-        }
-        .tarot-front {
-            animation: tarot-land 0.9s ease-out calc(0.1s + var(--i) * 0.18s + 0.6s) backwards;
+            animation: tarot-fly 0.5s cubic-bezier(0.16, 0.84, 0.3, 1) calc(0.05s + var(--i) * 0.08s) backwards;
+            will-change: transform, opacity;
         }
         .c-line {
-            animation: c-draw 0.45s ease-out calc(0.1s + var(--i) * 0.18s + 0.55s + var(--d) * 0.015s) backwards;
+            animation: c-draw 0.3s ease-out calc(0.05s + var(--i) * 0.08s + 0.28s + var(--d) * 0.01s) backwards;
         }
         .c-star {
-            animation:
-                c-pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) calc(0.1s + var(--i) * 0.18s + 0.5s + var(--d) * 0.012s) backwards,
-                c-twinkle var(--t) ease-in-out calc(2.2s + var(--d) * 0.1s) infinite;
+            animation: c-pop 0.25s cubic-bezier(0.2, 1.4, 0.4, 1) calc(0.05s + var(--i) * 0.08s + 0.25s + var(--d) * 0.008s) backwards;
             transform-box: fill-box;
             transform-origin: center;
         }
-        .c-dust { animation: c-twinkle var(--t) ease-in-out infinite; }
     }
 }
 
@@ -2094,14 +2089,16 @@ body.about-body .ach-card {
 
     /* back */
     body.about-body .ach-card {
-        gap: calc(10 * var(--u));
-        padding: calc(26 * var(--u)) calc(28 * var(--u)) calc(22 * var(--u));
+        gap: calc(8 * var(--u));
+        padding: calc(20 * var(--u)) calc(28 * var(--u)) calc(16 * var(--u));
     }
 
-    .ach-card::before { min-height: calc(60 * var(--u)); margin-top: calc(4 * var(--u)); border-radius: calc(9 * var(--u)); }
+    /* every photo window is the same size; the View photo pill sits on its lower left corner */
+    .ach-card::before { flex: none; height: calc(var(--ph, 200) * var(--u)); min-height: 0; margin-top: auto; border-radius: calc(9 * var(--u)); }
+    .ach-photo-btn { margin: calc(-42 * var(--u)) 0 calc(6 * var(--u)) calc(10 * var(--u)); position: relative; z-index: 2; }
     .t-ghost { top: calc(16 * var(--u)); right: calc(16 * var(--u)); width: calc(112 * var(--u)); height: calc(112 * var(--u)); }
 
-    .ach-head { gap: calc(14 * var(--u)); padding-bottom: calc(12 * var(--u)); }
+    .ach-head { gap: calc(14 * var(--u)); padding-bottom: calc(8 * var(--u)); }
     .ach-head > div:not(.ach-badge) { padding-right: calc(62 * var(--u)); }
     .ach-head h2 { font-size: calc(31 * var(--u)); }
     .ach-meta { margin-top: calc(3 * var(--u)); font-size: calc(15.5 * var(--u)); }
@@ -2114,9 +2111,10 @@ body.about-body .ach-card {
     }
 
     .ach-list li {
-        padding-left: calc(21 * var(--u));
-        margin-bottom: calc(5 * var(--u));
-        font-size: calc(17 * var(--u));
+        padding-left: calc(19 * var(--u));
+        margin-bottom: calc(4 * var(--u));
+        font-size: calc(15 * var(--u));
+        line-height: 1.24;
     }
     .ach-list li:not(.ach-group)::before { width: calc(9 * var(--u)); height: calc(9 * var(--u)); }
     .ach-list li:not(.ach-group):has(+ li:not(.ach-group))::after {
@@ -2126,8 +2124,8 @@ body.about-body .ach-card {
     }
     .ach-list li.ach-group {
         gap: calc(8 * var(--u));
-        margin: calc(10 * var(--u)) 0 calc(5 * var(--u));
-        font-size: calc(11.5 * var(--u));
+        margin: calc(8 * var(--u)) 0 calc(4 * var(--u));
+        font-size: calc(11 * var(--u));
     }
     .ach-list li.ach-group:first-child { margin-top: 0; }
     .ach-list li.ach-group::before { width: calc(14 * var(--u)); }
@@ -2139,7 +2137,7 @@ body.about-body .ach-card {
     }
     .ach-photo-btn svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
 
-    .ach-contact { padding-top: calc(8 * var(--u)); font-size: calc(14 * var(--u)); }
+    .ach-contact { padding-top: calc(8 * var(--u)); font-size: calc(13 * var(--u)); min-height: calc(51.5 * var(--u)); }   /* room for 3 lines on every card, so the photos line up */
 }
 
 
@@ -4298,4 +4296,38 @@ body.pi-body { background: #0b1f3a; }
 @media (prefers-reduced-motion: reduce) {
     .next-page-link::before, .next-page-link::after { display: none; }
     .next-page-link:is(:hover, :focus-visible) > svg:not(.nsl-star) { animation: none; }
+}
+
+
+/* =====================================================================
+   ACHIEVEMENTS BACKGROUND + CARD BORDER STARS (see achfx.js)
+   The sky canvas (twinkling stars + a violet heart constellation) sits under the cards on the blue background;
+   the trace canvas sits above them, only to let a shooting star lap each card border in the card's own colour.
+   ===================================================================== */
+#ach-sky, #ach-trace {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+#ach-sky { z-index: 0; }
+#ach-trace { z-index: 6; }
+.ach-body .about-content { position: relative; z-index: 1; }
+
+/* the border glows in the card's colour when the shooting star arrives */
+.tarot.ach-lit .tarot-back {
+    animation: ach-lit 0.9s ease-out;
+}
+@keyframes ach-lit {
+    0%   { box-shadow: 0 0 0 1px rgba(var(--acc-rgb), 0.95), 0 0 26px 4px rgba(var(--acc-rgb), 0.55), inset 0 0 40px rgba(var(--acc-rgb), 0.06); }
+    100% { box-shadow: 0 0 34px rgba(var(--acc-rgb), 0.14), inset 0 0 40px rgba(var(--acc-rgb), 0.06); }
+}
+
+/* burning star in the greeting, same loop as the homepage */
+@media (prefers-reduced-motion: no-preference) {
+    .ach-body .burn-star::before { animation: burn-star 3.6s ease-out 0.3s infinite; }
+    .ach-body .burn-star::after  { animation: burn-glow 3.6s ease-out 0.3s infinite; }
+    .ach-body .burn-star i       { animation: burn-ember 3.6s ease-out calc(0.3s + var(--ed) - 0.9s) infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #ach-trace { display: none; }
 }
