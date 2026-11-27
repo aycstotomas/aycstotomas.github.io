@@ -4175,8 +4175,43 @@ body.pi-body { background: #0b1f3a; }
     76%  { transform: translateY(-4px); }
     100% { transform: translateY(0); }
 }
+/* his speech bubble: a small glass pill beside his head, with a tail that points at him */
+#mario-say {
+    position: fixed;
+    z-index: 5;
+    box-sizing: border-box;
+    min-height: 2.2em;
+    padding: 9px 13px;
+    border: 1px solid rgba(165, 243, 252, 0.6);
+    border-radius: 10px;
+    background: rgba(7, 26, 51, 0.92);
+    box-shadow: 0 0 16px rgba(125, 219, 234, 0.3);
+    color: #d7faff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+#mario-say.on { opacity: 1; transform: none; }
+#mario-say::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    background: rgba(7, 26, 51, 0.98);
+    border: 1px solid rgba(165, 243, 252, 0.6);
+    translate: 0 -50%;
+    rotate: 45deg;
+}
+#mario-say.right::after { left: -6px; border-right: 0; border-top: 0; }
+#mario-say.left::after  { right: -6px; border-left: 0; border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
-    #mario-stage, #bg-shooters { display: none; }
+    #mario-stage, #mario-say, #bg-shooters { display: none; }
 }
 
 /* =====================================================================
@@ -4402,7 +4437,7 @@ body.pi-body { background: #0b1f3a; }
    content. Homepage = pale blue dusk; Family and Friends = purple-to-orange sunset.
    ============================================================ */
 .hp-horizon,
-.fr-sky {
+body.fr-body .fr-sky {
     --mtn-h1: clamp(70px, 14vh, 150px);
     --mtn-h2: clamp(46px, 9vh, 100px);
 }
@@ -4417,8 +4452,8 @@ body.pi-body { background: #0b1f3a; }
         linear-gradient(to top, rgba(86, 160, 214, 0.42) 0%, rgba(52, 112, 172, 0.26) 14%, rgba(28, 70, 126, 0.12) 32%, transparent 55%);
 }
 
-/* Family and Friends: sunset instead of blue dusk */
-.fr-sky {
+/* Family and Friends only: sunset instead of blue dusk (the achievements page keeps its plain night sky) */
+body.fr-body .fr-sky {
     background:
         linear-gradient(to top, rgba(255, 128, 62, 0.46) 0%, rgba(214, 84, 108, 0.32) 9%, rgba(130, 66, 150, 0.24) 24%, rgba(58, 40, 112, 0.12) 42%, transparent 62%),
         radial-gradient(ellipse 60% 45% at 50% 78%, rgba(100, 220, 245, 0.06), transparent 70%),
@@ -4426,7 +4461,7 @@ body.pi-body { background: #0b1f3a; }
 }
 
 .hp-horizon::before, .hp-horizon::after,
-.fr-sky::before, .fr-sky::after {
+body.fr-body .fr-sky::before, body.fr-body .fr-sky::after {
     content: '';
     position: absolute;
     left: 0;
@@ -4437,16 +4472,46 @@ body.pi-body { background: #0b1f3a; }
 }
 
 /* far ridge (lighter) */
-.hp-horizon::before, .fr-sky::before { height: var(--mtn-h1); opacity: 0.92; }
+.hp-horizon::before, body.fr-body .fr-sky::before { height: var(--mtn-h1); opacity: 0.92; }
 /* near ridge (almost black) */
-.hp-horizon::after,  .fr-sky::after  { height: var(--mtn-h2); }
+.hp-horizon::after,  body.fr-body .fr-sky::after  { height: var(--mtn-h2); }
 
 .hp-horizon::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath fill='%23061a33' d='M0 140V92l70-14 90-30 60 22 90-12 70 24 110-34 80 30 90-8 100 26 90-42 100 36 80-10 110 30 70-22 100 18 90-26 80 22 70-14V140Z'/%3E%3C/svg%3E"); }
 .hp-horizon::after  { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath fill='%23010811' d='M0 140V104l60-6 80-34 70 30 90-8 60 22 120-38 90 34 80-6 110 24 70-30 90 24 120-36 90 28 90-10 80 20 100-26 80 18 60-8V140Z'/%3E%3C/svg%3E"); }
-.fr-sky::before     { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath fill='%232a1538' d='M0 140V92l70-14 90-30 60 22 90-12 70 24 110-34 80 30 90-8 100 26 90-42 100 36 80-10 110 30 70-22 100 18 90-26 80 22 70-14V140Z'/%3E%3C/svg%3E"); }
-.fr-sky::after      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath fill='%230b0614' d='M0 140V104l60-6 80-34 70 30 90-8 60 22 120-38 90 34 80-6 110 24 70-30 90 24 120-36 90 28 90-10 80 20 100-26 80 18 60-8V140Z'/%3E%3C/svg%3E"); }
+body.fr-body .fr-sky::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath fill='%232a1538' d='M0 140V92l70-14 90-30 60 22 90-12 70 24 110-34 80 30 90-8 100 26 90-42 100 36 80-10 110 30 70-22 100 18 90-26 80 22 70-14V140Z'/%3E%3C/svg%3E"); }
+body.fr-body .fr-sky::after  { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath fill='%230b0614' d='M0 140V104l60-6 80-34 70 30 90-8 60 22 120-38 90 34 80-6 110 24 70-30 90 24 120-36 90 28 90-10 80 20 100-26 80 18 60-8V140Z'/%3E%3C/svg%3E"); }
 
 body.fr-body .about-page-actions { z-index: 1; }
 @media (max-width: 768px) {
     body.fr-body .about-page-actions { position: relative; }
+}
+
+
+/* ============================================================
+   ACHIEVEMENTS: each card sits on a soft glow in its own colour
+   (ice blue, amber, green, violet), fixed behind the cards.
+   ============================================================ */
+.ach-body .tarot::before {
+    content: '';
+    position: absolute;
+    inset: -7% -12%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 62% 56% at 50% 38%, rgba(var(--acc-rgb), 0.38), transparent 72%),
+        radial-gradient(ellipse 78% 60% at 50% 88%, rgba(var(--acc-rgb), 0.24), transparent 74%);
+    filter: blur(26px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ach-body .tarot::before {
+        animation:
+            ach-glow-in 1.2s ease-out 1s backwards,
+            ach-glow-breathe 8s ease-in-out calc(2.2s + var(--i) * 0.7s) infinite;
+    }
+    @keyframes ach-glow-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes ach-glow-breathe {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0.62; }
+    }
 }

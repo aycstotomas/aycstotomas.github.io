@@ -80,6 +80,58 @@
     var P = 3, gap = 40, groundY = 0, top = 0, cw = 0, cx = [], bTop = [], stageW = 0, speed = 140, v0 = 300, grav = 1000;
     var m = { x: -60, off: 0, vy: 0, face: 1, state: 'walk', wait: 0, walkT: 0, hit: false, p: 0 };
     var pops = [];
+
+    /* ---------- what he says: friendly facts from the Personal Information page (kept short; no private details) ---------- */
+    var LINES = [
+        "Hi! I'm Arnelius, but everyone calls me YanYan.",
+        "Born and raised in Baguio City.",
+        "1st-year BSIT student at the University of the Cordilleras.",
+        "I'm the Broadcasting Club Director of UC's Publication Guild.",
+        "My goal: become an ERP developer who builds practical systems.",
+        "Hidden talents: typing 187 WPM and playing guitar!",
+        "I love debate, public speaking and critical thinking.",
+        "I code in Java, JavaScript, Python, HTML and CSS.",
+        "Pisces, ESTJ. My weakness? Procrastination!",
+        "Favorites: sisig, matcha latte and ice cream.",
+        "Fave game: Ghost of Tsushima. Fave movie: Weathering with You.",
+        "Badminton, cycling and jogging keep me moving.",
+        "Dream trip: Japan! Fave time of day: sunset.",
+        "I have 2 siblings, and I'm the eldest.",
+        "Want more? Open the Personal Information page!"
+    ];
+    var say = document.createElement('div');
+    say.id = 'mario-say';
+    say.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(say);
+    var talk = { text: '', t: 0, shown: false };
+    function placeSay() {
+        var vw = window.innerWidth, w = say.offsetWidth, h = say.offsetHeight, gapX = P * 5;
+        var toRight = m.x < vw * 0.55;
+        var left = toRight ? m.x + cw / 2 + gapX : m.x - cw / 2 - gapX - w;
+        left = Math.max(8, Math.min(vw - w - 8, left));
+        say.className = 'on ' + (toRight ? 'right' : 'left');
+        say.style.left = left + 'px';
+        say.style.top = Math.max(70, groundY - 10 * P - h / 2) + 'px';
+    }
+    function sayLine(text) {
+        talk.text = text; talk.t = 0; talk.shown = true;
+        say.textContent = text;             /* measure the full text first so the bubble does not resize while typing */
+        say.style.visibility = 'hidden'; say.className = 'on';
+        placeSay();
+        say.textContent = '';
+        say.style.visibility = '';
+        say.style.minWidth = '';
+        say.style.width = Math.min(250, Math.max(120, text.length * 7.4 + 30)) + 'px';
+        placeSay();
+    }
+    function hideSay() { talk.shown = false; say.className = ''; }
+    function typeSay(dt) {
+        if (!talk.shown) return;
+        talk.t += dt;
+        var n = Math.min(talk.text.length, Math.floor(talk.t * 48));
+        var t = talk.text.slice(0, n);
+        if (say.textContent !== t) say.textContent = t;
+    }
     var SEQ = [];
     for (var i = 0; i < blocks.length; i++) SEQ.push(i);
     for (var j = blocks.length - 2; j > 0; j--) SEQ.push(j);          /* 0 1 2 3 4 3 2 1, then around again */
@@ -89,14 +141,14 @@
         var rects = blocks.map(function (b) { return b.getBoundingClientRect(); });
         var foot = document.querySelector('footer');
         var footTop = foot ? foot.getBoundingClientRect().top : vh;
-        if (vw < 1024 || vh < 540 || !(rects[0].width > 0)) { on = false; cv.style.display = 'none'; return false; }
+        if (vw < 1024 || vh < 540 || !(rects[0].width > 0)) { on = false; cv.style.display = 'none'; hideSay(); return false; }
         var bw = rects[0].width, bottom = Math.max.apply(null, rects.map(function (r) { return r.bottom; }));
         var avail = footTop - 12 - bottom;
         P = Math.max(2, Math.min(4, Math.floor(avail / 1.9 / 16), Math.round(bw / 15)));
         var charH = 16 * P;
         gap = Math.max(P * 3, Math.min(charH * 0.85, avail - charH));
         groundY = bottom + gap + charH;
-        if (groundY + 4 * P > footTop - 2) { on = false; cv.style.display = 'none'; return false; }
+        if (groundY + 4 * P > footTop - 2) { on = false; cv.style.display = 'none'; hideSay(); return false; }
         cx = rects.map(function (r) { return r.left + r.width / 2; });
         bTop = rects.map(function (r) { return r.top; });
         top = Math.max(0, Math.min.apply(null, bTop) - 60);
@@ -188,12 +240,14 @@
             }
             if (m.off <= 0 && m.vy < 0) {
                 m.off = 0; m.vy = 0; m.state = 'pause';
+                var line = LINES[m.p % LINES.length];
                 m.p++;
-                m.wait = (m.p % SEQ.length === 0) ? 1.8 : 0.28;  /* a longer breather after every full round */
+                sayLine(line);
+                m.wait = Math.max(2.4, 1 + line.length * 0.05);  /* he stands and talks long enough to read it */
             }
         } else {
             m.wait -= dt;
-            if (m.wait <= 0) { m.state = 'walk'; m.walkT = 0; layoutSoft(); }
+            if (m.wait <= 0) { hideSay(); m.state = 'walk'; m.walkT = 0; layoutSoft(); }
         }
     }
     /* the squares are at rest between hits, so re-measure them in case the layout shifted a little */
@@ -205,6 +259,7 @@
         var dt = last ? Math.min(0.05, (now - last) / 1000) : 0.016;
         last = now;
         update(dt);
+        typeSay(dt);
         draw();
         raf = requestAnimationFrame(frame);
     }
@@ -225,15 +280,15 @@
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
             if (!begun) return;
-            if (layout()) { m.x = Math.max(m.x, -cw); if (m.state === 'jump') { m.state = 'walk'; m.off = 0; m.vy = 0; } start(); }
+            if (layout()) { m.x = Math.max(m.x, -cw); hideSay(); if (m.state === 'jump') { m.state = 'walk'; m.off = 0; m.vy = 0; } start(); }
             else { cancelAnimationFrame(raf); running = false; }
         }, 150);
     });
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) { last = 0; start(); } });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) hideSay(); else { last = 0; start(); } });
 
     /* wait until the intro (the shooting stars drawing the pill and the squares) is over, then run in from the left */
     function ready() {
-        var wait = html.classList.contains('trace-on') ? 5600 : 900;
+        var wait = html.classList.contains('trace-on') ? 1800 : 500;   /* he runs in while the last squares are still being drawn */
         setTimeout(begin, wait);
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(ready); else window.addEventListener('load', ready);
