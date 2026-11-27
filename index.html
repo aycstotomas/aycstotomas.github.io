@@ -357,7 +357,6 @@
                     add(figR + 18, navB + 24, W - 22, H * 0.48);                      /* right of the figure, upper */
                     add(figR + 18, H * 0.5, W - 22, (next ? next.top : H - 70) - 22); /* right of the figure, lower */
                     add(socR + 40, descB + 28, figL - 26, H - 36);                    /* bottom middle */
-                    add(24, socB + 26, socR + 16, H - 44);                            /* bottom left, under the icons */
                 } else {
                     /* narrow screens: small ones above the text, beside the portrait and under the Next button */
                     add(14, navB + 8, W - 14, greet ? greet.top - 14 : navB + 70);
@@ -618,6 +617,8 @@
         })();
     </script>
 
+    <script src="shootingstars.js" defer></script>
+    <script src="mario.js" defer></script>
     <script src="nextstar.js" defer></script>
 </body>
 </html>

@@ -3999,8 +3999,8 @@ body.pi-body { background: #0b1f3a; }
 }
 
 /* =====================================================================
-   HOMEPAGE GREETING STAR: after the greeting pops in, the star ignites like a burning star (white-hot flare,
-   orange flames, a few embers) and then cools down to its usual cyan.
+   GREETING STAR (Homepage and Personal Information): the star burns in a loop - it ignites like a burning star
+   (white-hot flare, orange flames, a few embers) and then cools down to its usual cyan, again and again.
    ===================================================================== */
 .profile-greeting:has(.burn-star)::before { display: none; }
 .burn-star {
@@ -4049,34 +4049,44 @@ body.pi-body { background: #0b1f3a; }
 .burn-star i:nth-child(4) { --dx: -2em;   --dy: -0.7em; --ed: 1s; }
 .burn-star i:nth-child(5) { --dx: 0.2em;  --dy: -2.7em; --ed: 1.1s; }
 
-.pop-on.pop-go .burn-star::before { animation: burn-star 1.9s ease-out 0.78s backwards; }
-.pop-on.pop-go .burn-star::after  { animation: burn-glow 1.9s ease-out 0.78s backwards; }
-.pop-on.pop-go .burn-star i       { animation: burn-ember var(--ed) ease-out 0.95s backwards; }
+/* the burn is a loop (Homepage and Personal Information): ignite, flicker through the flame colours, cool down to ice blue,
+   catch fire again. One cycle is 3.6s; the embers fly twice per cycle. */
+.pop-on.pop-go .burn-star::before { animation: burn-star 3.6s ease-out 0.78s infinite; }
+.pop-on.pop-go .burn-star::after  { animation: burn-glow 3.6s ease-out 0.78s infinite; }
+.pop-on.pop-go .burn-star i       { animation: burn-ember 3.6s ease-out calc(0.78s + var(--ed) - 0.9s) infinite; }   /* --ed (0.9-1.1s) just staggers the embers */
 
 @keyframes burn-star {
-    0%   { transform: scale(0) rotate(-120deg); background: #ffffff; }
-    16%  { transform: scale(2.1) rotate(10deg);  background: #ffffff; }
-    30%  { transform: scale(1.35) rotate(-6deg); background: #ffe08a; }
-    42%  { transform: scale(1.7) rotate(6deg);   background: #ffb04a; }
-    54%  { transform: scale(1.2) rotate(-4deg);  background: #ff8a3c; }
-    66%  { transform: scale(1.5) rotate(3deg);   background: #ffc36a; }
-    80%  { transform: scale(1.1) rotate(0);      background: #ffe9b8; }
+    0%   { transform: scale(1) rotate(0);        background: #a5f3fc; }
+    5%   { transform: scale(0.35) rotate(-90deg); background: #ffffff; }
+    10%  { transform: scale(2.1) rotate(10deg);  background: #ffffff; }
+    19%  { transform: scale(1.35) rotate(-6deg); background: #ffe08a; }
+    27%  { transform: scale(1.7) rotate(6deg);   background: #ffb04a; }
+    36%  { transform: scale(1.2) rotate(-4deg);  background: #ff8a3c; }
+    44%  { transform: scale(1.5) rotate(3deg);   background: #ffc36a; }
+    53%  { transform: scale(1.1) rotate(0);      background: #ffe9b8; }
+    66%  { transform: scale(1) rotate(0);        background: #a5f3fc; }
     100% { transform: scale(1) rotate(0);        background: #a5f3fc; }
 }
 @keyframes burn-glow {
     0%   { opacity: 0; transform: scale(0.2); }
-    16%  { opacity: 1; transform: scale(1.35); }
-    30%  { opacity: 0.7; transform: scale(0.95); }
-    42%  { opacity: 1; transform: scale(1.25); }
-    54%  { opacity: 0.6; transform: scale(0.9); }
-    66%  { opacity: 0.85; transform: scale(1.1); }
-    82%  { opacity: 0.3; transform: scale(0.8); }
+    5%   { opacity: 0; transform: scale(0.2); }
+    10%  { opacity: 1; transform: scale(1.35); }
+    19%  { opacity: 0.7; transform: scale(0.95); }
+    27%  { opacity: 1; transform: scale(1.25); }
+    36%  { opacity: 0.6; transform: scale(0.9); }
+    44%  { opacity: 0.85; transform: scale(1.1); }
+    55%  { opacity: 0.3; transform: scale(0.8); }
+    66%  { opacity: 0; transform: scale(0.6); }
     100% { opacity: 0; transform: scale(0.6); }
 }
 @keyframes burn-ember {
     0%   { opacity: 0; transform: translate(0, 0) scale(0.3); }
-    12%  { opacity: 1; }
-    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.1); }
+    3%   { opacity: 1; }
+    30%  { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.1); }
+    31%  { opacity: 0; transform: translate(0, 0) scale(0.3); }
+    37%  { opacity: 1; }
+    58%  { opacity: 0; transform: translate(calc(var(--dx) * 0.8), calc(var(--dy) * 0.8)) scale(0.1); }
+    100% { opacity: 0; transform: translate(0, 0) scale(0.3); }
 }
 @media (prefers-reduced-motion: reduce) {
     .burn-star::before, .burn-star::after, .burn-star i { animation: none !important; }
@@ -4127,4 +4137,165 @@ body.pi-body { background: #0b1f3a; }
     html.pi-intro .pi-field.pi-in::before { animation: pi-star 0.45s cubic-bezier(0.3, 1.4, 0.5, 1) backwards; }
     html.pi-intro .pi-field::after { transform: scaleY(0); transform-origin: 50% 0; }
     html.pi-intro .pi-field.pi-seg::after { animation: pi-seg var(--sd, 90ms) linear forwards; }
+}
+
+
+/* =====================================================================
+   BACKGROUND SHOOTING STARS (Homepage + Personal Information; see shootingstars.js)
+   A transparent canvas right above the star field and below all the content.
+   ===================================================================== */
+#bg-shooters {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+#pi-stars + #bg-shooters { z-index: 1; }
+
+/* =====================================================================
+   HOMEPAGE MARIO-STYLE PIXEL CHARACTER (see mario.js)
+   He runs along a brick ledge under the social squares and bumps them like lucky blocks:
+   the square plays its hover look and hops.
+   ===================================================================== */
+#mario-stage {
+    position: fixed;
+    z-index: 4;
+    pointer-events: none;
+    image-rendering: pixelated;
+}
+.social-links a.mario-hit {
+    color: #020c1b;
+    background-color: #a5f3fc;
+    border-color: #a5f3fc;
+    box-shadow: 0 0 14px rgba(165, 243, 252, 0.3), 0 0 26px rgba(165, 243, 252, 0.35);
+    animation: mario-bump 0.5s cubic-bezier(0.25, 0.8, 0.35, 1);
+}
+@keyframes mario-bump {
+    0%   { transform: translateY(0); }
+    28%  { transform: translateY(-15px); }
+    58%  { transform: translateY(0); }
+    76%  { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    #mario-stage, #bg-shooters { display: none; }
+}
+
+/* =====================================================================
+   NEXT / HOME BUTTONS - STAR HOVER (see nextstar.js)
+   On hover the button turns into a little patch of deep space: stars streak past inside it as if the
+   page were jumping to hyperspace, two comets (ice blue and violet) circle the edge, four-point stars
+   glint on the corners and the arrow launches like a shooting star. It all loops while hovered / focused.
+   ===================================================================== */
+.next-page-link {
+    isolation: isolate;
+    transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+}
+.next-page-link:is(:hover, :focus-visible) {
+    color: #ffffff;
+    background-color: #061633;
+    background-image:
+        radial-gradient(110% 150% at 50% 130%, rgba(34, 211, 238, 0.42), transparent 62%),
+        radial-gradient(90% 130% at 100% -10%, rgba(167, 139, 250, 0.42), transparent 62%),
+        radial-gradient(80% 120% at 0% 0%, rgba(110, 231, 183, 0.18), transparent 60%);
+    border-color: #c9f8ff;
+    box-shadow:
+        0 0 0 1px rgba(165, 243, 252, 0.28),
+        0 0 16px rgba(165, 243, 252, 0.5),
+        0 0 34px rgba(139, 156, 250, 0.38),
+        inset 0 0 14px rgba(165, 243, 252, 0.2);
+    text-shadow: 0 0 9px rgba(165, 243, 252, 0.95);
+}
+/* hyperspace: streaks of starlight rushing past inside the button (each layer is one row of streaks, faster rows are longer) */
+.next-page-link::before,
+.next-page-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.next-page-link::before {
+    background-image:
+        linear-gradient(90deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.95)),
+        linear-gradient(90deg, rgba(190, 247, 255, 0) 30%, rgba(190, 247, 255, 0.85)),
+        linear-gradient(90deg, rgba(221, 214, 254, 0) 45%, rgba(221, 214, 254, 0.9)),
+        linear-gradient(90deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.7)),
+        linear-gradient(90deg, rgba(165, 243, 252, 0) 50%, rgba(165, 243, 252, 0.9));
+    background-size: 58px 1px, 92px 1px, 44px 1px, 124px 1px, 70px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 14%, 30px 33%, 12px 52%, 60px 71%, 20px 88%;
+    animation: nsl-warp 0.9s linear infinite;
+    animation-play-state: paused;
+}
+/* stardust: tiny stars twinkling in place */
+.next-page-link::after {
+    background-image:
+        radial-gradient(circle at 12% 28%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 31% 76%, #d7faff 0 0.9px, transparent 1.5px),
+        radial-gradient(circle at 52% 22%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 68% 70%, #e6dcff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 84% 34%, #fff 0 0.9px, transparent 1.5px),
+        radial-gradient(circle at 93% 80%, #d7faff 0 1px, transparent 1.6px);
+    animation: nsl-twinkle 1.3s ease-in-out infinite alternate;
+    animation-play-state: paused;
+}
+.next-page-link:is(:hover, :focus-visible)::before { opacity: 0.72; animation-play-state: running; }
+.next-page-link:is(:hover, :focus-visible)::after { opacity: 1; animation-play-state: running; }
+@keyframes nsl-warp {
+    from { background-position: 0 14%, 30px 33%, 12px 52%, 60px 71%, 20px 88%; }
+    to   { background-position: -58px 14%, -62px 33%, -32px 52%, -64px 71%, -50px 88%; }
+}
+@keyframes nsl-twinkle {
+    from { opacity: 0.35; }
+    to   { opacity: 1; }
+}
+/* the arrow launches like a shooting star: it flies out, then streaks back in from the other side */
+.next-page-link:is(:hover, :focus-visible) > svg:not(.nsl-star) {
+    animation: nsl-thrust 1.15s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+    filter: drop-shadow(0 0 4px rgba(165, 243, 252, 0.95));
+}
+.next-page-link.nsl-back:is(:hover, :focus-visible) > svg:not(.nsl-star) { animation-name: nsl-thrust-back; }
+@keyframes nsl-thrust {
+    0%, 10% { transform: translateX(0); opacity: 1; }
+    52%     { transform: translateX(12px); opacity: 0; }
+    53%     { transform: translateX(-12px); opacity: 0; }
+    100%    { transform: translateX(0); opacity: 1; }
+}
+@keyframes nsl-thrust-back {
+    0%, 10% { transform: translateX(0); opacity: 1; }
+    52%     { transform: translateX(-12px); opacity: 0; }
+    53%     { transform: translateX(12px); opacity: 0; }
+    100%    { transform: translateX(0); opacity: 1; }
+}
+/* a second comet (violet) chases the ice-blue one around the edge, half a lap behind */
+.nsl-star .nsl-u1   { --l: 34; --g: 66; --e: -66; stroke: #a78bfa; stroke-width: 1.3px; stroke-opacity: 0.3; }
+.nsl-star .nsl-u2   { --l: 20; --g: 80; --e: -80; stroke: #c4b5fd; stroke-width: 1.6px; stroke-opacity: 0.55; }
+.nsl-star .nsl-u3   { --l: 9;  --g: 91; --e: -91; stroke: #ddd6fe; stroke-width: 2px;   stroke-opacity: 0.85; }
+.nsl-star .nsl-uhead { --l: 1.3; --g: 98.7; --e: -98.7; stroke: #ffffff; stroke-width: 3.4px; }
+.nsl-star .nsl-u1, .nsl-star .nsl-u2, .nsl-star .nsl-u3, .nsl-star .nsl-uhead { animation-delay: -0.9s; }
+/* four-point glints that bloom and fade on the corners */
+.nsl-glint {
+    fill: #ffffff;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    animation: nsl-glint 1.5s ease-in-out infinite;
+    animation-play-state: paused;
+}
+.next-page-link:is(:hover, :focus-visible) .nsl-glint { animation-play-state: running; }
+.nsl-glints g:nth-child(2) .nsl-glint { animation-delay: 0.5s; }
+.nsl-glints g:nth-child(3) .nsl-glint { animation-delay: 1s; }
+@keyframes nsl-glint {
+    0%   { opacity: 0; transform: scale(0) rotate(0); }
+    35%  { opacity: 1; transform: scale(1.15) rotate(45deg); }
+    70%  { opacity: 0; transform: scale(0.3) rotate(90deg); }
+    100% { opacity: 0; transform: scale(0) rotate(90deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .next-page-link::before, .next-page-link::after { display: none; }
+    .next-page-link:is(:hover, :focus-visible) > svg:not(.nsl-star) { animation: none; }
 }
