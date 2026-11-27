@@ -3890,3 +3890,15 @@ body.pi-body { background: #0b1f3a; }
     body.pi-body .pi-daily .pi-field:nth-child(3n)::after,
     body.pi-body .pi-daily .pi-field:last-child::after { display: none; }
 }
+
+/* Personal Information: tighter vertical rhythm so the extra fields still fit without scrolling */
+@media (min-width: 769px) {
+    body.pi-body { --u: min(0.0415vw, 0.0755vh); }
+    body.pi-body .pi-panel { padding: calc(22 * var(--u)) calc(32 * var(--u)) calc(22 * var(--u)); }
+    body.pi-body .pi-rule { margin: calc(14 * var(--u)) 0 calc(14 * var(--u)); }
+    body.pi-body .pi-content .profile-name { margin-bottom: calc(8 * var(--u)); }
+    body.pi-body .pi-group h2 { margin-bottom: calc(10 * var(--u)); }
+    body.pi-body .pi-field { padding-bottom: calc(8 * var(--u)); }
+    body.pi-body .pi-bottom { margin-top: calc(8 * var(--u)); }
+    body.pi-body .pi-bottom .pi-field { padding-bottom: calc(6 * var(--u)); }
+}
