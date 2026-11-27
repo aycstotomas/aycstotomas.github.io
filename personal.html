@@ -9,6 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script>
+        /* Motion flags (skipped when the visitor prefers reduced motion): pop-on = the page elements pop in one by one;
+           pi-intro (laptops and desktops) = a shooting star draws the box and the lines inside it. */
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            var h = document.documentElement;
+            h.classList.add('pop-on');
+            if (window.innerWidth >= 769) h.classList.add('pi-intro');
+            setTimeout(function () { h.classList.remove('pi-intro'); h.classList.add('pop-go'); }, 12000);   /* failsafe: never leave anything blank */
+        }
+    </script>
 </head>
 <body class="about-body pi-body">
     <!-- BACKGROUND: blue night sky (same as the homepage) with drifting stars and a slow aurora wave behind the content -->
@@ -34,6 +44,7 @@
         </div>
     </div>
     <canvas id="pi-stars" aria-hidden="true"></canvas>
+    <canvas id="pi-trace" aria-hidden="true"></canvas>
 
     <nav class="navbar">
         <div class="nav-left">
@@ -50,7 +61,7 @@
     <main class="split-hero-container about-page pi-page">
         <section class="about-content pi-content">
             <p class="profile-greeting">Get to know me</p>
-            <h1 class="profile-name">About Arnelius Yanqhul Carulla <span class="highlight-surname">Sto. Tomas</span></h1>
+            <h1 class="profile-name">Who is Arnelius Yanqhul Carulla <span class="highlight-surname">Sto. Tomas?</span></h1>
 
             <div class="pi-panel">
                 <div class="pi-story">
@@ -99,22 +110,33 @@
                         </dl>
                     </section>
 
-                    <section class="pi-group" style="--acc:196,181,253">
-                        <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3l2.2 5.6 5.8.4-4.4 3.8 1.4 5.7L12 15.2 7 18.5l1.4-5.7L4 9l5.8-.4L12 3Z"/></svg>Appearance</h2>
-                        <dl>
-                            <div class="pi-field"><dt>Hair Color</dt><dd>Black</dd></div>
-                            <div class="pi-field"><dt>Hair Style</dt><dd>Straight with slight curves</dd></div>
-                            <div class="pi-field"><dt>Eye Color</dt><dd>Brown</dd></div>
-                            <div class="pi-field"><dt>Skin Tone</dt><dd>Fair</dd></div>
-                            <div class="pi-field"><dt>Distinguishing Mark</dt><dd>Mole on the left side of my face</dd></div>
-                        </dl>
-                    </section>
+                    <div class="pi-stack">
+                        <section class="pi-group" style="--acc:196,181,253">
+                            <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3l2.2 5.6 5.8.4-4.4 3.8 1.4 5.7L12 15.2 7 18.5l1.4-5.7L4 9l5.8-.4L12 3Z"/></svg>Appearance</h2>
+                            <dl>
+                                <div class="pi-field"><dt>Hair Color</dt><dd>Black</dd></div>
+                                <div class="pi-field"><dt>Hair Style</dt><dd>Straight with slight curves</dd></div>
+                                <div class="pi-field"><dt>Eye Color</dt><dd>Brown</dd></div>
+                                <div class="pi-field"><dt>Skin Tone</dt><dd>Fair</dd></div>
+                                <div class="pi-field"><dt>Distinguishing Mark</dt><dd>Mole on the left side of my face</dd></div>
+                            </dl>
+                        </section>
+                        <section class="pi-group pi-dreams" style="--acc:252,165,165">
+                            <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4 2.5 4H5"/></svg>Clubs and Dreams</h2>
+                            <dl>
+                                <div class="pi-field"><dt>Organization / Clubs</dt><dd class="pi-small"><span class="dd-line">UC Publication Guild (College)</span><span class="dd-line">SHS Debate Club (SHS)</span></dd></div>
+                                <div class="pi-field"><dt>Dream Travel Destination</dt><dd>Japan</dd></div>
+                                <div class="pi-field"><dt>Bucket List</dt><dd><span class="dd-line">Find the LOML</span><span class="dd-line">Live Life to the Fullest</span></dd></div>
+                            </dl>
+                        </section>
+                    </div>
 
                     <section class="pi-group" style="--acc:253,224,138">
                         <h2><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.4 2.2 2 3.5 2s2.5-.6 3.5-2"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>Personality</h2>
                         <dl>
                             <div class="pi-field"><dt>Nickname</dt><dd>YanYan (from Yanqhul)</dd></div>
                             <div class="pi-field"><dt>Personality</dt><dd>Extrovert</dd></div>
+                            <div class="pi-field"><dt>MBTI</dt><dd>ESTJ</dd></div>
                             <div class="pi-field"><dt>Zodiac Sign</dt><dd>Pisces</dd></div>
                             <div class="pi-field"><dt>Core Values</dt><dd>Disciplined and Friendly</dd></div>
                             <div class="pi-field"><dt>Weaknesses</dt><dd>Procrastination and Laziness</dd></div>
@@ -195,6 +217,7 @@
                                 <div class="pi-field"><dt>Commute</dt><dd>We have a car</dd></div>
                                 <div class="pi-field"><dt>Routine</dt><dd>Jogging on weekends</dd></div>
                                 <div class="pi-field"><dt>Favorite Editing App</dt><dd>VS Code</dd></div>
+                                <div class="pi-field"><dt>OS Preference</dt><dd>Windows 10</dd></div>
                                 <div class="pi-field"><dt>Current PC Specs</dt><dd>AMD Ryzen 4650G Pro, Integrated AMD Graphics, 9 GB RAM</dd></div>
                             </dl>
                         </section>
@@ -202,6 +225,11 @@
                 </div>
             </div>
         </section>
+
+        <blockquote class="about-quote pi-quote">
+            <p>&ldquo;We all have two lives. The second one starts when we realize that we only have one.&rdquo;</p>
+            <cite>&mdash; Tom Hiddleston</cite>
+        </blockquote>
 
         <div class="about-page-actions">
             <a class="next-page-link" href="index.html" title="Back to home">
@@ -310,5 +338,277 @@
             if (!reduce) raf = requestAnimationFrame(loop);
         })();
     </script>
+    <script>
+        /* INTRO (the background stays as it is):
+           1. the nav, greeting and title pop in;
+           2. a shooting star flies in and circles the panel, drawing its box;
+           3. the contents pop in. In every column a star travels from point to point, popping each item when it
+              arrives and drawing the line that links it to the next one. */
+        (function () {
+            const html = document.documentElement;
+            if (!html.classList.contains('pop-on')) return;            /* reduced motion: everything is simply shown */
+            const intro = html.classList.contains('pi-intro');
+            const PI = Math.PI;
+            const clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+            const easeInOut = function (t) { return 0.5 - 0.5 * Math.cos(PI * t); };
+
+            if (!intro) {                                              /* phones: just the pop-in */
+                const startPop = function () { html.classList.add('pop-go'); };
+                if (document.fonts && document.fonts.ready) { document.fonts.ready.then(startPop); setTimeout(startPop, 1200); }
+                else window.addEventListener('load', startPop);
+                return;
+            }
+
+            const cv = document.getElementById('pi-trace');
+            const ctx = cv.getContext('2d');
+            const panel = document.querySelector('.pi-panel');
+            let W = 0, H = 0, dpr = 1, S = 1, raf = 0, T0 = 0, END = 0, events = [], comets = [], finished = false, started = false;
+
+            function size() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                W = window.innerWidth; H = window.innerHeight;
+                cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+                cv.style.width = W + 'px'; cv.style.height = H + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                S = clamp(Math.min(W * 0.0415, H * 0.0755) / 0.567, 0.7, 1.8);
+            }
+
+            /* ---- panel outline (a rounded rectangle), starting at the top right and running counter-clockwise ---- */
+            function outline(x, y, w, h, r) {
+                const pts = [], step = 2;
+                function line(ax, ay, bx, by) {
+                    const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, by - ay) / step));
+                    for (let i = 0; i < n; i++) pts.push(ax + (bx - ax) * i / n, ay + (by - ay) * i / n);
+                }
+                function arc(cx, cy, a0, a1) {
+                    const n = Math.max(1, Math.ceil(Math.abs(a1 - a0) * r / step));
+                    for (let i = 0; i < n; i++) { const a = a0 + (a1 - a0) * i / n; pts.push(cx + r * Math.cos(a), cy + r * Math.sin(a)); }
+                }
+                line(x + w - r, y, x + r, y);
+                arc(x + r, y + r, -PI / 2, -PI);
+                line(x, y + r, x, y + h - r);
+                arc(x + r, y + h - r, PI, PI / 2);
+                line(x + r, y + h, x + w - r, y + h);
+                arc(x + w - r, y + h - r, PI / 2, 0);
+                line(x + w, y + h - r, x + w, y + r);
+                arc(x + w - r, y + r, 0, -PI / 2);
+                pts.push(x + w - r, y);
+                return pts;
+            }
+
+            function makeGeom(pts) {
+                const cum = [0];
+                for (let i = 2; i < pts.length; i += 2) cum.push(cum[cum.length - 1] + Math.hypot(pts[i] - pts[i - 2], pts[i + 1] - pts[i - 1]));
+                return { pts: pts, cum: cum, total: cum[cum.length - 1] };
+            }
+            function pointAt(g, u) {
+                const c = g.cum;
+                let lo = 0, hi = c.length - 1;
+                if (u <= 0) return [g.pts[0], g.pts[1], 0];
+                if (u >= g.total) return [g.pts[hi * 2], g.pts[hi * 2 + 1], hi];
+                while (hi - lo > 1) { const m = (lo + hi) >> 1; if (c[m] <= u) lo = m; else hi = m; }
+                const f = (u - c[lo]) / ((c[hi] - c[lo]) || 1);
+                return [g.pts[lo * 2] + (g.pts[hi * 2] - g.pts[lo * 2]) * f, g.pts[lo * 2 + 1] + (g.pts[hi * 2 + 1] - g.pts[lo * 2 + 1]) * f, lo];
+            }
+
+            /* ---- drawing a comet: glowing head with sparkle cross, tapering tail ---- */
+            function drawComet(c, t) {
+                if (t < c.t0 || t > c.t1 + c.fade) return;
+                const life = t > c.t1 ? 1 - (t - c.t1) / c.fade : 1;
+                const N = 16, head = c.posAt(t), rgb = c.rgb;
+                let prev = head;
+                ctx.lineCap = 'round';
+                for (let k = 1; k <= N; k++) {
+                    const p = c.posAt(t - k * c.tailMs / N);
+                    const f = 1 - k / N;
+                    ctx.strokeStyle = 'rgba(' + rgb + ',' + (0.9 * f * f * life).toFixed(3) + ')';
+                    ctx.lineWidth = Math.max(0.5, c.size * 1.5 * f);
+                    ctx.beginPath(); ctx.moveTo(prev[0], prev[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
+                    prev = p;
+                }
+                const r = c.size * 5;
+                const g = ctx.createRadialGradient(head[0], head[1], 0, head[0], head[1], r);
+                g.addColorStop(0, 'rgba(255,255,255,' + (0.95 * life).toFixed(3) + ')');
+                g.addColorStop(0.3, 'rgba(' + rgb + ',' + (0.55 * life).toFixed(3) + ')');
+                g.addColorStop(1, 'rgba(' + rgb + ',0)');
+                ctx.fillStyle = g;
+                ctx.beginPath(); ctx.arc(head[0], head[1], r, 0, 2 * PI); ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,' + (0.8 * life).toFixed(3) + ')';
+                ctx.lineWidth = 0.9;
+                const sp = c.size * 3.4;
+                ctx.beginPath();
+                ctx.moveTo(head[0] - sp, head[1]); ctx.lineTo(head[0] + sp, head[1]);
+                ctx.moveTo(head[0], head[1] - sp); ctx.lineTo(head[0], head[1] + sp);
+                ctx.stroke();
+                ctx.fillStyle = 'rgba(255,255,255,' + life.toFixed(3) + ')';
+                ctx.beginPath(); ctx.arc(head[0], head[1], c.size * 0.75, 0, 2 * PI); ctx.fill();
+            }
+
+            function at(t, fn) { events.push({ t: t, fn: fn }); }
+
+            /* ---- build the whole timeline from the final layout ---- */
+            function plan() {
+                size();
+                const rgbDefault = '165,243,252';
+
+                /* 2. the panel box */
+                const pr = panel.getBoundingClientRect(), pcs = getComputedStyle(panel);
+                const rad = Math.max(0, Math.min(parseFloat(pcs.borderTopLeftRadius) || 0, pr.width / 2, pr.height / 2));
+                const per = outline(pr.left + 0.5, pr.top + 0.5, pr.width - 1, pr.height - 1, rad);
+                const ang = 24 * PI / 180, Le = 420 * S, nEntry = Math.ceil(Le / 2), pts = [];
+                for (let i = 0; i < nEntry; i++) { const f = 1 - i / nEntry; pts.push(per[0] + Math.cos(ang) * Le * f, per[1] - Math.sin(ang) * Le * f); }
+                for (let i = 0; i < per.length; i++) pts.push(per[i]);
+                const geo = makeGeom(pts), entryLen = geo.cum[nEntry];
+                const tStart = 520, speed = 3.3 * S;                    /* px per ms */
+                const D = clamp(geo.total / speed, 900, 1500);
+                const tClose = tStart + D;
+                function panelPos(t) {
+                    const u = clamp((t - tStart) / D, 0, 1);
+                    return pointAt(geo, geo.total * (0.72 * u + 0.28 * easeInOut(u)));
+                }
+                comets.push({
+                    t0: tStart, t1: tClose, fade: 520, rgb: '110,231,183', size: 2.5 * S, tailMs: 64,
+                    posAt: function (t) { return panelPos(t); },
+                    trail: function (t, life) {                          /* the drawn outline stays behind the star */
+                        const h = panelPos(Math.min(t, tClose));
+                        if (h[2] < nEntry) return;
+                        ctx.strokeStyle = 'rgba(165,243,252,' + (0.5 * life).toFixed(3) + ')';
+                        ctx.lineWidth = 1.1; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                        ctx.beginPath(); ctx.moveTo(geo.pts[nEntry * 2], geo.pts[nEntry * 2 + 1]);
+                        for (let i = nEntry + 1; i <= h[2]; i++) ctx.lineTo(geo.pts[i * 2], geo.pts[i * 2 + 1]);
+                        ctx.lineTo(h[0], h[1]); ctx.stroke();
+                    }
+                });
+                at(tClose, function () { panel.classList.add('traced'); });
+
+                /* 3. contents */
+                const base = tClose + 140;
+                document.querySelectorAll('.pi-story article').forEach(function (a, i) {
+                    at(base + i * 90, function () { a.classList.add('pi-in'); });
+                });
+
+                /* columns: every group's fields, clustered by their left edge */
+                const topClusters = [], bottomClusters = [];
+                document.querySelectorAll('.pi-group').forEach(function (g) {
+                    const fields = Array.prototype.slice.call(g.querySelectorAll(':scope > dl > .pi-field'));
+                    const h2 = g.querySelector(':scope > h2');
+                    const map = {};
+                    fields.forEach(function (f) {
+                        const r = f.getBoundingClientRect(), key = Math.round(r.left / 6);
+                        (map[key] = map[key] || []).push({ el: f, r: r });
+                    });
+                    const keys = Object.keys(map).map(Number).sort(function (a, b) { return a - b; });
+                    keys.forEach(function (k, ki) {
+                        const list = map[k].sort(function (a, b) { return a.r.top - b.r.top; });
+                        const cl = { group: g, h2: ki === 0 ? h2 : null, list: list, left: list[0].r.left, dreams: g.classList.contains('pi-dreams') };
+                        (g.closest('.pi-bottom') ? bottomClusters : topClusters).push(cl);
+                    });
+                });
+                topClusters.sort(function (a, b) { return a.left - b.left; });
+                bottomClusters.sort(function (a, b) { return a.left - b.left; });
+                const lefts = [];
+                topClusters.forEach(function (c) { if (!c.dreams && lefts.indexOf(c.left) < 0) lefts.push(c.left); });
+
+                let last = base;
+                function column(cl, T) {
+                    const rgb = (getComputedStyle(cl.group).getPropertyValue('--acc') || rgbDefault).trim() || rgbDefault;
+                    if (cl.h2) at(T, function () { cl.h2.classList.add('pi-in'); });
+                    const bp = cl.list.map(function (o) {
+                        const cb = getComputedStyle(o.el, '::before');
+                        const w = parseFloat(cb.width), h = parseFloat(cb.height), l = parseFloat(cb.left), tp = parseFloat(cb.top);
+                        return [o.r.left + (isNaN(l) ? 0 : l) + (isNaN(w) ? 8 : w) / 2, o.r.top + (isNaN(tp) ? 4 : tp) + (isNaN(h) ? 8 : h) / 2];
+                    });
+                    const pts = [[bp[0][0], bp[0][1] - 26 * S]], times = [T];
+                    let t = T;
+                    for (let i = 0; i < bp.length; i++) {
+                        const prev = pts[pts.length - 1];
+                        const d = Math.hypot(bp[i][0] - prev[0], bp[i][1] - prev[1]);
+                        t += clamp(d / (0.34 * S), 70, 150);
+                        pts.push(bp[i]); times.push(t);
+                        (function (o, i, t, hop) {
+                            at(t, function () {
+                                o.el.classList.add('pi-in');
+                                const next = cl.list[i + 1];
+                                const ca = getComputedStyle(o.el, '::after');
+                                if (next && ca.display !== 'none' && ca.content !== 'none') {
+                                    o.el.style.setProperty('--sd', hop + 'ms');
+                                    o.el.classList.add('pi-seg');
+                                }
+                            });
+                        })(cl.list[i], i, t, i + 1 < bp.length ? clamp(Math.hypot(bp[i + 1][0] - bp[i][0], bp[i + 1][1] - bp[i][1]) / (0.34 * S), 70, 150) : 0);
+                    }
+                    last = Math.max(last, t);
+                    comets.push({
+                        t0: T, t1: t, fade: 260, rgb: rgb, size: 1.7 * S, tailMs: 120,
+                        posAt: function (tt) {
+                            tt = clamp(tt, times[0], times[times.length - 1]);
+                            let k = 1;
+                            while (k < times.length - 1 && times[k] < tt) k++;
+                            const f = (tt - times[k - 1]) / ((times[k] - times[k - 1]) || 1);
+                            return [pts[k - 1][0] + (pts[k][0] - pts[k - 1][0]) * f, pts[k - 1][1] + (pts[k][1] - pts[k - 1][1]) * f];
+                        }
+                    });
+                    return t;
+                }
+
+                const topStart = base + 220;
+                const startByLeft = {};
+                topClusters.forEach(function (cl) {
+                    let T;
+                    if (cl.dreams) T = (startByLeft[cl.left] || topStart) + 430;   /* sits under Appearance: starts once that column is under way */
+                    else { T = topStart + lefts.indexOf(cl.left) * 75; startByLeft[cl.left] = T; }
+                    column(cl, T);
+                });
+                bottomClusters.forEach(function (cl, i) { column(cl, topStart + 330 + i * 80); });
+
+                /* the quote and the buttons arrive last */
+                const quote = document.querySelector('.pi-quote');
+                const tEnd = last + 120;
+                if (quote) at(tEnd, function () { quote.classList.add('pi-in'); });
+                document.querySelectorAll('.next-page-link').forEach(function (b) { b.style.setProperty('--pd', (tEnd + 60) + 'ms'); });
+                END = tEnd + 900;
+                events.sort(function (a, b) { return a.t - b.t; });
+            }
+
+            function finish() {
+                if (finished) return;
+                finished = true;
+                cancelAnimationFrame(raf);
+                ctx.clearRect(0, 0, W, H);
+                panel.classList.add('traced');
+                html.classList.remove('pi-intro');
+                html.classList.add('pop-go');
+            }
+
+            function frame(now) {
+                const t = now - T0;
+                while (events.length && events[0].t <= t) events.shift().fn();
+                ctx.clearRect(0, 0, W, H);
+                comets.forEach(function (c) {
+                    if (c.trail && t >= c.t0) {
+                        const life = t > c.t1 ? Math.max(0, 1 - (t - c.t1) / c.fade) : 1;
+                        if (life > 0) c.trail(t, life);
+                    }
+                    drawComet(c, t);
+                });
+                if (t < END) raf = requestAnimationFrame(frame); else finish();
+            }
+
+            function go() {
+                if (started) return;
+                started = true;
+                plan();
+                T0 = performance.now();
+                html.classList.add('pop-go');
+                raf = requestAnimationFrame(frame);
+                setTimeout(finish, END + 3000);                        /* safety net */
+            }
+
+            window.addEventListener('resize', function () { if (!finished) finish(); });
+            if (document.fonts && document.fonts.ready) { document.fonts.ready.then(go); setTimeout(go, 1500); }
+            else window.addEventListener('load', go);
+        })();
+    </script>
+    <script src="nextstar.js" defer></script>
 </body>
 </html>
