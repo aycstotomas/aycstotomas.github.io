@@ -3937,6 +3937,13 @@ body.pi-body { background: #0b1f3a; }
         padding-top: calc(11 * var(--u));
         border-top: 1px solid rgba(var(--acc), 0.2);
     }
+    body.pi-body .pi-duo { display: grid; grid-template-columns: 1fr 1fr; column-gap: calc(8 * var(--u)); }
+    body.pi-body .pi-duo > div { width: auto; min-width: 0; }
+    body.pi-body .pi-stack .pi-family {
+        margin-top: calc(10 * var(--u));
+        padding-top: calc(11 * var(--u));
+        border-top: 1px solid rgba(var(--acc), 0.2);
+    }
     body.pi-body .pi-field dd.pi-small { font-size: calc(17.5 * var(--u)); line-height: 1.3; }
 
     /* Daily Life and Tech: OS Preference sits under the left column, PC specs on the last row */
@@ -4211,7 +4218,7 @@ body.pi-body { background: #0b1f3a; }
 #mario-say.right::after { left: -6px; border-right: 0; border-top: 0; }
 #mario-say.left::after  { right: -6px; border-left: 0; border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
-    #mario-stage, #mario-say, #bg-shooters { display: none; }
+    #bg-shooters { display: none; }
 }
 
 /* =====================================================================
@@ -4549,4 +4556,91 @@ body.fr-body .about-page-actions { z-index: 1; }
 }
 @media (max-width: 768px) {
     .page-quote { margin: 1.4rem 0 0; }
+}
+
+
+/* =====================================================================
+   PERSONAL INFORMATION: MARIO SEARCH (see mariosearch.js)
+   The pixel-art "me" stands on the top-right edge of the info box; his chat bubble is a search field.
+   Typing lights up the matching spots (the rest dims). Laptops and desktops only.
+   ===================================================================== */
+#pi-ask { display: none; }
+#pi-ask .pi-ask-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#pi-ask .pi-ask-man, #pi-ask .pi-ask-bubble { position: fixed; z-index: 6; opacity: 0; transition: opacity 0.3s ease; }
+#pi-ask.on .pi-ask-man, #pi-ask.on .pi-ask-bubble { opacity: 1; }
+#pi-ask .pi-ask-man { cursor: pointer; transform-origin: 50% 100%; }
+#pi-ask.on .pi-ask-man { animation: pi-ask-drop 0.7s cubic-bezier(0.3, 1.3, 0.5, 1) backwards; }
+#pi-ask .pi-ask-sprite {
+    display: block; width: 100%; height: 100%;
+    image-rendering: pixelated;
+    transform: scaleX(-1);                               /* he faces the bubble */
+}
+#pi-ask .pi-ask-star {
+    position: absolute; top: 0; opacity: 0; pointer-events: none;
+    image-rendering: pixelated;
+}
+#pi-ask .pi-ask-man.hop { animation: pi-ask-hop 0.5s cubic-bezier(0.3, 0.7, 0.4, 1); }
+#pi-ask .pi-ask-man.hop .pi-ask-star { animation: pi-ask-star 0.8s ease-out; }
+#pi-ask .pi-ask-man.shake { animation: pi-ask-shake 0.45s ease-in-out; }
+@keyframes pi-ask-drop { 0% { transform: translateY(-14px) scale(0.6); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes pi-ask-hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-14px); } 70% { transform: translateY(0); } 85% { transform: translateY(-3px); } }
+@keyframes pi-ask-star { 0% { transform: translateY(0) scaleX(1); opacity: 1; } 60% { opacity: 1; } 100% { transform: translateY(-16px) scaleX(0.4); opacity: 0; } }
+@keyframes pi-ask-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-3px); } 45% { transform: translateX(3px); } 70% { transform: translateX(-2px); } }
+
+/* the chat bubble: a small glass pill with a tail that points at him */
+#pi-ask .pi-ask-bubble {
+    box-sizing: border-box;
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 13px;
+    border: 1px solid rgba(165, 243, 252, 0.6);
+    border-radius: 10px;
+    background: rgba(7, 26, 51, 0.92);
+    box-shadow: 0 0 16px rgba(125, 219, 234, 0.3);
+    transition: opacity 0.3s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+#pi-ask .pi-ask-bubble::after {
+    content: ''; position: absolute; right: -6px; top: var(--tail, 50%);
+    width: 9px; height: 9px;
+    background: rgba(7, 26, 51, 0.98);
+    border: 1px solid rgba(165, 243, 252, 0.6); border-left: 0; border-bottom: 0;
+    rotate: 45deg;
+}
+#pi-ask .pi-ask-bubble:focus-within { border-color: #a5f3fc; box-shadow: 0 0 20px rgba(165, 243, 252, 0.5); }
+#pi-ask input {
+    flex: 1; min-width: 0; width: 100%;
+    padding: 0; border: 0; outline: 0; background: transparent;
+    color: #d7faff; caret-color: #a5f3fc;
+    font: 500 13px/1.4 'Inter', sans-serif;
+}
+#pi-ask input::placeholder { color: rgba(215, 250, 255, 0.78); }
+#pi-ask .pi-ask-status { flex: none; color: #86efac; font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: 0.04em; white-space: nowrap; }
+#pi-ask .pi-ask-status.none { color: #fca5a5; }
+@media (max-width: 768px) { #pi-ask { display: none !important; } }
+
+/* the highlight: matching spots glow in their section colour, everything else steps back */
+@media (min-width: 769px) {
+    body.pi-body .pi-dim { opacity: 0.26; }
+    body.pi-body .pi-duo.pi-dim > div.pi-dim { opacity: 1; }   /* a dimmed pair is dimmed once, not twice */
+    body.pi-body .pi-field, body.pi-body .pi-duo > div, body.pi-body .pi-group h2, body.pi-body .pi-story article { transition: opacity 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease; }
+    body.pi-body .pi-field.pi-hit,
+    body.pi-body .pi-duo > div.pi-hit {
+        background: linear-gradient(90deg, rgba(var(--acc), 0.26), rgba(var(--acc), 0.07));
+        box-shadow: inset 0 0 0 1px rgba(var(--acc), 0.6), 0 0 calc(18 * var(--u)) rgba(var(--acc), 0.5);
+        border-radius: calc(7 * var(--u));
+        animation: pi-hit-pulse 1.5s ease-in-out infinite;
+    }
+    body.pi-body .pi-field.pi-hit { padding-top: calc(3 * var(--u)); margin-top: calc(-3 * var(--u)); padding-right: calc(6 * var(--u)); margin-right: calc(-6 * var(--u)); }
+    body.pi-body .pi-duo > div.pi-hit { padding: calc(3 * var(--u)) calc(5 * var(--u)); margin: calc(-3 * var(--u)) calc(-5 * var(--u)); }
+    body.pi-body .pi-field.pi-hit dd, body.pi-body .pi-duo > div.pi-hit dd { color: #ffffff; text-shadow: 0 0 calc(10 * var(--u)) rgba(var(--acc), 0.7); }
+    body.pi-body .pi-group h2.pi-hit { text-shadow: 0 0 calc(12 * var(--u)) rgba(var(--acc), 0.9); animation: pi-hit-pulse 1.5s ease-in-out infinite; }
+    body.pi-body .pi-story article.pi-hit {
+        outline: 1px solid rgba(165, 243, 252, 0.55); outline-offset: calc(6 * var(--u)); border-radius: calc(7 * var(--u));
+        box-shadow: 0 0 calc(18 * var(--u)) rgba(165, 243, 252, 0.35);
+        animation: pi-hit-pulse 1.5s ease-in-out infinite;
+    }
+}
+@keyframes pi-hit-pulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.28); } }
+@media (prefers-reduced-motion: reduce) {
+    #pi-ask .pi-ask-man, #pi-ask .pi-ask-man * { animation: none !important; }
+    body.pi-body .pi-hit { animation: none !important; }
 }
