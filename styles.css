@@ -3891,7 +3891,7 @@ body.pi-body { background: #0b1f3a; }
 
 /* Personal Information: tighter vertical rhythm so the extra fields still fit without scrolling */
 @media (min-width: 769px) {
-    body.pi-body { --u: min(0.0415vw, 0.0755vh); }
+    body.pi-body { --u: min(0.0382vw, 0.0698vh); }   /* a touch smaller so the three added Body and Health fields (BMI, Eyesight, Ring Size) still fit without scrolling */
     body.pi-body .pi-panel { padding: calc(22 * var(--u)) calc(32 * var(--u)) calc(22 * var(--u)); }
     body.pi-body .pi-rule { margin: calc(14 * var(--u)) 0 calc(14 * var(--u)); }
     body.pi-body .pi-content .profile-name { margin-bottom: calc(8 * var(--u)); }
@@ -4514,4 +4514,39 @@ body.fr-body .about-page-actions { z-index: 1; }
         0%, 100% { opacity: 1; }
         50%      { opacity: 0.62; }
     }
+}
+
+
+/* Achievements and Family and Friends: a quote at the bottom left, outside the cards, level with the Back / Next buttons */
+@media (min-width: 769px) {
+    body.ach-body .page-quote,
+    body.fr-body .page-quote {
+        position: absolute;
+        left: calc(32 * var(--u));
+        bottom: calc(8 * var(--u));
+        max-width: calc(100% - 420 * var(--u));
+        margin: 0;
+        padding: 0 0 0 calc(18 * var(--u));
+        border-left: 0;
+        z-index: 5;
+    }
+    body.ach-body .page-quote::before,
+    body.fr-body .page-quote::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        border-radius: 2px;
+        background: linear-gradient(to bottom, #6ee7b7, #a5f3fc 50%, #c4b5fd);
+        box-shadow: 0 0 calc(10 * var(--u)) rgba(110, 231, 183, 0.5);
+    }
+    body.ach-body .page-quote p,
+    body.fr-body .page-quote p { font-size: calc(21 * var(--u)); line-height: 1.3; }
+    body.ach-body .page-quote cite,
+    body.fr-body .page-quote cite { font-size: calc(14.5 * var(--u)); margin-top: calc(3 * var(--u)); color: #86efac; }
+}
+@media (max-width: 768px) {
+    .page-quote { margin: 1.4rem 0 0; }
 }
