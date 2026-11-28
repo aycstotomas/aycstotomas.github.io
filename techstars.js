@@ -33,6 +33,27 @@
 
     var W = 0, H = 0, S = 1, visible = false, raf = 0, T0 = 0, started = false, scheduled = false;
 
+    /* the page's real text lines and buttons: the blocks must keep clear of them */
+    function textRects() {
+        var out = [];
+        ['.profile-greeting', '.profile-name', '.student-badge', '.profile-role', '.profile-description'].forEach(function (sel) {
+            var el = document.querySelector(sel);
+            if (!el) return;
+            var r = document.createRange(); r.selectNodeContents(el);
+            Array.prototype.forEach.call(r.getClientRects(), function (q) { if (q.width > 0) out.push(q); });
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.social-links a, .next-page-link'), function (el) { out.push(el.getBoundingClientRect()); });
+        return out;
+    }
+    function hitsText(c, cx, rects) {
+        var mx = c.w / 2 + 16 * S + 14, my = c.h / 2 + 12 * S + 10;
+        for (var i = 0; i < rects.length; i++) {
+            var q = rects[i];
+            if (cx - mx < q.right && cx + mx > q.left && c.cy - my < q.bottom && c.cy + my > q.top) return true;
+        }
+        return false;
+    }
+
     function layout() {
         W = window.innerWidth; H = window.innerHeight;
         if (W < 900 || H < 420 || document.documentElement.scrollHeight > H + 4) { visible = false; layer.style.display = 'none'; return false; }
@@ -44,12 +65,13 @@
         cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
         cv.style.width = W + 'px'; cv.style.height = H + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        var pcx = r.left + r.width / 2;
+        var pcx = r.left + r.width / 2, rects = textRects();
         chips.forEach(function (c) {
             c.el.style.fontSize = (15 * S) + 'px';
             c.w = c.el.offsetWidth; c.h = c.el.offsetHeight;
             c.cx = Math.max(c.w / 2 + 26, Math.min(W - c.w / 2 - 26, pcx + c.d.ax * r.height));
             c.cy = r.top + c.d.ay * r.height;
+            for (var g = 0; g < 80 && hitsText(c, c.cx, rects); g++) c.cx += (c.d.ax < 0 ? 6 : -6);   /* nudge toward the portrait until it clears the text */
             c.nodes = c.d.shape.map(function (p) { return [p[0] * (c.w / 2 + 16 * S), p[1] * (c.h / 2 + 12 * S)]; });
             var pts = c.nodes.concat([c.nodes[0]]);
             c.seg = [];
