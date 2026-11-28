@@ -4644,3 +4644,34 @@ body.fr-body .about-page-actions { z-index: 1; }
     #pi-ask .pi-ask-man, #pi-ask .pi-ask-man * { animation: none !important; }
     body.pi-body .pi-hit { animation: none !important; }
 }
+
+/* =====================================================================
+   HOMEPAGE TECH CONSTELLATIONS (see techstars.js)
+   Four floating labels (Java, Python, HTML, CSS) framed by constellations that shooting stars draw on load.
+   ===================================================================== */
+#tech-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+#tech-fx { position: absolute; left: 0; top: 0; }
+.tech-chip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0.55em 1.05em;
+    border: 1px solid rgba(165, 243, 252, 0.28);
+    border-radius: 0.55em;
+    background: rgba(7, 26, 51, 0.5);
+    box-shadow: 0 0 18px rgba(125, 219, 234, 0.16), inset 0 0 12px rgba(165, 243, 252, 0.06);
+    color: #d7faff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 12px rgba(165, 243, 252, 0.55);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+.tech-chip.on { opacity: 1; }
